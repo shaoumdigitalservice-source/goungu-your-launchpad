@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Users, Lightbulb, Rocket, Star, Target, Heart } from "lucide-react";
+import { ArrowRight, Users, Lightbulb, Rocket, Star, Target } from "lucide-react";
 import Layout from "@/components/Layout";
 import heroBg from "@/assets/hero-bg.jpg";
 import testimonial1 from "@/assets/testimonial-1.jpg";
@@ -145,9 +145,6 @@ const Index = () => (
     {/* CTA */}
     <section className="py-20 bg-hero-gradient text-primary-foreground">
       <div className="container mx-auto px-4 lg:px-8 text-center">
-        <div className="flex justify-center mb-6">
-          <Heart className="h-10 w-10 opacity-80" />
-        </div>
         <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Prêt·e à écrire votre histoire ?</h2>
         <p className="max-w-lg mx-auto opacity-90 mb-8">
           Rejoignez GOUNGUÉ et bénéficiez d'un accompagnement sur mesure pour concrétiser votre projet.

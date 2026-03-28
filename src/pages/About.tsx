@@ -1,10 +1,10 @@
 import Layout from "@/components/Layout";
 import { Link } from "react-router-dom";
-import { ArrowRight, Eye, Heart, Star, Users } from "lucide-react";
+import { ArrowRight, Eye, Star, Target, Users } from "lucide-react";
 import teamImg from "@/assets/about-team.jpg";
 
 const values = [
-  { icon: Heart, title: "Humanité", desc: "Chaque parcours est unique. Nous accompagnons avec bienveillance et respect." },
+  { icon: Target, title: "Humanité", desc: "Chaque parcours est unique. Nous accompagnons avec bienveillance et respect." },
   { icon: Star, title: "Excellence", desc: "Nous visons l'excellence dans chaque programme et chaque interaction." },
   { icon: Users, title: "Communauté", desc: "Ensemble, nous construisons un réseau solidaire d'entrepreneurs." },
   { icon: Eye, title: "Innovation", desc: "Des méthodes modernes adaptées aux réalités locales africaines." },
