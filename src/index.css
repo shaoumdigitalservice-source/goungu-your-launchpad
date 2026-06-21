@@ -2,45 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
-    --background: 40 33% 98%;
-    --foreground: 210 50% 15%;
+    /* GOUNGUÉ — Terre & Espoir (premium warm African) */
+    --background: 36 40% 97%;
+    --foreground: 22 30% 14%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 50% 15%;
+    --card-foreground: 22 30% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 50% 15%;
+    --popover-foreground: 22 30% 14%;
 
-    --primary: 24 95% 53%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 16 72% 46%;            /* terre cuite */
+    --primary-foreground: 36 50% 98%;
 
-    --secondary: 152 60% 36%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 158 42% 26%;         /* émeraude profonde */
+    --secondary-foreground: 36 50% 98%;
 
-    --muted: 40 20% 94%;
-    --muted-foreground: 210 15% 45%;
+    --muted: 34 30% 93%;
+    --muted-foreground: 22 12% 42%;
 
-    --accent: 45 93% 58%;
-    --accent-foreground: 210 50% 15%;
+    --accent: 38 75% 55%;             /* or chaud */
+    --accent-foreground: 22 30% 14%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 40 15% 88%;
-    --input: 40 15% 88%;
-    --ring: 24 95% 53%;
+    --border: 30 20% 88%;
+    --input: 30 20% 88%;
+    --ring: 16 72% 46%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    --hero-gradient-from: 24 95% 53%;
-    --hero-gradient-to: 152 60% 36%;
-    --section-alt: 40 30% 96%;
-    --navy: 210 70% 20%;
-    --navy-foreground: 0 0% 100%;
+    --hero-from: 16 72% 46%;
+    --hero-to: 38 75% 55%;
+    --section-alt: 34 35% 95%;
+    --ink: 22 30% 14%;
+    --ink-foreground: 36 40% 97%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -53,94 +54,103 @@
   }
 
   .theme-alt {
-    --background: 210 50% 7%;
-    --foreground: 40 30% 95%;
+    --background: 22 35% 8%;
+    --foreground: 36 40% 95%;
 
-    --card: 210 45% 12%;
-    --card-foreground: 40 30% 95%;
+    --card: 22 30% 12%;
+    --card-foreground: 36 40% 95%;
 
-    --popover: 210 45% 12%;
-    --popover-foreground: 40 30% 95%;
+    --popover: 22 30% 12%;
+    --popover-foreground: 36 40% 95%;
 
-    --primary: 205 80% 55%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 38 85% 60%;            /* or chaud sur nuit */
+    --primary-foreground: 22 35% 8%;
 
-    --secondary: 152 50% 45%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 158 38% 42%;
+    --secondary-foreground: 36 40% 95%;
 
-    --muted: 210 30% 18%;
-    --muted-foreground: 210 15% 65%;
+    --muted: 22 20% 16%;
+    --muted-foreground: 36 15% 70%;
 
-    --accent: 45 93% 58%;
-    --accent-foreground: 210 50% 10%;
+    --accent: 16 72% 55%;
+    --accent-foreground: 36 40% 95%;
 
-    --border: 210 25% 22%;
-    --input: 210 25% 22%;
-    --ring: 205 80% 55%;
+    --border: 22 18% 22%;
+    --input: 22 18% 22%;
+    --ring: 38 85% 60%;
 
-    --hero-gradient-from: 205 80% 55%;
-    --hero-gradient-to: 152 50% 45%;
-    --section-alt: 210 40% 10%;
-    --navy: 205 80% 55%;
-    --navy-foreground: 0 0% 100%;
+    --hero-from: 16 65% 35%;
+    --hero-to: 38 75% 45%;
+    --section-alt: 22 30% 11%;
+    --ink: 36 40% 95%;
+    --ink-foreground: 22 35% 8%;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
     transition: background-color 0.5s ease, color 0.5s ease;
+    background-image:
+      radial-gradient(at 12% 8%, hsl(var(--accent) / 0.08) 0, transparent 45%),
+      radial-gradient(at 92% 96%, hsl(var(--secondary) / 0.07) 0, transparent 45%);
+    background-attachment: fixed;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold tracking-tight;
+    @apply font-display tracking-tight;
+    font-feature-settings: "ss01", "ss02";
   }
 }
 
 @layer utilities {
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
   }
-
   .bg-hero-gradient {
-    background: linear-gradient(135deg, hsl(var(--hero-gradient-from)), hsl(var(--hero-gradient-to)));
+    background: linear-gradient(135deg, hsl(var(--hero-from)), hsl(var(--hero-to)));
+  }
+  .bg-section-alt { background-color: hsl(var(--section-alt)); }
+  .bg-ink { background-color: hsl(var(--ink)); color: hsl(var(--ink-foreground)); }
+
+  .glass {
+    background: hsl(var(--background) / 0.7);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid hsl(var(--border) / 0.6);
   }
 
-  .bg-section-alt {
-    background-color: hsl(var(--section-alt));
+  .ring-soft { box-shadow: 0 1px 0 hsl(var(--border)), 0 24px 60px -28px hsl(var(--primary) / 0.35); }
+
+  .pattern-grain {
+    background-image:
+      radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px);
+    background-size: 18px 18px;
   }
 
-  .bg-navy {
-    background-color: hsl(var(--navy));
-    color: hsl(var(--navy-foreground));
+  .pattern-weave {
+    background-image:
+      linear-gradient(45deg, hsl(var(--primary) / 0.08) 25%, transparent 25%),
+      linear-gradient(-45deg, hsl(var(--secondary) / 0.08) 25%, transparent 25%);
+    background-size: 22px 22px;
   }
 
-  .animate-fade-up {
-    animation: fadeUp 0.6s ease-out forwards;
-    opacity: 0;
-  }
+  .animate-fade-up { animation: fadeUp 0.7s cubic-bezier(.2,.7,.2,1) forwards; opacity: 0; }
+  .animate-fade-up-delay-1 { animation-delay: 0.08s; }
+  .animate-fade-up-delay-2 { animation-delay: 0.16s; }
+  .animate-fade-up-delay-3 { animation-delay: 0.24s; }
+  .animate-fade-up-delay-4 { animation-delay: 0.32s; }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(24px);} to {opacity:1; transform:none;} }
 
-  .animate-fade-up-delay-1 { animation-delay: 0.1s; }
-  .animate-fade-up-delay-2 { animation-delay: 0.2s; }
-  .animate-fade-up-delay-3 { animation-delay: 0.3s; }
+  .animate-scale-in { animation: scaleIn 0.5s ease-out forwards; opacity: 0; }
+  @keyframes scaleIn { from {opacity:0; transform:scale(.94);} to {opacity:1; transform:none;} }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  .marquee { animation: marquee 32s linear infinite; }
+  @keyframes marquee { from { transform: translateX(0);} to { transform: translateX(-50%);} }
 
-  .animate-scale-in {
-    animation: scaleIn 0.5s ease-out forwards;
-    opacity: 0;
-  }
-
-  @keyframes scaleIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-  }
+  .hover-lift { transition: transform .35s ease, box-shadow .35s ease; }
+  .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 50px -24px hsl(var(--primary) / 0.35); }
 }

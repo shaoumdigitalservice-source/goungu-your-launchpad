@@ -1,42 +1,87 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Palette } from "lucide-react";
+import { Menu, X, Palette, ChevronDown } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import logoLight from "@/assets/logo-light.jpeg";
 import logoDark from "@/assets/logo-dark.jpeg";
 
-const navLinks = [
+const navLinks: { label: string; path?: string; children?: { label: string; path: string; desc?: string }[] }[] = [
   { label: "Accueil", path: "/" },
   { label: "À propos", path: "/a-propos" },
-  { label: "Services", path: "/services" },
-  { label: "Programme", path: "/programme" },
-  { label: "Témoignages", path: "/temoignages" },
+  {
+    label: "Programmes",
+    children: [
+      { label: "Vue d'ensemble", path: "/programmes", desc: "Nos 4 programmes phares" },
+      { label: "Camp Lac Rose", path: "/programmes/camp-lac-rose", desc: "15 jours d'incubation sociale" },
+      { label: "Parentalité Positive", path: "/programmes/parentalite-positive", desc: "6 modules pour les familles" },
+      { label: "Accompagnement Familial", path: "/programmes/accompagnement-familial", desc: "Médiation & cohésion" },
+      { label: "Foyer Goungué", path: "/foyer", desc: "Suivi post-incubation" },
+    ],
+  },
+  {
+    label: "Outils",
+    children: [
+      { label: "Centre d'Orientation", path: "/orientation", desc: "Fiches métiers & quiz" },
+      { label: "Centre de Ressources", path: "/ressources", desc: "Bibliothèque numérique" },
+      { label: "Ambassadeurs", path: "/ambassadeurs", desc: "Notre réseau au Sénégal" },
+      { label: "Communauté", path: "/communaute", desc: "Événements & forums" },
+    ],
+  },
+  { label: "Blog", path: "/blog" },
   { label: "Contact", path: "/contact" },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const logo = theme === "alt" ? logoDark : logoLight;
+  const isActive = (path?: string) => path && (path === "/" ? location.pathname === "/" : location.pathname.startsWith(path));
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass">
       <div className="container mx-auto flex items-center justify-between h-16 px-4 lg:px-8">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="GOUNGUÉ" className="h-10 w-10 rounded-full object-cover" />
-          <span className="text-xl font-bold tracking-tight text-foreground">GOUNGUÉ</span>
+        <Link to="/" className="flex items-center gap-2.5">
+          <img src={logo} alt="GOUNGUÉ" className="h-10 w-10 rounded-full object-cover ring-1 ring-border" />
+          <div className="leading-tight">
+            <span className="block text-base font-display font-semibold text-foreground">GOUNGUÉ</span>
+            <span className="block text-[10px] tracking-[0.18em] uppercase text-muted-foreground">Incub · Sénégal</span>
+          </div>
         </Link>
 
-        <div className="hidden lg:flex items-center gap-1">
-          {navLinks.map((link) => (
+        <div className="hidden lg:flex items-center gap-0.5">
+          {navLinks.map((link) => link.children ? (
+            <div
+              key={link.label}
+              className="relative"
+              onMouseEnter={() => setOpenMenu(link.label)}
+              onMouseLeave={() => setOpenMenu(null)}
+            >
+              <button className={`px-3 py-2 rounded-lg text-sm font-medium inline-flex items-center gap-1 transition-colors ${
+                link.children.some(c => isActive(c.path)) ? "text-primary" : "text-foreground/70 hover:text-foreground"
+              }`}>
+                {link.label} <ChevronDown className="h-3.5 w-3.5" />
+              </button>
+              {openMenu === link.label && (
+                <div className="absolute top-full left-0 pt-2 w-72 animate-fade-up">
+                  <div className="glass rounded-2xl p-2 ring-soft">
+                    {link.children.map((c) => (
+                      <Link key={c.path} to={c.path} className="block px-3 py-2.5 rounded-xl hover:bg-primary/10 transition">
+                        <div className="text-sm font-semibold text-foreground">{c.label}</div>
+                        {c.desc && <div className="text-xs text-muted-foreground">{c.desc}</div>}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
             <Link
               key={link.path}
-              to={link.path}
+              to={link.path!}
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                location.pathname === link.path
-                  ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                isActive(link.path) ? "text-primary" : "text-foreground/70 hover:text-foreground"
               }`}
             >
               {link.label}
@@ -55,9 +100,9 @@ const Navbar = () => {
 
           <Link
             to="/inscription"
-            className="hidden lg:inline-flex px-5 py-2 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+            className="hidden lg:inline-flex px-5 py-2 rounded-full bg-foreground text-background font-semibold text-sm hover:bg-primary transition-colors"
           >
-            S'inscrire
+            Candidater
           </Link>
 
           <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2">
@@ -67,14 +112,23 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="lg:hidden bg-background border-t px-4 pb-4 animate-fade-up">
-          {navLinks.map((link) => (
+        <div className="lg:hidden bg-background border-t px-4 pb-6 pt-2 animate-fade-up max-h-[80vh] overflow-y-auto">
+          {navLinks.map((link) => link.children ? (
+            <div key={link.label} className="py-2">
+              <div className="px-4 pt-2 pb-1 text-[10px] tracking-widest uppercase text-muted-foreground">{link.label}</div>
+              {link.children.map((c) => (
+                <Link key={c.path} to={c.path} onClick={() => setIsOpen(false)} className="block px-4 py-2.5 rounded-lg text-sm font-medium text-foreground/80 hover:bg-muted">
+                  {c.label}
+                </Link>
+              ))}
+            </div>
+          ) : (
             <Link
               key={link.path}
-              to={link.path}
+              to={link.path!}
               onClick={() => setIsOpen(false)}
               className={`block px-4 py-3 rounded-lg text-sm font-medium ${
-                location.pathname === link.path ? "bg-primary/10 text-primary" : "text-muted-foreground"
+                isActive(link.path) ? "bg-primary/10 text-primary" : "text-foreground/80"
               }`}
             >
               {link.label}
@@ -83,9 +137,9 @@ const Navbar = () => {
           <Link
             to="/inscription"
             onClick={() => setIsOpen(false)}
-            className="block mt-2 text-center px-5 py-3 rounded-full bg-primary text-primary-foreground font-semibold text-sm"
+            className="block mt-4 text-center px-5 py-3 rounded-full bg-foreground text-background font-semibold text-sm"
           >
-            S'inscrire
+            Candidater
           </Link>
         </div>
       )}
