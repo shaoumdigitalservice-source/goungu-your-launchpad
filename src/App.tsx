@@ -12,6 +12,16 @@ import Testimonials from "./pages/Testimonials";
 import Contact from "./pages/Contact";
 import Inscription from "./pages/Inscription";
 import NotFound from "./pages/NotFound";
+import ProgrammesIndex from "./pages/programmes/ProgrammesIndex";
+import CampLacRose from "./pages/programmes/CampLacRose";
+import Parentalite from "./pages/programmes/Parentalite";
+import AccompagnementFamilial from "./pages/programmes/AccompagnementFamilial";
+import Foyer from "./pages/Foyer";
+import Orientation from "./pages/Orientation";
+import Ressources from "./pages/Ressources";
+import Ambassadeurs from "./pages/Ambassadeurs";
+import Communaute from "./pages/Communaute";
+import Blog from "./pages/Blog";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +35,17 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/a-propos" element={<About />} />
+            <Route path="/programmes" element={<ProgrammesIndex />} />
+            <Route path="/programmes/camp-lac-rose" element={<CampLacRose />} />
+            <Route path="/programmes/parentalite-positive" element={<Parentalite />} />
+            <Route path="/programmes/accompagnement-familial" element={<AccompagnementFamilial />} />
+            <Route path="/foyer" element={<Foyer />} />
+            <Route path="/orientation" element={<Orientation />} />
+            <Route path="/ressources" element={<Ressources />} />
+            <Route path="/ambassadeurs" element={<Ambassadeurs />} />
+            <Route path="/communaute" element={<Communaute />} />
+            <Route path="/blog" element={<Blog />} />
+            {/* Legacy aliases */}
             <Route path="/services" element={<Services />} />
             <Route path="/programme" element={<Programme />} />
             <Route path="/temoignages" element={<Testimonials />} />
