@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Palette, ChevronDown } from "lucide-react";
+import { Menu, X, Palette, ChevronDown, LogIn, LayoutDashboard, LogOut, User } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useAuth, defaultDashboardPath } from "@/contexts/AuthContext";
 import logoLight from "@/assets/logo-light.jpeg";
 import logoDark from "@/assets/logo-dark.jpeg";
 
@@ -35,6 +36,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const { theme, toggleTheme } = useTheme();
+  const { user, roles, signOut } = useAuth();
   const location = useLocation();
   const logo = theme === "alt" ? logoDark : logoLight;
   const isActive = (path?: string) => path && (path === "/" ? location.pathname === "/" : location.pathname.startsWith(path));
@@ -98,12 +100,38 @@ const Navbar = () => {
             <Palette className="h-5 w-5 text-foreground" />
           </button>
 
-          <Link
-            to="/inscription"
-            className="hidden lg:inline-flex px-5 py-2 rounded-full bg-foreground text-background font-semibold text-sm hover:bg-primary transition-colors"
-          >
-            Candidater
-          </Link>
+          {user ? (
+            <div className="hidden lg:flex items-center gap-1.5">
+              <Link
+                to={defaultDashboardPath(roles)}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90"
+              >
+                <LayoutDashboard className="h-4 w-4" /> Mon espace
+              </Link>
+              <button
+                onClick={signOut}
+                className="p-2 rounded-full bg-muted hover:bg-destructive/10 transition-colors"
+                aria-label="Déconnexion"
+              >
+                <LogOut className="h-4 w-4 text-foreground" />
+              </button>
+            </div>
+          ) : (
+            <div className="hidden lg:flex items-center gap-1.5">
+              <Link
+                to="/auth"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border font-medium text-sm hover:bg-muted transition-colors"
+              >
+                <LogIn className="h-4 w-4" /> Connexion
+              </Link>
+              <Link
+                to="/inscription"
+                className="inline-flex px-5 py-2 rounded-full bg-foreground text-background font-semibold text-sm hover:bg-primary transition-colors"
+              >
+                Candidater
+              </Link>
+            </div>
+          )}
 
           <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2">
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -134,13 +162,40 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Link
-            to="/inscription"
-            onClick={() => setIsOpen(false)}
-            className="block mt-4 text-center px-5 py-3 rounded-full bg-foreground text-background font-semibold text-sm"
-          >
-            Candidater
-          </Link>
+          {user ? (
+            <>
+              <Link
+                to={defaultDashboardPath(roles)}
+                onClick={() => setIsOpen(false)}
+                className="block mt-4 text-center px-5 py-3 rounded-full bg-primary text-primary-foreground font-semibold text-sm"
+              >
+                Mon espace
+              </Link>
+              <button
+                onClick={() => { setIsOpen(false); signOut(); }}
+                className="block w-full mt-2 text-center px-5 py-3 rounded-full border text-sm"
+              >
+                Déconnexion
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/auth"
+                onClick={() => setIsOpen(false)}
+                className="block mt-4 text-center px-5 py-3 rounded-full border font-semibold text-sm"
+              >
+                Connexion / Inscription
+              </Link>
+              <Link
+                to="/inscription"
+                onClick={() => setIsOpen(false)}
+                className="block mt-2 text-center px-5 py-3 rounded-full bg-foreground text-background font-semibold text-sm"
+              >
+                Candidater
+              </Link>
+            </>
+          )}
         </div>
       )}
     </nav>
