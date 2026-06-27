@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -22,6 +23,14 @@ import Ressources from "./pages/Ressources";
 import Ambassadeurs from "./pages/Ambassadeurs";
 import Communaute from "./pages/Communaute";
 import Blog from "./pages/Blog";
+import Auth from "./pages/Auth";
+import ResetPassword from "./pages/ResetPassword";
+import Jeune from "./pages/espace/Jeune";
+import Parent from "./pages/espace/Parent";
+import Mentor from "./pages/espace/Mentor";
+import Formateur from "./pages/espace/Formateur";
+import Admin from "./pages/espace/Admin";
+import Profil from "./pages/espace/Profil";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +41,8 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Routes>
+          <AuthProvider>
+            <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/a-propos" element={<About />} />
             <Route path="/programmes" element={<ProgrammesIndex />} />
@@ -51,8 +61,18 @@ const App = () => (
             <Route path="/temoignages" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/inscription" element={<Inscription />} />
+            {/* Auth & espaces */}
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/espace/jeune" element={<Jeune />} />
+            <Route path="/espace/parent" element={<Parent />} />
+            <Route path="/espace/mentor" element={<Mentor />} />
+            <Route path="/espace/formateur" element={<Formateur />} />
+            <Route path="/espace/admin" element={<Admin />} />
+            <Route path="/espace/profil" element={<Profil />} />
             <Route path="*" element={<NotFound />} />
-          </Routes>
+            </Routes>
+          </AuthProvider>
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
