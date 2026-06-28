@@ -16,6 +16,7 @@ const navLinks: { label: string; path?: string; children?: { label: string; path
       { label: "Camp Lac Rose", path: "/programmes/camp-lac-rose", desc: "15 jours d'incubation sociale" },
       { label: "Parentalité Positive", path: "/programmes/parentalite-positive", desc: "6 modules pour les familles" },
       { label: "Accompagnement Familial", path: "/programmes/accompagnement-familial", desc: "Médiation & cohésion" },
+      { label: "Defarat Sunu Nekkin", path: "/programmes/defarat-sunu-nekkin", desc: "Gouvernance familiale nationale" },
       { label: "Foyer Goungué", path: "/foyer", desc: "Suivi post-incubation" },
     ],
   },

@@ -17,6 +17,7 @@ import ProgrammesIndex from "./pages/programmes/ProgrammesIndex";
 import CampLacRose from "./pages/programmes/CampLacRose";
 import Parentalite from "./pages/programmes/Parentalite";
 import AccompagnementFamilial from "./pages/programmes/AccompagnementFamilial";
+import DefaratSunuNekkin from "./pages/programmes/DefaratSunuNekkin";
 import Foyer from "./pages/Foyer";
 import Orientation from "./pages/Orientation";
 import Ressources from "./pages/Ressources";
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/programmes/camp-lac-rose" element={<CampLacRose />} />
             <Route path="/programmes/parentalite-positive" element={<Parentalite />} />
             <Route path="/programmes/accompagnement-familial" element={<AccompagnementFamilial />} />
+            <Route path="/programmes/defarat-sunu-nekkin" element={<DefaratSunuNekkin />} />
             <Route path="/foyer" element={<Foyer />} />
             <Route path="/orientation" element={<Orientation />} />
             <Route path="/ressources" element={<Ressources />} />
