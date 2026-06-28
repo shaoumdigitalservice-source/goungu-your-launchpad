@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Tent, HeartHandshake, Home, Users } from "lucide-react";
+import { ArrowUpRight, Tent, HeartHandshake, Home, Users, ShieldCheck } from "lucide-react";
 import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
 import campImg from "@/assets/camp-lac-rose.jpg";
 import parentImg from "@/assets/parentalite.jpg";
 import foyerImg from "@/assets/foyer.jpg";
 import heroImg from "@/assets/hero-premium.jpg";
+import defaratImg from "@/assets/defarat-hero.jpg";
 
 const programs = [
   { to: "/programmes/camp-lac-rose", title: "Camp de Vacances d'Incubation Sociale", tag: "15 jours · Lac Rose", icon: Tent, img: campImg,
@@ -14,6 +15,8 @@ const programs = [
     desc: "Un parcours pour les parents : comprendre l'adolescence, communiquer, accompagner les choix d'avenir." },
   { to: "/programmes/accompagnement-familial", title: "Accompagnement Familial", tag: "Suivi individualisé", icon: Users, img: heroImg,
     desc: "Médiation, écoute, ateliers conjoints parents-enfants pour rétablir la cohésion et la confiance." },
+  { to: "/programmes/defarat-sunu-nekkin", title: "Defarat Sunu Nekkin", tag: "Programme national", icon: ShieldCheck, img: defaratImg,
+    desc: "Gouvernance familiale et cohésion sociale : un programme national pour renforcer les familles et les communautés." },
   { to: "/foyer", title: "Foyer Goungué", tag: "Post-incubation", icon: Home, img: foyerImg,
     desc: "Un espace de continuité : mentorat, soutien éducatif, médiation et accompagnement psychosocial." },
 ];
