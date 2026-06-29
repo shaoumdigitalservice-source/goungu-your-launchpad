@@ -292,7 +292,7 @@ const DefaratSunuNekkin = () => (
     </section>
 
     {/* 5. Fonctionnement */}
-    <section className="py-20 bg-section-alt">
+    <section className="py-20">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
           <div>
