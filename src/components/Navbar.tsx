@@ -12,11 +12,8 @@ const navLinks: { label: string; path?: string; children?: { label: string; path
   {
     label: "Programmes",
     children: [
-      { label: "Vue d'ensemble", path: "/programmes", desc: "Nos 4 programmes phares" },
+      { label: "Vue d'ensemble", path: "/programmes", desc: "Nos programmes phares" },
       { label: "Defarat Sunu Nekkin", path: "/programmes/defarat-sunu-nekkin", desc: "Programme national — gouvernance familiale" },
-      { label: "↳ Camp Lac Rose", path: "/programmes/camp-lac-rose", desc: "Volet jeunes — 15 jours d'incubation sociale" },
-      { label: "↳ Parentalité Positive", path: "/programmes/parentalite-positive", desc: "Volet parents — 6 modules" },
-      { label: "↳ Accompagnement Familial", path: "/programmes/accompagnement-familial", desc: "Volet familles — médiation & cohésion" },
       { label: "Foyer Goungué", path: "/foyer", desc: "Suivi post-incubation" },
     ],
   },
