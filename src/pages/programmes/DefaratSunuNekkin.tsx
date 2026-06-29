@@ -35,6 +35,37 @@ import {
 import heroImg from "@/assets/defarat-hero.jpg";
 import conseilImg from "@/assets/defarat-conseil.jpg";
 import coachingImg from "@/assets/defarat-coaching.jpg";
+import campImg from "@/assets/camp-lac-rose.jpg";
+import parentImg from "@/assets/parentalite.jpg";
+import heroPremium from "@/assets/hero-premium.jpg";
+import { Tent } from "lucide-react";
+
+const volets = [
+  {
+    to: "/programmes/camp-lac-rose",
+    title: "Camp de Vacances d'Incubation Sociale",
+    tag: "Volet jeunes · 15 jours",
+    icon: Tent,
+    img: campImg,
+    desc: "Une immersion de 15 jours au Lac Rose pour se comprendre, se reconstruire, se projeter et se réconcilier avec sa famille.",
+  },
+  {
+    to: "/programmes/parentalite-positive",
+    title: "Parentalité Positive",
+    tag: "Volet parents · 6 modules",
+    icon: HeartHandshake,
+    img: parentImg,
+    desc: "Un parcours pour les parents : comprendre l'adolescence, communiquer, accompagner les choix d'avenir.",
+  },
+  {
+    to: "/programmes/accompagnement-familial",
+    title: "Accompagnement Familial",
+    tag: "Volet familles · suivi",
+    icon: Users,
+    img: heroPremium,
+    desc: "Médiation, écoute, ateliers conjoints parents-enfants pour rétablir la cohésion et la confiance.",
+  },
+];
 
 const defis = [
   { title: "Affaiblissement des liens familiaux", desc: "Les rythmes modernes éloignent les générations et fragilisent la transmission." },
