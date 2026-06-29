@@ -259,8 +259,40 @@ const DefaratSunuNekkin = () => (
       </div>
     </section>
 
-    {/* 5. Fonctionnement */}
+    {/* 4 bis. Volets opérationnels */}
     <section className="py-20">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="max-w-2xl mb-10">
+          <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Les volets opérationnels</span>
+          <h2 className="font-display text-4xl mt-3">Trois portes d'entrée vers la même transformation.</h2>
+          <p className="text-muted-foreground mt-4 leading-relaxed">
+            Defarat Sunu Nekkin se déploie concrètement à travers trois volets complémentaires qui s'adressent aux jeunes, aux parents et aux familles. Chaque volet alimente la même dynamique nationale de gouvernance familiale et de cohésion sociale.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-5">
+          {volets.map((v) => (
+            <Link key={v.to} to={v.to} className="group rounded-3xl overflow-hidden border bg-card hover-lift block">
+              <div className="aspect-[16/10] overflow-hidden">
+                <img src={v.img} alt={v.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+              </div>
+              <div className="p-6">
+                <span className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-semibold text-primary">
+                  <v.icon className="h-4 w-4" /> {v.tag}
+                </span>
+                <h3 className="font-display text-xl mt-2">{v.title}</h3>
+                <p className="text-muted-foreground mt-2 text-sm leading-relaxed">{v.desc}</p>
+                <span className="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-primary group-hover:gap-2 transition-all">
+                  Découvrir le volet <ArrowRight className="h-4 w-4" />
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* 5. Fonctionnement */}
+    <section className="py-20 bg-section-alt">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
           <div>
