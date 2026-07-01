@@ -6,6 +6,7 @@ import {
 import Layout from "@/components/Layout";
 import Placeholder from "@/components/Placeholder";
 import heroImg from "@/assets/hero-premium.jpg";
+import { useImageSite } from "@/hooks/useImageSite";
 import campImg from "@/assets/camp-lac-rose.jpg";
 import parentImg from "@/assets/parentalite.jpg";
 import ambassadeursImg from "@/assets/ambassadeurs.jpg";
@@ -49,7 +50,10 @@ const testimonials = [
   { name: "Moussa Ndiaye", role: "Parent accompagné", quote: "Les ateliers de parentalité positive nous ont aidés à rétablir un vrai dialogue avec notre fils.", image: testimonial2 },
 ];
 
-const Index = () => (
+const Index = () => {
+  const heroImgDynamic = useImageSite("hero-accueil", heroImg);
+
+  return (
   <Layout>
     {/* HERO */}
     <section className="relative pt-10 lg:pt-16 overflow-hidden">
@@ -95,7 +99,7 @@ const Index = () => (
             <div className="relative">
               <div className="absolute -inset-3 bg-hero-gradient rounded-[2rem] opacity-30 blur-2xl" />
               <div className="relative rounded-[2rem] overflow-hidden ring-soft">
-                <img src={heroImg} alt="Mentor et jeune au Sénégal" width={1920} height={1080} className="w-full h-[420px] lg:h-[560px] object-cover" />
+                <img src={heroImgDynamic} alt="Mentor et jeune au Sénégal" width={1920} height={1080} className="w-full h-[420px] lg:h-[560px] object-cover" />
                 <div className="absolute bottom-4 left-4 right-4 glass rounded-2xl p-4 flex items-center gap-3">
                   <div className="h-10 w-10 rounded-xl bg-accent grid place-items-center">
                     <Quote className="h-5 w-5 text-accent-foreground" />
@@ -295,6 +299,7 @@ const Index = () => (
       </div>
     </section>
   </Layout>
-);
+  );
+};
 
 export default Index;

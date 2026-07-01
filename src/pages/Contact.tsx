@@ -1,15 +1,25 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { Mail, Phone, MapPin, MessageCircle, Send } from "lucide-react";
+import { Mail, Phone, MapPin, MessageCircle, Send, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { envoyerMessageContact } from "@/lib/api";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message envoyé ! Nous vous répondrons rapidement.");
-    setForm({ name: "", email: "", subject: "", message: "" });
+    setLoading(true);
+    try {
+      await envoyerMessageContact(form);
+      toast.success("Message envoyé ! Nous vous répondrons rapidement.");
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      toast.error("Une erreur est survenue. Veuillez réessayer.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -64,8 +74,9 @@ const Contact = () => {
                 <label className="text-sm font-medium mb-1.5 block">Message</label>
                 <textarea required rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="w-full px-4 py-3 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none" placeholder="Votre message..." />
               </div>
-              <button type="submit" className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
-                <Send className="h-4 w-4" /> Envoyer le message
+              <button type="submit" disabled={loading} className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity disabled:opacity-50">
+                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                {loading ? "Envoi en cours..." : "Envoyer le message"}
               </button>
             </form>
           </div>

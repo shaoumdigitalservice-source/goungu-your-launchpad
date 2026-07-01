@@ -1,18 +1,28 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { Send, CheckCircle } from "lucide-react";
+import { Send, CheckCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { envoyerCandidature } from "@/lib/api";
 
 const programmes = ["Orientation", "Accompagnement entrepreneurial", "Programme d'incubation"];
 
 const Inscription = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", programme: "", motivation: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Inscription envoyée avec succès !");
-    setSubmitted(true);
+    setLoading(true);
+    try {
+      await envoyerCandidature(form);
+      toast.success("Inscription envoyée avec succès !");
+      setSubmitted(true);
+    } catch (error) {
+      toast.error("Une erreur est survenue. Veuillez réessayer.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -73,8 +83,9 @@ const Inscription = () => {
                 <label className="text-sm font-medium mb-1.5 block">Motivation</label>
                 <textarea rows={4} value={form.motivation} onChange={(e) => setForm({ ...form, motivation: e.target.value })} className="w-full px-4 py-3 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none" placeholder="Parlez-nous de votre projet ou de vos motivations..." />
               </div>
-              <button type="submit" className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
-                <Send className="h-4 w-4" /> Envoyer ma candidature
+              <button type="submit" disabled={loading} className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity disabled:opacity-50">
+                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                {loading ? "Envoi en cours..." : "Envoyer ma candidature"}
               </button>
             </form>
           </div>
