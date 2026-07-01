@@ -22,7 +22,9 @@ import CampLacRose from "./pages/programmes/CampLacRose";
 import Parentalite from "./pages/programmes/Parentalite";
 import AccompagnementFamilial from "./pages/programmes/AccompagnementFamilial";
 import DefaratSunuNekkin from "./pages/programmes/DefaratSunuNekkin";
-import Foyer from "./pages/Foyer";
+import KeparGi from "./pages/programmes/KeparGi";
+import MenilWarWi from "./pages/programmes/MenilWarWi";
+import IncubateurGoungue from "./pages/programmes/IncubateurGoungue";
 import Orientation from "./pages/Orientation";
 import Ressources from "./pages/Ressources";
 import Ambassadeurs from "./pages/Ambassadeurs";
@@ -55,7 +57,11 @@ const App = () => (
             <Route path="/programmes/parentalite-positive" element={<Parentalite />} />
             <Route path="/programmes/accompagnement-familial" element={<AccompagnementFamilial />} />
             <Route path="/programmes/defarat-sunu-nekkin" element={<DefaratSunuNekkin />} />
-            <Route path="/foyer" element={<Foyer />} />
+            <Route path="/programmes/kepar-gi" element={<KeparGi />} />
+            <Route path="/programmes/menil-war-wi" element={<MenilWarWi />} />
+            <Route path="/programmes/incubateur-goungue" element={<IncubateurGoungue />} />
+            {/* Legacy alias */}
+            <Route path="/foyer" element={<KeparGi />} />
             <Route path="/orientation" element={<Orientation />} />
             <Route path="/ressources" element={<Ressources />} />
             <Route path="/ambassadeurs" element={<Ambassadeurs />} />
