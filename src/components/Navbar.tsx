@@ -14,7 +14,9 @@ const navLinks: { label: string; path?: string; children?: { label: string; path
     children: [
       { label: "Vue d'ensemble", path: "/programmes", desc: "Nos programmes phares" },
       { label: "Defarat Sunu Nekkin", path: "/programmes/defarat-sunu-nekkin", desc: "Programme national — gouvernance familiale" },
-      { label: "Foyer Goungué", path: "/foyer", desc: "Suivi post-incubation" },
+      { label: "Kepar gi", path: "/programmes/kepar-gi", desc: "L'abri — suivi post-incubation" },
+      { label: "Meñil War Wi", path: "/programmes/menil-war-wi", desc: "Résilience des entreprises" },
+      { label: "Incubateur Goungué", path: "/programmes/incubateur-goungue", desc: "De l'idée à l'impact" },
     ],
   },
   {
