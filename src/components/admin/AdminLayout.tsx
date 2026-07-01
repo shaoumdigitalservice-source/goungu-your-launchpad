@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LayoutDashboard, FileText, BookOpen, Users, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, FileText, BookOpen, Users, LogOut, Menu, X, Image } from "lucide-react";
 import { useState } from "react";
 import { logout } from "@/lib/adminApi";
 
@@ -13,6 +13,7 @@ const navItems = [
   { label: "Vue d'ensemble", path: "/admin/dashboard", icon: LayoutDashboard },
   { label: "Blog", path: "/admin/blog", icon: BookOpen },
   { label: "Programmes", path: "/admin/programmes", icon: FileText },
+  { label: "Images", path: "/admin/images", icon: Image },
 ];
 
 const AdminLayout = ({ children, title }: AdminLayoutProps) => {

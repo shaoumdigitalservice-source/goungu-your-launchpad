@@ -17,6 +17,7 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminBlog from "./pages/admin/AdminBlog";
 import AdminProgrammes from "./pages/admin/AdminProgrammes";
+import AdminImages from "./pages/admin/AdminImages";
 import ProgrammesIndex from "./pages/programmes/ProgrammesIndex";
 import CampLacRose from "./pages/programmes/CampLacRose";
 import Parentalite from "./pages/programmes/Parentalite";
@@ -86,6 +87,7 @@ const App = () => (
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/blog" element={<AdminBlog />} />
             <Route path="/admin/programmes" element={<AdminProgrammes />} />
+            <Route path="/admin/images" element={<AdminImages />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </AuthProvider>

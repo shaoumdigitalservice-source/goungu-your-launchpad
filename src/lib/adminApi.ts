@@ -115,3 +115,27 @@ export async function creerProgramme(data: {
 export async function supprimerProgramme(id: number) {
   await fetchAvecToken(`/programmes/${id}`, { method: "DELETE" });
 }
+export async function getImages() {
+  const res = await fetchAvecToken("/images");
+  return res.json();
+}
+
+export async function uploaderImage(cle: string, fichier: File) {
+  const token = localStorage.getItem("admin_token");
+  const formData = new FormData();
+  formData.append("cle", cle);
+  formData.append("fichier", fichier);
+
+  const response = await fetch("http://localhost:8082/api/images", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Erreur lors de l'upload");
+  }
+  return response.json();
+}
