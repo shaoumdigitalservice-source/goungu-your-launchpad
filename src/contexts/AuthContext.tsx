@@ -7,6 +7,10 @@ interface UtilisateurInfo {
   prenom: string;
   nom: string;
   role: AppRole;
+  telephone?: string;
+  ville?: string;
+  dateNaissance?: string;
+  bio?: string;
 }
 
 interface AuthCtx {

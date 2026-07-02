@@ -4,46 +4,51 @@ import { toast } from "sonner";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout, { Section } from "./EspaceLayout";
 import { useAuth, defaultDashboardPath } from "@/contexts/AuthContext";
-import { supabase } from "@/integrations/supabase/client";
+
+const API_BASE_URL = "http://localhost:8082/api";
 
 const items = [
   { to: "/espace/profil", label: "Mon profil", icon: User },
 ];
 
 const Profil = () => {
-  const { user, roles } = useAuth();
-  const [loading, setLoading] = useState(true);
+  const { user, roles, refreshRoles } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [form, setForm] = useState({ first_name: "", last_name: "", phone: "", city: "", birth_date: "", bio: "" });
+  const [form, setForm] = useState({ prenom: "", nom: "", telephone: "", ville: "", dateNaissance: "", bio: "" });
 
   useEffect(() => {
     if (!user) return;
-    supabase.from("profiles").select("*").eq("id", user.id).maybeSingle().then(({ data }) => {
-      if (data) {
-        setForm({
-          first_name: data.first_name ?? "",
-          last_name: data.last_name ?? "",
-          phone: data.phone ?? "",
-          city: data.city ?? "",
-          birth_date: data.birth_date ?? "",
-          bio: data.bio ?? "",
-        });
-      }
-      setLoading(false);
+    setForm({
+      prenom: user.prenom ?? "",
+      nom: user.nom ?? "",
+      telephone: user.telephone ?? "",
+      ville: user.ville ?? "",
+      dateNaissance: user.dateNaissance ?? "",
+      bio: user.bio ?? "",
     });
   }, [user]);
 
   const handleSave = async () => {
-    if (!user) return;
     setSaving(true);
-    const { error } = await supabase.from("profiles").upsert({
-      id: user.id,
-      ...form,
-      birth_date: form.birth_date || null,
-    });
-    setSaving(false);
-    if (error) toast.error(error.message);
-    else toast.success("Profil mis à jour");
+    try {
+      const token = localStorage.getItem("user_token");
+      const res = await fetch(`${API_BASE_URL}/utilisateurs/moi`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Erreur lors de la mise à jour");
+      await refreshRoles();
+      toast.success("Profil mis à jour");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Erreur");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const role = roles[0] ?? "jeune";
@@ -56,11 +61,11 @@ const Profil = () => {
         ) : (
           <Section title="Informations personnelles">
             <div className="grid sm:grid-cols-2 gap-4">
-              <Field label="Prénom" value={form.first_name} onChange={(v) => setForm({ ...form, first_name: v })} />
-              <Field label="Nom" value={form.last_name} onChange={(v) => setForm({ ...form, last_name: v })} />
-              <Field label="Téléphone" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} />
-              <Field label="Ville" value={form.city} onChange={(v) => setForm({ ...form, city: v })} />
-              <Field label="Date de naissance" value={form.birth_date} onChange={(v) => setForm({ ...form, birth_date: v })} type="date" />
+              <Field label="Prénom" value={form.prenom} onChange={(v) => setForm({ ...form, prenom: v })} />
+              <Field label="Nom" value={form.nom} onChange={(v) => setForm({ ...form, nom: v })} />
+              <Field label="Téléphone" value={form.telephone} onChange={(v) => setForm({ ...form, telephone: v })} />
+              <Field label="Ville" value={form.ville} onChange={(v) => setForm({ ...form, ville: v })} />
+              <Field label="Date de naissance" value={form.dateNaissance} onChange={(v) => setForm({ ...form, dateNaissance: v })} type="date" />
               <Field label="Email" value={user?.email ?? ""} onChange={() => {}} disabled />
             </div>
             <div className="mt-4">

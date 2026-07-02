@@ -32,7 +32,6 @@ import Ambassadeurs from "./pages/Ambassadeurs";
 import Communaute from "./pages/Communaute";
 import Blog from "./pages/Blog";
 import Auth from "./pages/Auth";
-import ResetPassword from "./pages/ResetPassword";
 import Jeune from "./pages/espace/Jeune";
 import Parent from "./pages/espace/Parent";
 import Mentor from "./pages/espace/Mentor";
@@ -76,7 +75,6 @@ const App = () => (
             <Route path="/inscription" element={<Inscription />} />
             {/* Auth & espaces */}
             <Route path="/auth" element={<Auth />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/espace/jeune" element={<Jeune />} />
             <Route path="/espace/parent" element={<Parent />} />
             <Route path="/espace/mentor" element={<Mentor />} />
