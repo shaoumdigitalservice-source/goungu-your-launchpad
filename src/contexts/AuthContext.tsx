@@ -1,60 +1,68 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { Session, User } from "@supabase/supabase-js";
-import { supabase } from "@/integrations/supabase/client";
 
 export type AppRole = "jeune" | "parent" | "mentor" | "formateur" | "admin";
 
+interface UtilisateurInfo {
+  email: string;
+  prenom: string;
+  nom: string;
+  role: AppRole;
+}
+
 interface AuthCtx {
-  user: User | null;
-  session: Session | null;
+  user: UtilisateurInfo | null;
   roles: AppRole[];
   loading: boolean;
-  signOut: () => Promise<void>;
+  signOut: () => void;
   refreshRoles: () => Promise<void>;
 }
 
+const API_BASE_URL = "http://localhost:8082/api";
 const Ctx = createContext<AuthCtx | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [session, setSession] = useState<Session | null>(null);
-  const [user, setUser] = useState<User | null>(null);
-  const [roles, setRoles] = useState<AppRole[]>([]);
+  const [user, setUser] = useState<UtilisateurInfo | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const loadRoles = async (uid: string) => {
-    const { data } = await supabase.from("user_roles").select("role").eq("user_id", uid);
-    setRoles(((data ?? []).map((r) => r.role) as AppRole[]));
+  const chargerProfil = async () => {
+    const token = localStorage.getItem("user_token");
+    if (!token) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await fetch(`${API_BASE_URL}/utilisateurs/moi`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error("Token invalide");
+      const data = await res.json();
+      setUser(data);
+    } catch {
+      localStorage.removeItem("user_token");
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_evt, s) => {
-      setSession(s);
-      setUser(s?.user ?? null);
-      if (s?.user) {
-        setTimeout(() => loadRoles(s.user.id), 0);
-      } else {
-        setRoles([]);
-      }
-    });
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      setSession(s);
-      setUser(s?.user ?? null);
-      if (s?.user) loadRoles(s.user.id);
-      setLoading(false);
-    });
-    return () => sub.subscription.unsubscribe();
+    chargerProfil();
   }, []);
 
   const refreshRoles = async () => {
-    if (user) await loadRoles(user.id);
+    await chargerProfil();
   };
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
+  const signOut = () => {
+    localStorage.removeItem("user_token");
+    setUser(null);
   };
+
+  const roles: AppRole[] = user ? [user.role] : [];
 
   return (
-    <Ctx.Provider value={{ user, session, roles, loading, signOut, refreshRoles }}>
+    <Ctx.Provider value={{ user, roles, loading, signOut, refreshRoles }}>
       {children}
     </Ctx.Provider>
   );
