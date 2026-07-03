@@ -42,17 +42,17 @@ const Footer = () => (
         <div className="md:col-span-4">
           <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider opacity-70">Contact</h4>
           <div className="flex flex-col gap-3 text-sm opacity-90">
-            <a href="mailto:Incubgoungue@gmail.com" className="flex items-center gap-2 hover:opacity-100">
-              <Mail className="h-4 w-4" /> Incubgoungue@gmail.com
+            <a href="mailto:contact@goungueincub.com" className="flex items-center gap-2 hover:opacity-100">
+              <Mail className="h-4 w-4" /> contact@goungueincub.com
             </a>
-            <a href="tel:+221778641096" className="flex items-center gap-2 hover:opacity-100">
-              <Phone className="h-4 w-4" /> 77 864 10 96
+            <a href="tel:+221766588328" className="flex items-center gap-2 hover:opacity-100">
+              <Phone className="h-4 w-4" /> 76 658 83 28
             </a>
             <span className="flex items-center gap-2">
               <MapPin className="h-4 w-4" /> Parcelles Assainies, Unité 13 — Dakar
             </span>
             <a
-              href="https://wa.me/221778641096"
+              href="https://wa.me/221766588328"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 hover:opacity-100"

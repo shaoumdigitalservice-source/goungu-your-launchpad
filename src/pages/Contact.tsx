@@ -38,19 +38,19 @@ const Contact = () => {
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
             <div>
               <div className="space-y-6 mb-10">
-                <a href="mailto:Incubgoungue@gmail.com" className="flex items-center gap-4 p-4 bg-card border rounded-xl hover:shadow-sm transition-shadow">
+                <a href="mailto:contact@goungueincub.com" className="flex items-center gap-4 p-4 bg-card border rounded-xl hover:shadow-sm transition-shadow">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"><Mail className="h-5 w-5 text-primary" /></div>
-                  <div><div className="text-xs text-muted-foreground">Email</div><div className="font-semibold text-sm">Incubgoungue@gmail.com</div></div>
+                  <div><div className="text-xs text-muted-foreground">Email</div><div className="font-semibold text-sm">contact@goungueincub.com</div></div>
                 </a>
-                <a href="tel:+221778641096" className="flex items-center gap-4 p-4 bg-card border rounded-xl hover:shadow-sm transition-shadow">
+                <a href="tel:+221766588328" className="flex items-center gap-4 p-4 bg-card border rounded-xl hover:shadow-sm transition-shadow">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"><Phone className="h-5 w-5 text-primary" /></div>
-                  <div><div className="text-xs text-muted-foreground">Téléphone</div><div className="font-semibold text-sm">77 864 10 96</div></div>
+                  <div><div className="text-xs text-muted-foreground">Téléphone</div><div className="font-semibold text-sm">76 658 83 28</div></div>
                 </a>
                 <div className="flex items-center gap-4 p-4 bg-card border rounded-xl">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"><MapPin className="h-5 w-5 text-primary" /></div>
                   <div><div className="text-xs text-muted-foreground">Adresse</div><div className="font-semibold text-sm">Parcelles Assainies, Unité 13</div></div>
                 </div>
-                <a href="https://wa.me/221778641096" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-secondary/10 border border-secondary/20 rounded-xl hover:shadow-sm transition-shadow">
+                <a href="https://wa.me/221766588328" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-secondary/10 border border-secondary/20 rounded-xl hover:shadow-sm transition-shadow">
                   <div className="w-10 h-10 rounded-lg bg-secondary/20 flex items-center justify-center"><MessageCircle className="h-5 w-5 text-secondary" /></div>
                   <div><div className="text-xs text-muted-foreground">WhatsApp</div><div className="font-semibold text-sm text-secondary">Discuter maintenant</div></div>
                 </a>
