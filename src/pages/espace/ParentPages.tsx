@@ -4,7 +4,7 @@ import ComingSoon from "./ComingSoon";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout, { Section } from "./EspaceLayout";
 import Placeholder from "@/components/Placeholder";
-import { getMonEnfant, Enfant } from "@/api/parentApi";
+import { getMonEnfant, Enfant, getRendezVousEnfant, RendezVous } from "@/api/parentApi";
 
 const items = [
   { to: "/espace/parent", label: "Tableau de bord", icon: HeartHandshake },
@@ -43,17 +43,14 @@ export const ParentSuivi = () => {
               <Loader2 className="animate-spin" size={20} /> Chargement...
             </div>
           )}
-
           {erreur && (
             <div className="text-red-600 bg-red-50 border border-red-200 rounded-md p-4 text-center">
               {erreur}
             </div>
           )}
-
           {!loading && !erreur && enfants.length === 0 && (
             <Placeholder label="Aucun enfant ne vous est encore associé" />
           )}
-
           {!loading && !erreur && enfants.length > 0 && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {enfants.map((e) => (
@@ -91,6 +88,77 @@ export const ParentSuivi = () => {
   );
 };
 
+const STATUT_STYLES: Record<string, string> = {
+  PLANIFIE: "bg-yellow-100 text-yellow-700",
+  TERMINE: "bg-green-100 text-green-700",
+  ANNULE: "bg-red-100 text-red-700",
+};
+
+const STATUT_LABELS: Record<string, string> = {
+  PLANIFIE: "Planifié",
+  TERMINE: "Terminé",
+  ANNULE: "Annulé",
+};
+
+export const ParentRdv = () => {
+  const [rdvs, setRdvs] = useState<RendezVous[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [erreur, setErreur] = useState<string | null>(null);
+
+  useEffect(() => {
+    const charger = async () => {
+      try {
+        const data = await getRendezVousEnfant();
+        setRdvs(data);
+      } catch (e: any) {
+        setErreur(e.message || "Erreur lors du chargement");
+      } finally {
+        setLoading(false);
+      }
+    };
+    charger();
+  }, []);
+
+  return (
+    <ProtectedRoute roles={["parent", "admin"]}>
+      <EspaceLayout title="Rendez-vous" role="Parent" items={items}>
+        <Section title={`Rendez-vous du mentor${rdvs.length > 0 ? ` (${rdvs.length})` : ""}`}>
+          {loading && (
+            <div className="flex items-center gap-2 text-muted-foreground py-10 justify-center">
+              <Loader2 className="animate-spin" size={20} /> Chargement...
+            </div>
+          )}
+          {erreur && (
+            <div className="text-red-600 bg-red-50 border border-red-200 rounded-md p-4 text-center">
+              {erreur}
+            </div>
+          )}
+          {!loading && !erreur && rdvs.length === 0 && (
+            <Placeholder label="Aucun rendez-vous planifié pour le moment" />
+          )}
+          {!loading && !erreur && rdvs.length > 0 && (
+            <div className="space-y-3">
+              {rdvs.map((r) => (
+                <div key={r.id} className="bg-background border rounded-xl p-5">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="font-semibold text-sm">{r.sujet}</h3>
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${STATUT_STYLES[r.statut]}`}>
+                      {STATUT_LABELS[r.statut]}
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Avec {r.mentorPrenom} {r.mentorNom} (mentor de {r.jeunePrenom}) · {new Date(r.dateHeure).toLocaleString("fr-FR", { dateStyle: "long", timeStyle: "short" })}
+                  </p>
+                  {r.notes && <p className="text-sm text-muted-foreground mt-1">{r.notes}</p>}
+                </div>
+              ))}
+            </div>
+          )}
+        </Section>
+      </EspaceLayout>
+    </ProtectedRoute>
+  );
+};
+
 export const ParentParentalite = () => <ComingSoon title="Parentalité positive" role="Parent" roles={["parent", "admin"]} items={items} pageLabel="Parentalité positive" />;
 export const ParentDocuments = () => <ComingSoon title="Documents" role="Parent" roles={["parent", "admin"]} items={items} pageLabel="Documents" />;
-export const ParentRdv = () => <ComingSoon title="Rendez-vous" role="Parent" roles={["parent", "admin"]} items={items} pageLabel="Rendez-vous" />;
