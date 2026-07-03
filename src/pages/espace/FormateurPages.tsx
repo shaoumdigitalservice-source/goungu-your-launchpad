@@ -1,11 +1,23 @@
 import { useEffect, useState } from "react";
-import { GraduationCap, Users, BookOpen, Calendar, User, Loader2, FileText, Link as LinkIcon, Download, Plus, Trash2, CheckCircle2, XCircle } from "lucide-react";
-import ComingSoon from "./ComingSoon";
+import { GraduationCap, Users, BookOpen, Calendar, User, Loader2, FileText, Link as LinkIcon, Download, Plus, Trash2, CheckCircle2, XCircle, X } from "lucide-react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout, { Section } from "./EspaceLayout";
 import Placeholder from "@/components/Placeholder";
 import { listerRessourcesPubliques, RessourcePublique } from "@/api/ressourcesApi";
-import { getMesSessions, creerSession, changerStatutSession, supprimerSession, SessionFormation } from "@/api/formateurApi";
+import {
+  getMesSessions,
+  creerSession,
+  changerStatutSession,
+  supprimerSession,
+  SessionFormation,
+  getMesCohortes,
+  getJeunesDisponibles,
+  creerCohorte,
+  gererMembreCohorte,
+  supprimerCohorte,
+  Cohorte,
+  Jeune,
+} from "@/api/formateurApi";
 
 const items = [
   { to: "/espace/formateur", label: "Tableau de bord", icon: GraduationCap },
@@ -17,7 +29,257 @@ const items = [
 
 const API_ORIGIN = "http://localhost:8082";
 
-export const FormateurCohortes = () => <ComingSoon title="Cohortes" role="Formateur" roles={["formateur", "admin"]} items={items} pageLabel="Cohortes" />;
+export const FormateurCohortes = () => {
+  const [cohortes, setCohortes] = useState<Cohorte[]>([]);
+  const [jeunesDisponibles, setJeunesDisponibles] = useState<Jeune[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [erreur, setErreur] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [nom, setNom] = useState("");
+  const [description, setDescription] = useState("");
+  const [selecteurOuvertPour, setSelecteurOuvertPour] = useState<number | null>(null);
+  const [enCours, setEnCours] = useState<number | null>(null);
+
+  const charger = async () => {
+    setLoading(true);
+    try {
+      const [c, j] = await Promise.all([getMesCohortes(), getJeunesDisponibles()]);
+      setCohortes(c);
+      setJeunesDisponibles(j);
+    } catch (e: any) {
+      setErreur(e.message || "Erreur lors du chargement");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    charger();
+  }, []);
+
+  const handleCreer = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      await creerCohorte({ nom, description });
+      setNom("");
+      setDescription("");
+      setShowForm(false);
+      await charger();
+    } catch (e: any) {
+      alert(e.message || "Erreur");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleAjouterMembre = async (cohorteId: number, jeuneId: number) => {
+    setEnCours(cohorteId);
+    try {
+      await gererMembreCohorte(cohorteId, jeuneId, "ajouter");
+      setSelecteurOuvertPour(null);
+      await charger();
+    } catch (e: any) {
+      alert(e.message || "Erreur");
+    } finally {
+      setEnCours(null);
+    }
+  };
+
+  const handleRetirerMembre = async (cohorteId: number, jeuneId: number) => {
+    setEnCours(cohorteId);
+    try {
+      await gererMembreCohorte(cohorteId, jeuneId, "retirer");
+      await charger();
+    } catch (e: any) {
+      alert(e.message || "Erreur");
+    } finally {
+      setEnCours(null);
+    }
+  };
+
+  const handleSupprimer = async (id: number) => {
+    if (!confirm("Supprimer cette cohorte ?")) return;
+    setEnCours(id);
+    try {
+      await supprimerCohorte(id);
+      await charger();
+    } catch (e: any) {
+      alert(e.message || "Erreur");
+    } finally {
+      setEnCours(null);
+    }
+  };
+
+  return (
+    <ProtectedRoute roles={["formateur", "admin"]}>
+      <EspaceLayout title="Cohortes" role="Formateur" items={items}>
+        <Section
+          title="Mes cohortes"
+          action={
+            <button
+              onClick={() => setShowForm(!showForm)}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition"
+            >
+              <Plus className="h-4 w-4" /> Nouvelle cohorte
+            </button>
+          }
+        >
+          {showForm && (
+            <form onSubmit={handleCreer} className="mb-6 p-5 rounded-2xl border bg-section-alt space-y-3">
+              <div>
+                <label className="text-xs font-medium mb-1 block">Nom *</label>
+                <input
+                  value={nom}
+                  onChange={(e) => setNom(e.target.value)}
+                  required
+                  className="w-full px-3 py-2.5 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-medium mb-1 block">Description</label>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows={2}
+                  className="w-full px-3 py-2.5 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={submitting}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold text-sm disabled:opacity-60"
+              >
+                {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
+                Créer
+              </button>
+            </form>
+          )}
+
+          {loading && (
+            <div className="flex items-center gap-2 text-muted-foreground py-10 justify-center">
+              <Loader2 className="animate-spin" size={20} /> Chargement...
+            </div>
+          )}
+
+          {erreur && (
+            <div className="text-red-600 bg-red-50 border border-red-200 rounded-md p-4 text-center">
+              {erreur}
+            </div>
+          )}
+
+          {!loading && !erreur && cohortes.length === 0 && (
+            <Placeholder label="Aucune cohorte pour le moment" />
+          )}
+
+          {!loading && !erreur && cohortes.length > 0 && (
+            <div className="grid md:grid-cols-2 gap-5">
+              {cohortes.map((c) => {
+                const membresIds = c.membres.map((m) => m.id);
+                const disponiblesPourCetteCohorte = jeunesDisponibles.filter(
+                  (j) => !membresIds.includes(j.id)
+                );
+                return (
+                  <div key={c.id} className="p-5 rounded-2xl border bg-background">
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <h3 className="font-display text-base font-semibold">{c.nom}</h3>
+                        {c.description && (
+                          <p className="text-sm text-muted-foreground mt-1">{c.description}</p>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => handleSupprimer(c.id)}
+                        disabled={enCours === c.id}
+                        title="Supprimer la cohorte"
+                        className="p-2 rounded-lg hover:bg-muted text-muted-foreground disabled:opacity-40"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+
+                    <div className="mt-4">
+                      <div className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
+                        Membres ({c.membres.length})
+                      </div>
+                      {c.membres.length === 0 && (
+                        <p className="text-sm text-muted-foreground">Aucun membre pour l'instant.</p>
+                      )}
+                      <div className="space-y-2">
+                        {c.membres.map((m) => (
+                          <div
+                            key={m.id}
+                            className="flex items-center justify-between px-3 py-2 rounded-xl bg-section-alt text-sm"
+                          >
+                            <span>
+                              {m.prenom} {m.nom}
+                            </span>
+                            <button
+                              onClick={() => handleRetirerMembre(c.id, m.id)}
+                              disabled={enCours === c.id}
+                              title="Retirer"
+                              className="text-muted-foreground hover:text-destructive disabled:opacity-40"
+                            >
+                              <X className="h-3.5 w-3.5" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-4">
+                      {selecteurOuvertPour === c.id ? (
+                        <div className="space-y-2">
+                          {disponiblesPourCetteCohorte.length === 0 ? (
+                            <p className="text-sm text-muted-foreground">
+                              Tous les jeunes disponibles sont déjà membres.
+                            </p>
+                          ) : (
+                            <select
+                              onChange={(e) => {
+                                const id = Number(e.target.value);
+                                if (id) handleAjouterMembre(c.id, id);
+                              }}
+                              defaultValue=""
+                              className="w-full px-3 py-2 rounded-xl border bg-background text-sm"
+                            >
+                              <option value="" disabled>
+                                Choisir un jeune à ajouter...
+                              </option>
+                              {disponiblesPourCetteCohorte.map((j) => (
+                                <option key={j.id} value={j.id}>
+                                  {j.prenom} {j.nom} ({j.email})
+                                </option>
+                              ))}
+                            </select>
+                          )}
+                          <button
+                            onClick={() => setSelecteurOuvertPour(null)}
+                            className="text-xs text-muted-foreground hover:text-foreground"
+                          >
+                            Annuler
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => setSelecteurOuvertPour(c.id)}
+                          className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-2 transition-all"
+                        >
+                          <Plus className="h-3.5 w-3.5" /> Ajouter un jeune
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </Section>
+      </EspaceLayout>
+    </ProtectedRoute>
+  );
+};
 
 export const FormateurModules = () => {
   const [ressources, setRessources] = useState<RessourcePublique[]>([]);

@@ -51,3 +51,69 @@ export async function supprimerSession(id: number): Promise<void> {
   });
   if (!res.ok) throw new Error("Erreur lors de la suppression");
 }
+
+export interface Jeune {
+  id: number;
+  prenom: string;
+  nom: string;
+  email: string;
+}
+
+export interface Cohorte {
+  id: number;
+  formateurId: number;
+  nom: string;
+  description?: string;
+  jeuneIds: number[];
+  membres: Jeune[];
+}
+
+export async function getMesCohortes(): Promise<Cohorte[]> {
+  const res = await fetch(`${API_BASE_URL}/cohortes/mes-cohortes`, {
+    headers: { Authorization: `Bearer ${getToken()}` },
+  });
+  if (!res.ok) throw new Error("Impossible de récupérer vos cohortes");
+  return res.json();
+}
+
+export async function getJeunesDisponibles(): Promise<Jeune[]> {
+  const res = await fetch(`${API_BASE_URL}/cohortes/jeunes-disponibles`, {
+    headers: { Authorization: `Bearer ${getToken()}` },
+  });
+  if (!res.ok) throw new Error("Impossible de récupérer les jeunes disponibles");
+  return res.json();
+}
+
+export async function creerCohorte(data: { nom: string; description?: string }): Promise<Cohorte> {
+  const res = await fetch(`${API_BASE_URL}/cohortes`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const msg = await res.text();
+    throw new Error(msg || "Erreur lors de la création de la cohorte");
+  }
+  return res.json();
+}
+
+export async function gererMembreCohorte(id: number, jeuneId: number, action: "ajouter" | "retirer"): Promise<Cohorte> {
+  const res = await fetch(`${API_BASE_URL}/cohortes/${id}/membres`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
+    body: JSON.stringify({ jeuneId, action }),
+  });
+  if (!res.ok) {
+    const msg = await res.text();
+    throw new Error(msg || "Erreur lors de la mise à jour des membres");
+  }
+  return res.json();
+}
+
+export async function supprimerCohorte(id: number): Promise<void> {
+  const res = await fetch(`${API_BASE_URL}/cohortes/${id}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${getToken()}` },
+  });
+  if (!res.ok) throw new Error("Erreur lors de la suppression de la cohorte");
+}
