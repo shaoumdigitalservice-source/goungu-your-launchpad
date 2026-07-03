@@ -6,7 +6,7 @@ import { Loader2, ShieldCheck, GraduationCap, Users2, Heart, User } from "lucide
 
 const ROLES_INFO: Record<
   string,
-  { label: string; icon: React.ComponentType<{ size?: number; className?: string }>; couleur: string }
+  { label: string; icon: React.ComponentType<{ size?: number | string; className?: string }>; couleur: string }
 > = {
   admin: { label: "Administrateurs", icon: ShieldCheck, couleur: "text-red-600 bg-red-50" },
   formateur: { label: "Formateurs", icon: GraduationCap, couleur: "text-purple-600 bg-purple-50" },
