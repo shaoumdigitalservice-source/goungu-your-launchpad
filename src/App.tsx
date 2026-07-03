@@ -32,12 +32,24 @@ import Ambassadeurs from "./pages/Ambassadeurs";
 import Communaute from "./pages/Communaute";
 import Blog from "./pages/Blog";
 import Auth from "./pages/Auth";
+import MotDePasseOublie from "./pages/MotDePasseOublie";
+import ReinitialiserMotDePasse from "./pages/ReinitialiserMotDePasse";
 import Jeune from "./pages/espace/Jeune";
 import Parent from "./pages/espace/Parent";
 import Mentor from "./pages/espace/Mentor";
 import Formateur from "./pages/espace/Formateur";
 import Admin from "./pages/espace/Admin";
 import Profil from "./pages/espace/Profil";
+import { JeuneParcours, JeunePasseport, JeuneOrientation, JeuneMentor, JeuneRessources } from "./pages/espace/JeuneParcours";
+import { ParentSuivi, ParentParentalite, ParentDocuments, ParentRdv } from "./pages/espace/ParentPages";
+import { MentorJeunes, MentorAgenda, MentorMessages } from "./pages/espace/MentorPages";
+import { FormateurCohortes, FormateurModules, FormateurAgenda } from "./pages/espace/FormateurPages";
+import AdminUtilisateursReel from "./pages/espace/admin/AdminUtilisateurs";
+import AdminCandidaturesReel from "./pages/espace/admin/AdminCandidatures";
+import AdminProgrammesReel from "./pages/espace/admin/AdminProgrammes";
+import AdminRessourcesReel from "./pages/espace/admin/AdminRessources";
+import AdminEvenementsReel from "./pages/espace/admin/AdminEvenements";
+import AdminSecuriteReel from "./pages/espace/admin/AdminSecurite";
 
 const queryClient = new QueryClient();
 
@@ -75,12 +87,35 @@ const App = () => (
             <Route path="/inscription" element={<Inscription />} />
             {/* Auth & espaces */}
             <Route path="/auth" element={<Auth />} />
+            <Route path="/mot-de-passe-oublie" element={<MotDePasseOublie />} />
+            <Route path="/reinitialiser-mot-de-passe" element={<ReinitialiserMotDePasse />} />
             <Route path="/espace/jeune" element={<Jeune />} />
             <Route path="/espace/parent" element={<Parent />} />
             <Route path="/espace/mentor" element={<Mentor />} />
             <Route path="/espace/formateur" element={<Formateur />} />
             <Route path="/espace/admin" element={<Admin />} />
             <Route path="/espace/profil" element={<Profil />} />
+            <Route path="/espace/jeune/parcours" element={<JeuneParcours />} />
+            <Route path="/espace/jeune/passeport" element={<JeunePasseport />} />
+            <Route path="/espace/jeune/orientation" element={<JeuneOrientation />} />
+            <Route path="/espace/jeune/mentor" element={<JeuneMentor />} />
+            <Route path="/espace/jeune/ressources" element={<JeuneRessources />} />
+            <Route path="/espace/parent/suivi" element={<ParentSuivi />} />
+            <Route path="/espace/parent/parentalite" element={<ParentParentalite />} />
+            <Route path="/espace/parent/documents" element={<ParentDocuments />} />
+            <Route path="/espace/parent/rdv" element={<ParentRdv />} />
+            <Route path="/espace/mentor/jeunes" element={<MentorJeunes />} />
+            <Route path="/espace/mentor/agenda" element={<MentorAgenda />} />
+            <Route path="/espace/mentor/messages" element={<MentorMessages />} />
+            <Route path="/espace/formateur/cohortes" element={<FormateurCohortes />} />
+            <Route path="/espace/formateur/modules" element={<FormateurModules />} />
+            <Route path="/espace/formateur/agenda" element={<FormateurAgenda />} />
+            <Route path="/espace/admin/utilisateurs" element={<AdminUtilisateursReel />} />
+            <Route path="/espace/admin/candidatures" element={<AdminCandidaturesReel />} />
+            <Route path="/espace/admin/programmes" element={<AdminProgrammesReel />} />
+            <Route path="/espace/admin/ressources" element={<AdminRessourcesReel />} />
+            <Route path="/espace/admin/evenements" element={<AdminEvenementsReel />} />
+            <Route path="/espace/admin/securite" element={<AdminSecuriteReel />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/blog" element={<AdminBlog />} />

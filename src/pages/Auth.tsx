@@ -162,6 +162,11 @@ const Auth = () => {
             <div>
               <label className="text-xs font-medium mb-1 block">Mot de passe *</label>
               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2.5 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring" placeholder="8 caractères minimum" />
+              {mode === "signin" && (
+                <Link to="/mot-de-passe-oublie" className="text-xs text-primary hover:underline mt-1.5 inline-block">
+                  Mot de passe oublié ?
+                </Link>
+              )}
             </div>
 
             <button

@@ -1,0 +1,142 @@
+import { useEffect, useState } from "react";
+import EspaceLayout from "../EspaceLayout";
+import { adminNavItems } from "../AdminPages";
+import {
+  listerUtilisateurs,
+  changerRoleUtilisateur,
+  supprimerUtilisateur,
+  UtilisateurAdmin,
+} from "@/api/adminUtilisateursApi";
+import { useAuth, AppRole } from "@/contexts/AuthContext";
+import { Trash2, Loader2 } from "lucide-react";
+
+const ROLES: AppRole[] = ["jeune", "parent", "mentor", "formateur", "admin"];
+
+export default function AdminUtilisateurs() {
+  const { user } = useAuth();
+  const [utilisateurs, setUtilisateurs] = useState<UtilisateurAdmin[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [erreur, setErreur] = useState<string | null>(null);
+  const [enCoursId, setEnCoursId] = useState<number | null>(null);
+
+  const charger = async () => {
+    setLoading(true);
+    setErreur(null);
+    try {
+      const data = await listerUtilisateurs();
+      setUtilisateurs(data);
+    } catch (e: any) {
+      setErreur(e.message || "Erreur lors du chargement");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    charger();
+  }, []);
+
+  const handleChangerRole = async (id: number, role: string) => {
+    setEnCoursId(id);
+    try {
+      const maj = await changerRoleUtilisateur(id, role);
+      setUtilisateurs((prev) =>
+        prev.map((u) => (u.id === id ? maj : u))
+      );
+    } catch (e: any) {
+      alert(e.message || "Erreur lors du changement de rôle");
+    } finally {
+      setEnCoursId(null);
+    }
+  };
+
+  const handleSupprimer = async (id: number) => {
+    if (!confirm("Supprimer définitivement cet utilisateur ?")) return;
+    setEnCoursId(id);
+    try {
+      await supprimerUtilisateur(id);
+      setUtilisateurs((prev) => prev.filter((u) => u.id !== id));
+    } catch (e: any) {
+      alert(e.message || "Erreur lors de la suppression");
+    } finally {
+      setEnCoursId(null);
+    }
+  };
+
+  return (
+    <EspaceLayout title="Utilisateurs" role="admin" items={adminNavItems}>
+      <div className="p-6">
+        <h1 className="text-2xl font-bold mb-6">Gestion des utilisateurs</h1>
+
+        {loading && (
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Loader2 className="animate-spin" size={18} /> Chargement...
+          </div>
+        )}
+
+        {erreur && (
+          <div className="text-red-600 bg-red-50 border border-red-200 rounded-md p-3 mb-4">
+            {erreur}
+          </div>
+        )}
+
+        {!loading && !erreur && (
+          <div className="overflow-x-auto rounded-lg border">
+            <table className="w-full text-sm">
+              <thead className="bg-muted text-left">
+                <tr>
+                  <th className="p-3">Nom</th>
+                  <th className="p-3">Email</th>
+                  <th className="p-3">Rôle</th>
+                  <th className="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {utilisateurs.map((u) => (
+                  <tr key={u.id} className="border-t">
+                    <td className="p-3">
+                      {u.prenom} {u.nom}
+                    </td>
+                    <td className="p-3">{u.email}</td>
+                    <td className="p-3">
+                      <select
+                        value={u.role}
+                        disabled={enCoursId === u.id || u.email === user?.email}
+                        onChange={(e) =>
+                          handleChangerRole(u.id, e.target.value)
+                        }
+                        className="border rounded-md px-2 py-1 bg-background"
+                      >
+                        {ROLES.map((r) => (
+                          <option key={r} value={r}>
+                            {r}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className="p-3 text-right">
+                      <button
+                        onClick={() => handleSupprimer(u.id)}
+                        disabled={
+                          enCoursId === u.id || u.email === user?.email
+                        }
+                        className="text-red-600 hover:text-red-800 disabled:opacity-40"
+                        title={
+                          u.email === user?.email
+                            ? "Vous ne pouvez pas vous supprimer"
+                            : "Supprimer"
+                        }
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </EspaceLayout>
+  );
+}

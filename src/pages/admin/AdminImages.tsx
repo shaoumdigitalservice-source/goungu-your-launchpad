@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminLayout from "@/components/admin/AdminLayout";
-import { getImages, uploaderImage } from "@/lib/adminApi";
+import { getImages, uploaderImage, isLoggedIn } from "@/lib/adminApi";
 import { Upload, Image as ImageIcon } from "lucide-react";
 
 interface ImageSite {
@@ -23,6 +24,7 @@ const AdminImages = () => {
   const [loading, setLoading] = useState(true);
   const [uploadingCle, setUploadingCle] = useState<string | null>(null);
   const [erreur, setErreur] = useState("");
+  const navigate = useNavigate();
 
   const chargerImages = () => {
     setLoading(true);
@@ -33,6 +35,10 @@ const AdminImages = () => {
   };
 
   useEffect(() => {
+    if (!isLoggedIn()) {
+      navigate("/admin/login");
+      return;
+    }
     chargerImages();
   }, []);
 

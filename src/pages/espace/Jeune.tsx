@@ -18,7 +18,7 @@ const Jeune = () => {
   const { user } = useAuth();
   return (
     <ProtectedRoute roles={["jeune", "admin"]}>
-      <EspaceLayout title={`Bonjour ${user?.user_metadata?.first_name ?? ""} 👋`} role="Jeune" items={items}>
+      <EspaceLayout title={`Bonjour ${user?.prenom ?? ""} 👋`} role="Jeune" items={items}>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
           <StatCard label="Progression" value="42%" hint="Diagnostic en cours" />
           <StatCard label="Objectifs" value="3 / 8" hint="Cette saison" />
