@@ -2,6 +2,7 @@ const API_BASE_URL = "http://localhost:8082/api";
 
 export interface MonMentor {
   assigne: boolean;
+  id?: number;
   prenom?: string;
   nom?: string;
   email?: string;
