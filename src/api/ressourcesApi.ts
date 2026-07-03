@@ -8,6 +8,7 @@ export interface RessourcePublique {
   url: string;
   nomFichier?: string;
   ordreAffichage: number;
+  categorie?: string;
 }
 
 export async function listerRessourcesPubliques(): Promise<RessourcePublique[]> {
