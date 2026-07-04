@@ -4,6 +4,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout, { Section } from "./EspaceLayout";
 import Placeholder from "@/components/Placeholder";
 import { getMesJeunes, Jeune, getMesRendezVousMentor, creerRendezVous, changerStatutRendezVous, supprimerRendezVous, RendezVous } from "@/api/mentorApi";
+import { getErrorMessage } from "@/lib/utils";
 import { getConversation, envoyerMessage, Message } from "@/api/messagesApi";
 
 const items = [
@@ -24,8 +25,8 @@ export const MentorJeunes = () => {
       try {
         const data = await getMesJeunes();
         setJeunes(data);
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }
@@ -119,8 +120,8 @@ export const MentorAgenda = () => {
       const [j, r] = await Promise.all([getMesJeunes(), getMesRendezVousMentor()]);
       setJeunes(j);
       setRdvs(r);
-    } catch (e: any) {
-      setErreur(e.message || "Erreur lors du chargement");
+    } catch (e) {
+      setErreur(getErrorMessage(e, "Erreur lors du chargement"));
     } finally {
       setLoading(false);
     }
@@ -140,8 +141,8 @@ export const MentorAgenda = () => {
       setJeuneId(""); setDate(""); setHeure(""); setSujet(""); setNotes("");
       setAfficherForm(false);
       charger();
-    } catch (e: any) {
-      alert(e.message || "Erreur lors de la création");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de la création"));
     } finally {
       setSubmitting(false);
     }
@@ -151,8 +152,8 @@ export const MentorAgenda = () => {
     try {
       await changerStatutRendezVous(id, statut);
       charger();
-    } catch (e: any) {
-      alert(e.message || "Erreur");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur"));
     }
   };
 
@@ -161,8 +162,8 @@ export const MentorAgenda = () => {
     try {
       await supprimerRendezVous(id);
       charger();
-    } catch (e: any) {
-      alert(e.message || "Erreur");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur"));
     }
   };
 
@@ -300,8 +301,8 @@ export const MentorMessages = () => {
         const data = await getMesJeunes();
         setJeunes(data);
         if (data.length > 0) setJeuneActifId(data[0].id);
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoadingJeunes(false);
       }
@@ -315,8 +316,8 @@ export const MentorMessages = () => {
     try {
       const data = await getConversation(jeuneActifId);
       setMessages(data);
-    } catch (e: any) {
-      if (!silencieux) setErreur(e.message || "Erreur lors du chargement des messages");
+    } catch (e) {
+      if (!silencieux) setErreur(getErrorMessage(e, "Erreur lors du chargement des messages"));
     } finally {
       if (!silencieux) setLoadingMessages(false);
     }
@@ -346,8 +347,8 @@ export const MentorMessages = () => {
       await envoyerMessage(jeuneActifId, texte.trim());
       setTexte("");
       await chargerMessages(true);
-    } catch (e: any) {
-      alert(e.message || "Erreur lors de l'envoi");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de l'envoi"));
     } finally {
       setEnvoi(false);
     }

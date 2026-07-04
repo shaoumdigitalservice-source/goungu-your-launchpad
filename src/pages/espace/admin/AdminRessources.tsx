@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout from "../EspaceLayout";
 import { adminNavItems } from "../AdminPages";
+import { getErrorMessage } from "@/lib/utils";
 import {
   listerRessourcesAdmin,
   creerRessourceLien,
@@ -35,8 +36,8 @@ export default function AdminRessources() {
     try {
       const data = await listerRessourcesAdmin();
       setRessources(data);
-    } catch (e: any) {
-      setErreur(e.message || "Erreur lors du chargement");
+    } catch (e) {
+      setErreur(getErrorMessage(e, "Erreur lors du chargement"));
     } finally {
       setLoading(false);
     }
@@ -94,8 +95,8 @@ export default function AdminRessources() {
       }
       setRessources((prev) => [...prev, creee]);
       fermerForm();
-    } catch (e: any) {
-      alert(e.message || "Erreur lors de l'enregistrement");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de l'enregistrement"));
     } finally {
       setEnvoi(false);
     }
@@ -112,8 +113,8 @@ export default function AdminRessources() {
         ordreAffichage: r.ordreAffichage,
       });
       setRessources((prev) => prev.map((x) => (x.id === r.id ? maj : x)));
-    } catch (e: any) {
-      alert(e.message || "Erreur lors de la mise à jour");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de la mise à jour"));
     } finally {
       setEnCoursId(null);
     }
@@ -125,8 +126,8 @@ export default function AdminRessources() {
     try {
       await supprimerRessource(id);
       setRessources((prev) => prev.filter((r) => r.id !== id));
-    } catch (e: any) {
-      alert(e.message || "Erreur lors de la suppression");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de la suppression"));
     } finally {
       setEnCoursId(null);
     }

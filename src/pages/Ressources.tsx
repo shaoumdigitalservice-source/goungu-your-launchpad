@@ -5,6 +5,7 @@ import PageHero from "@/components/PageHero";
 import Placeholder from "@/components/Placeholder";
 import { listerRessourcesPubliques, RessourcePublique } from "@/api/ressourcesApi";
 import { API_ORIGIN } from "@/lib/apiConfig";
+import { getErrorMessage } from "@/lib/utils";
 
 const Ressources = () => {
   const [ressources, setRessources] = useState<RessourcePublique[]>([]);
@@ -18,8 +19,8 @@ const Ressources = () => {
         setRessources(
           [...data].sort((a, b) => a.ordreAffichage - b.ordreAffichage)
         );
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }

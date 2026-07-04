@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout from "../EspaceLayout";
 import { adminNavItems } from "../AdminPages";
+import { getErrorMessage } from "@/lib/utils";
 import {
   listerEvenementsAdmin,
   creerEvenement,
@@ -37,8 +38,8 @@ export default function AdminEvenements() {
     try {
       const data = await listerEvenementsAdmin();
       setEvenements(data);
-    } catch (e: any) {
-      setErreur(e.message || "Erreur lors du chargement");
+    } catch (e) {
+      setErreur(getErrorMessage(e, "Erreur lors du chargement"));
     } finally {
       setLoading(false);
     }
@@ -85,8 +86,8 @@ export default function AdminEvenements() {
         setEvenements((prev) => [...prev, cree]);
       }
       fermerForm();
-    } catch (e: any) {
-      alert(e.message || "Erreur lors de l'enregistrement");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de l'enregistrement"));
     } finally {
       setEnvoi(false);
     }
@@ -98,8 +99,8 @@ export default function AdminEvenements() {
     try {
       await supprimerEvenement(id);
       setEvenements((prev) => prev.filter((e) => e.id !== id));
-    } catch (e: any) {
-      alert(e.message || "Erreur lors de la suppression");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de la suppression"));
     } finally {
       setEnCoursId(null);
     }

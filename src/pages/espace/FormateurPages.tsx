@@ -19,6 +19,7 @@ import {
   Jeune,
 } from "@/api/formateurApi";
 import { API_ORIGIN } from "@/lib/apiConfig";
+import { getErrorMessage } from "@/lib/utils";
 
 const items = [
   { to: "/espace/formateur", label: "Tableau de bord", icon: GraduationCap },
@@ -46,8 +47,8 @@ export const FormateurCohortes = () => {
       const [c, j] = await Promise.all([getMesCohortes(), getJeunesDisponibles()]);
       setCohortes(c);
       setJeunesDisponibles(j);
-    } catch (e: any) {
-      setErreur(e.message || "Erreur lors du chargement");
+    } catch (e) {
+      setErreur(getErrorMessage(e, "Erreur lors du chargement"));
     } finally {
       setLoading(false);
     }
@@ -66,8 +67,8 @@ export const FormateurCohortes = () => {
       setDescription("");
       setShowForm(false);
       await charger();
-    } catch (e: any) {
-      alert(e.message || "Erreur");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur"));
     } finally {
       setSubmitting(false);
     }
@@ -79,8 +80,8 @@ export const FormateurCohortes = () => {
       await gererMembreCohorte(cohorteId, jeuneId, "ajouter");
       setSelecteurOuvertPour(null);
       await charger();
-    } catch (e: any) {
-      alert(e.message || "Erreur");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur"));
     } finally {
       setEnCours(null);
     }
@@ -91,8 +92,8 @@ export const FormateurCohortes = () => {
     try {
       await gererMembreCohorte(cohorteId, jeuneId, "retirer");
       await charger();
-    } catch (e: any) {
-      alert(e.message || "Erreur");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur"));
     } finally {
       setEnCours(null);
     }
@@ -104,8 +105,8 @@ export const FormateurCohortes = () => {
     try {
       await supprimerCohorte(id);
       await charger();
-    } catch (e: any) {
-      alert(e.message || "Erreur");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur"));
     } finally {
       setEnCours(null);
     }
@@ -290,8 +291,8 @@ export const FormateurModules = () => {
       try {
         const data = await listerRessourcesPubliques();
         setRessources([...data].sort((a, b) => a.ordreAffichage - b.ordreAffichage));
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }
@@ -366,8 +367,8 @@ export const FormateurAgenda = () => {
     try {
       const data = await getMesSessions();
       setSessions(data);
-    } catch (e: any) {
-      setErreur(e.message || "Erreur lors du chargement");
+    } catch (e) {
+      setErreur(getErrorMessage(e, "Erreur lors du chargement"));
     } finally {
       setLoading(false);
     }
@@ -387,8 +388,8 @@ export const FormateurAgenda = () => {
       setDescription("");
       setShowForm(false);
       await charger();
-    } catch (e: any) {
-      alert(e.message || "Erreur");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur"));
     } finally {
       setSubmitting(false);
     }
@@ -398,8 +399,8 @@ export const FormateurAgenda = () => {
     try {
       await changerStatutSession(id, statut);
       await charger();
-    } catch (e: any) {
-      alert(e.message || "Erreur");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur"));
     }
   };
 
@@ -408,8 +409,8 @@ export const FormateurAgenda = () => {
     try {
       await supprimerSession(id);
       await charger();
-    } catch (e: any) {
-      alert(e.message || "Erreur");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur"));
     }
   };
 

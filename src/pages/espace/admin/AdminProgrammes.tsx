@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout from "../EspaceLayout";
 import { adminNavItems } from "../AdminPages";
+import { getErrorMessage } from "@/lib/utils";
 import {
   listerProgrammesAdmin,
   creerProgramme,
@@ -39,8 +40,8 @@ export default function AdminProgrammes() {
     try {
       const data = await listerProgrammesAdmin();
       setProgrammes(data);
-    } catch (e: any) {
-      setErreur(e.message || "Erreur lors du chargement");
+    } catch (e) {
+      setErreur(getErrorMessage(e, "Erreur lors du chargement"));
     } finally {
       setLoading(false);
     }
@@ -89,8 +90,8 @@ export default function AdminProgrammes() {
         setProgrammes((prev) => [...prev, cree]);
       }
       fermerForm();
-    } catch (e: any) {
-      alert(e.message || "Erreur lors de l'enregistrement");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de l'enregistrement"));
     } finally {
       setEnvoi(false);
     }
@@ -102,8 +103,8 @@ export default function AdminProgrammes() {
     try {
       await supprimerProgramme(id);
       setProgrammes((prev) => prev.filter((p) => p.id !== id));
-    } catch (e: any) {
-      alert(e.message || "Erreur lors de la suppression");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de la suppression"));
     } finally {
       setEnCoursId(null);
     }

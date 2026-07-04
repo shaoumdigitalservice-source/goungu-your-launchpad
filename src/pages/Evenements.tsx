@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
 import Placeholder from "@/components/Placeholder";
 import { listerEvenementsPublics, EvenementPublic } from "@/api/evenementsApi";
+import { getErrorMessage } from "@/lib/utils";
 
 const Evenements = () => {
   const [evenements, setEvenements] = useState<EvenementPublic[]>([]);
@@ -15,8 +16,8 @@ const Evenements = () => {
       try {
         const data = await listerEvenementsPublics();
         setEvenements(data);
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }

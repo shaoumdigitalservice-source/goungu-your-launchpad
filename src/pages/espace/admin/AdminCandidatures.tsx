@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout from "../EspaceLayout";
 import { adminNavItems } from "../AdminPages";
+import { getErrorMessage } from "@/lib/utils";
 import {
   listerCandidatures,
   changerStatutCandidature,
@@ -46,8 +47,8 @@ export default function AdminCandidatures() {
     try {
       const data = await listerCandidatures();
       setCandidatures(data);
-    } catch (e: any) {
-      setErreur(e.message || "Erreur lors du chargement");
+    } catch (e) {
+      setErreur(getErrorMessage(e, "Erreur lors du chargement"));
     } finally {
       setLoading(false);
     }
@@ -64,8 +65,8 @@ export default function AdminCandidatures() {
       setCandidatures((prev) =>
         prev.map((c) => (c.id === id ? maj : c))
       );
-    } catch (e: any) {
-      alert(e.message || "Erreur lors du changement de statut");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors du changement de statut"));
     } finally {
       setEnCoursId(null);
     }

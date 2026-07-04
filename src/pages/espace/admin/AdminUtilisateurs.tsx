@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout from "../EspaceLayout";
 import { adminNavItems } from "../AdminPages";
+import { getErrorMessage } from "@/lib/utils";
 import {
   listerUtilisateurs,
   changerRoleUtilisateur,
@@ -26,8 +27,8 @@ export default function AdminUtilisateurs() {
     try {
       const data = await listerUtilisateurs();
       setUtilisateurs(data);
-    } catch (e: any) {
-      setErreur(e.message || "Erreur lors du chargement");
+    } catch (e) {
+      setErreur(getErrorMessage(e, "Erreur lors du chargement"));
     } finally {
       setLoading(false);
     }
@@ -44,8 +45,8 @@ export default function AdminUtilisateurs() {
       setUtilisateurs((prev) =>
         prev.map((u) => (u.id === id ? maj : u))
       );
-    } catch (e: any) {
-      alert(e.message || "Erreur lors du changement de rôle");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors du changement de rôle"));
     } finally {
       setEnCoursId(null);
     }
@@ -57,8 +58,8 @@ export default function AdminUtilisateurs() {
     try {
       await supprimerUtilisateur(id);
       setUtilisateurs((prev) => prev.filter((u) => u.id !== id));
-    } catch (e: any) {
-      alert(e.message || "Erreur lors de la suppression");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de la suppression"));
     } finally {
       setEnCoursId(null);
     }

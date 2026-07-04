@@ -6,6 +6,7 @@ import Placeholder from "@/components/Placeholder";
 import { getMonEnfant, Enfant, getRendezVousEnfant, RendezVous } from "@/api/parentApi";
 import { listerRessourcesPubliques, RessourcePublique } from "@/api/ressourcesApi";
 import { API_ORIGIN } from "@/lib/apiConfig";
+import { getErrorMessage } from "@/lib/utils";
 
 const items = [
   { to: "/espace/parent", label: "Tableau de bord", icon: HeartHandshake },
@@ -26,8 +27,8 @@ export const ParentSuivi = () => {
       try {
         const data = await getMonEnfant();
         setEnfants(data);
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }
@@ -111,8 +112,8 @@ export const ParentRdv = () => {
       try {
         const data = await getRendezVousEnfant();
         setRdvs(data);
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }
@@ -171,8 +172,8 @@ export const ParentDocuments = () => {
       try {
         const data = await listerRessourcesPubliques();
         setRessources([...data].sort((a, b) => a.ordreAffichage - b.ordreAffichage));
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }
@@ -243,8 +244,8 @@ export const ParentParentalite = () => {
         const data = await listerRessourcesPubliques();
         const filtrees = data.filter((r) => r.categorie === "parentalite");
         setRessources([...filtrees].sort((a, b) => a.ordreAffichage - b.ordreAffichage));
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }

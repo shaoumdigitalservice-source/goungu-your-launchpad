@@ -3,6 +3,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout from "../EspaceLayout";
 import { adminNavItems } from "../AdminPages";
 import { statsParRole, StatsRoles } from "@/api/adminRolesApi";
+import { getErrorMessage } from "@/lib/utils";
 import { Loader2, ShieldCheck, GraduationCap, Users2, Heart, User } from "lucide-react";
 
 const ROLES_INFO: Record<
@@ -30,8 +31,8 @@ export default function AdminSecurite() {
       try {
         const data = await statsParRole();
         setStats(data);
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }

@@ -9,6 +9,7 @@ import { getConversation, envoyerMessage, Message } from "@/api/messagesApi";
 import { getMonParcours, EtapeParcours } from "@/api/parcoursApi";
 import { getMonPasseport, ajouterEntreePasseport, supprimerEntreePasseport, PasseportEntree } from "@/api/passeportApi";
 import { API_ORIGIN } from "@/lib/apiConfig";
+import { getErrorMessage } from "@/lib/utils";
 
 const items = [
   { to: "/espace/jeune", label: "Tableau de bord", icon: Sparkles },
@@ -30,8 +31,8 @@ export const JeuneParcours = () => {
       try {
         const data = await getMonParcours();
         setEtapes(data);
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }
@@ -108,8 +109,8 @@ export const JeunePasseport = () => {
     try {
       const data = await getMonPasseport();
       setEntrees(data);
-    } catch (e: any) {
-      setErreur(e.message || "Erreur lors du chargement");
+    } catch (e) {
+      setErreur(getErrorMessage(e, "Erreur lors du chargement"));
     } finally {
       setLoading(false);
     }
@@ -133,8 +134,8 @@ export const JeunePasseport = () => {
       setShowFormCompetence(false);
       setShowFormRealisation(false);
       await charger();
-    } catch (e: any) {
-      alert(e.message || "Erreur");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur"));
     } finally {
       setSubmitting(false);
     }
@@ -145,8 +146,8 @@ export const JeunePasseport = () => {
     try {
       await supprimerEntreePasseport(id);
       await charger();
-    } catch (e: any) {
-      alert(e.message || "Erreur");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur"));
     }
   };
 
@@ -288,8 +289,8 @@ export const JeuneOrientation = () => {
         const data = await listerRessourcesPubliques();
         const filtrees = data.filter((r) => r.categorie === "orientation");
         setRessources([...filtrees].sort((a, b) => a.ordreAffichage - b.ordreAffichage));
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }
@@ -370,8 +371,8 @@ export const JeuneMentor = () => {
       try {
         const data = await getMonMentor();
         setMentor(data);
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }
@@ -414,8 +415,8 @@ export const JeuneMentor = () => {
       await envoyerMessage(mentor.id, texte.trim());
       setTexte("");
       await chargerMessages(true);
-    } catch (e: any) {
-      alert(e.message || "Erreur lors de l'envoi");
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de l'envoi"));
     } finally {
       setEnvoi(false);
     }
@@ -549,8 +550,8 @@ export const JeuneRessources = () => {
       try {
         const data = await listerRessourcesPubliques();
         setRessources([...data].sort((a, b) => a.ordreAffichage - b.ordreAffichage));
-      } catch (e: any) {
-        setErreur(e.message || "Erreur lors du chargement");
+      } catch (e) {
+        setErreur(getErrorMessage(e, "Erreur lors du chargement"));
       } finally {
         setLoading(false);
       }
