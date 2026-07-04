@@ -26,6 +26,7 @@ const navLinks: { label: string; path?: string; children?: { label: string; path
       { label: "Centre de Ressources", path: "/ressources", desc: "Bibliothèque numérique" },
       { label: "Ambassadeurs", path: "/ambassadeurs", desc: "Notre réseau au Sénégal" },
       { label: "Communauté", path: "/communaute", desc: "Événements & forums" },
+      { label: "Événements", path: "/evenements", desc: "Nos prochains rendez-vous" },
     ],
   },
   { label: "Blog", path: "/blog" },
