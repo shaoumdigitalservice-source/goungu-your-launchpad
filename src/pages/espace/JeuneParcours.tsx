@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Sparkles, Target, FileBadge, Compass, MessageCircle, BookOpen, User, FileText, Link as LinkIcon, Download, Loader2, Mail, Phone, UserCircle2, Send } from "lucide-react";
+import { Sparkles, Target, FileBadge, Compass, MessageCircle, BookOpen, User, FileText, Link as LinkIcon, Download, Loader2, Mail, Phone, UserCircle2, Send, CalendarCheck, UserPlus } from "lucide-react";
 import ComingSoon from "./ComingSoon";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout, { Section } from "./EspaceLayout";
@@ -7,6 +7,7 @@ import Placeholder from "@/components/Placeholder";
 import { listerRessourcesPubliques, RessourcePublique } from "@/api/ressourcesApi";
 import { getMonMentor, MonMentor } from "@/api/mentorApi";
 import { getConversation, envoyerMessage, Message } from "@/api/messagesApi";
+import { getMonParcours, EtapeParcours } from "@/api/parcoursApi";
 
 const items = [
   { to: "/espace/jeune", label: "Tableau de bord", icon: Sparkles },
@@ -20,7 +21,79 @@ const items = [
 
 const API_ORIGIN = "http://localhost:8082";
 
-export const JeuneParcours = () => <ComingSoon title="Mon parcours" role="Jeune" roles={["jeune", "admin"]} items={items} pageLabel="Mon parcours" />;
+export const JeuneParcours = () => {
+  const [etapes, setEtapes] = useState<EtapeParcours[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [erreur, setErreur] = useState<string | null>(null);
+
+  useEffect(() => {
+    const charger = async () => {
+      try {
+        const data = await getMonParcours();
+        setEtapes(data);
+      } catch (e: any) {
+        setErreur(e.message || "Erreur lors du chargement");
+      } finally {
+        setLoading(false);
+      }
+    };
+    charger();
+  }, []);
+
+  const iconePour = (type: string) => (type === "INSCRIPTION" ? UserPlus : CalendarCheck);
+
+  return (
+    <ProtectedRoute roles={["jeune", "admin"]}>
+      <EspaceLayout title="Mon parcours" role="Jeune" items={items}>
+        <Section title="Votre chemin chez Goungué">
+          {loading && (
+            <div className="flex items-center gap-2 text-muted-foreground py-10 justify-center">
+              <Loader2 className="animate-spin" size={20} /> Chargement...
+            </div>
+          )}
+
+          {erreur && (
+            <div className="text-red-600 bg-red-50 border border-red-200 rounded-md p-4 text-center">
+              {erreur}
+            </div>
+          )}
+
+          {!loading && !erreur && etapes.length === 0 && (
+            <Placeholder label="Votre parcours commence ici — revenez après votre premier rendez-vous" />
+          )}
+
+          {!loading && !erreur && etapes.length > 0 && (
+            <div className="relative pl-8">
+              <div className="absolute left-[15px] top-2 bottom-2 w-px bg-border" />
+              <div className="space-y-8">
+                {etapes.map((e, i) => {
+                  const Icon = iconePour(e.type);
+                  return (
+                    <div key={i} className="relative">
+                      <div className="absolute -left-8 top-0 h-8 w-8 rounded-full bg-foreground text-background grid place-items-center">
+                        <Icon className="h-4 w-4" />
+                      </div>
+                      <div className="bg-background border rounded-2xl p-5">
+                        <p className="text-xs text-muted-foreground mb-1">
+                          {new Date(e.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
+                        </p>
+                        <h3 className="font-display text-base">{e.titre}</h3>
+                        {e.description && (
+                          <p className="text-sm text-muted-foreground mt-1">{e.description}</p>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </Section>
+      </EspaceLayout>
+    </ProtectedRoute>
+  );
+};
+
 export const JeunePasseport = () => <ComingSoon title="Passeport Avenir" role="Jeune" roles={["jeune", "admin"]} items={items} pageLabel="Passeport Avenir" />;
 export const JeuneOrientation = () => <ComingSoon title="Orientation" role="Jeune" roles={["jeune", "admin"]} items={items} pageLabel="Orientation" />;
 
@@ -58,7 +131,7 @@ export const JeuneMentor = () => {
       const data = await getConversation(mentor.id);
       setMessages(data);
     } catch {
-      // silencieux : on n'affiche pas d'erreur bloquante pour le chat
+      // silencieux
     } finally {
       if (!silencieux) setLoadingMessages(false);
     }
