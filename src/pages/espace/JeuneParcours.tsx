@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Sparkles, Target, FileBadge, Compass, MessageCircle, BookOpen, User, FileText, Link as LinkIcon, Download, Loader2, Mail, Phone, UserCircle2, Send, CalendarCheck, UserPlus, Plus, Trash2, Award, Briefcase } from "lucide-react";
-import ComingSoon from "./ComingSoon";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout, { Section } from "./EspaceLayout";
 import Placeholder from "@/components/Placeholder";
