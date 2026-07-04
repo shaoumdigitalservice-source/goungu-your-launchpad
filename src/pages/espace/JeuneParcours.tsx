@@ -9,6 +9,7 @@ import { getMonMentor, MonMentor } from "@/api/mentorApi";
 import { getConversation, envoyerMessage, Message } from "@/api/messagesApi";
 import { getMonParcours, EtapeParcours } from "@/api/parcoursApi";
 import { getMonPasseport, ajouterEntreePasseport, supprimerEntreePasseport, PasseportEntree } from "@/api/passeportApi";
+import { API_ORIGIN } from "@/lib/apiConfig";
 
 const items = [
   { to: "/espace/jeune", label: "Tableau de bord", icon: Sparkles },
@@ -19,8 +20,6 @@ const items = [
   { to: "/espace/jeune/ressources", label: "Ressources", icon: BookOpen },
   { to: "/espace/profil", label: "Mon profil", icon: User },
 ];
-
-const API_ORIGIN = "http://localhost:8082";
 
 export const JeuneParcours = () => {
   const [etapes, setEtapes] = useState<EtapeParcours[]>([]);

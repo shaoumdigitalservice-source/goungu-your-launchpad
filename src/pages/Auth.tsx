@@ -5,8 +5,7 @@ import { toast } from "sonner";
 import { Loader2, LogIn, UserPlus } from "lucide-react";
 import Layout from "@/components/Layout";
 import { AppRole, defaultDashboardPath, useAuth } from "@/contexts/AuthContext";
-
-const API_BASE_URL = "http://localhost:8082/api";
+import { API_BASE_URL } from "@/lib/apiConfig";
 
 const emailSchema = z.string().trim().email("Email invalide").max(255);
 const passwordSchema = z.string().min(8, "8 caractères minimum").max(72);

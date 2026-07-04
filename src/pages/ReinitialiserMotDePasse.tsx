@@ -4,8 +4,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { Loader2, KeyRound, ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
-
-const API_BASE_URL = "http://localhost:8082/api";
+import { API_BASE_URL } from "@/lib/apiConfig";
 const passwordSchema = z.string().min(6, "6 caractères minimum").max(72);
 
 const ReinitialiserMotDePasse = () => {

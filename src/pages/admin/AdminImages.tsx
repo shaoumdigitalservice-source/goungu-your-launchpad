@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { getImages, uploaderImage, isLoggedIn } from "@/lib/adminApi";
+import { API_ORIGIN } from "@/lib/apiConfig";
 import { Upload, Image as ImageIcon } from "lucide-react";
 
 interface ImageSite {
@@ -78,7 +79,7 @@ const AdminImages = () => {
                 <div className="aspect-video bg-muted flex items-center justify-center relative">
                   {image ? (
                     <img
-                      src={`http://localhost:8082${image.url}`}
+                      src={`${API_ORIGIN}${image.url}`}
                       alt={label}
                       className="w-full h-full object-cover"
                     />

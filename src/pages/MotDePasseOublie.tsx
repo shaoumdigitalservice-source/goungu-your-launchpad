@@ -4,8 +4,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { Loader2, Mail, ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
-
-const API_BASE_URL = "http://localhost:8082/api";
+import { API_BASE_URL } from "@/lib/apiConfig";
 const emailSchema = z.string().trim().email("Email invalide").max(255);
 
 const MotDePasseOublie = () => {

@@ -5,6 +5,7 @@ import EspaceLayout, { Section } from "./EspaceLayout";
 import Placeholder from "@/components/Placeholder";
 import { getMonEnfant, Enfant, getRendezVousEnfant, RendezVous } from "@/api/parentApi";
 import { listerRessourcesPubliques, RessourcePublique } from "@/api/ressourcesApi";
+import { API_ORIGIN } from "@/lib/apiConfig";
 
 const items = [
   { to: "/espace/parent", label: "Tableau de bord", icon: HeartHandshake },
@@ -14,8 +15,6 @@ const items = [
   { to: "/espace/parent/rdv", label: "Rendez-vous", icon: Calendar },
   { to: "/espace/profil", label: "Mon profil", icon: User },
 ];
-
-const API_ORIGIN = "http://localhost:8082";
 
 export const ParentSuivi = () => {
   const [enfants, setEnfants] = useState<Enfant[]>([]);

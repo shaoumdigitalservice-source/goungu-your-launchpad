@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { API_BASE_URL } from "@/lib/apiConfig";
 
 export type AppRole = "jeune" | "parent" | "mentor" | "formateur" | "admin";
 
@@ -21,7 +22,6 @@ interface AuthCtx {
   refreshRoles: () => Promise<void>;
 }
 
-const API_BASE_URL = "http://localhost:8082/api";
 const Ctx = createContext<AuthCtx | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {

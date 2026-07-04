@@ -4,8 +4,7 @@ import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
 import Placeholder from "@/components/Placeholder";
 import { listerRessourcesPubliques, RessourcePublique } from "@/api/ressourcesApi";
-
-const API_ORIGIN = "http://localhost:8082";
+import { API_ORIGIN } from "@/lib/apiConfig";
 
 const Ressources = () => {
   const [ressources, setRessources] = useState<RessourcePublique[]>([]);

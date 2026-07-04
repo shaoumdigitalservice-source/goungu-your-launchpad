@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8082/api";
+import { API_BASE_URL } from "@/lib/apiConfig";
 
 export async function login(email: string, motDePasse: string) {
   const response = await fetch(`${API_BASE_URL}/auth/login`, {
@@ -126,7 +126,7 @@ export async function uploaderImage(cle: string, fichier: File) {
   formData.append("cle", cle);
   formData.append("fichier", fichier);
 
-  const response = await fetch("http://localhost:8082/api/images", {
+  const response = await fetch(`${API_BASE_URL}/images`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,

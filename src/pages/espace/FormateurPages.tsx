@@ -18,6 +18,7 @@ import {
   Cohorte,
   Jeune,
 } from "@/api/formateurApi";
+import { API_ORIGIN } from "@/lib/apiConfig";
 
 const items = [
   { to: "/espace/formateur", label: "Tableau de bord", icon: GraduationCap },
@@ -26,8 +27,6 @@ const items = [
   { to: "/espace/formateur/agenda", label: "Agenda", icon: Calendar },
   { to: "/espace/profil", label: "Mon profil", icon: User },
 ];
-
-const API_ORIGIN = "http://localhost:8082";
 
 export const FormateurCohortes = () => {
   const [cohortes, setCohortes] = useState<Cohorte[]>([]);

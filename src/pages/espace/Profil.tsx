@@ -4,8 +4,7 @@ import { toast } from "sonner";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout, { Section } from "./EspaceLayout";
 import { useAuth, defaultDashboardPath } from "@/contexts/AuthContext";
-
-const API_BASE_URL = "http://localhost:8082/api";
+import { API_BASE_URL } from "@/lib/apiConfig";
 
 const items = [
   { to: "/espace/profil", label: "Mon profil", icon: User },
