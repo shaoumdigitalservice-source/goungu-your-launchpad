@@ -28,6 +28,7 @@ import MenilWarWi from "./pages/programmes/MenilWarWi";
 import IncubateurGoungue from "./pages/programmes/IncubateurGoungue";
 import Orientation from "./pages/Orientation";
 import Ressources from "./pages/Ressources";
+import Evenements from "./pages/Evenements";
 import Ambassadeurs from "./pages/Ambassadeurs";
 import Communaute from "./pages/Communaute";
 import Blog from "./pages/Blog";
@@ -76,6 +77,7 @@ const App = () => (
             <Route path="/foyer" element={<KeparGi />} />
             <Route path="/orientation" element={<Orientation />} />
             <Route path="/ressources" element={<Ressources />} />
+            <Route path="/evenements" element={<Evenements />} />
             <Route path="/ambassadeurs" element={<Ambassadeurs />} />
             <Route path="/communaute" element={<Communaute />} />
             <Route path="/blog" element={<Blog />} />
