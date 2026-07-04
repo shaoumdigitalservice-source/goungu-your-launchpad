@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Sparkles, Target, FileBadge, Compass, MessageCircle, BookOpen, User, FileText, Link as LinkIcon, Download, Loader2, Mail, Phone, UserCircle2, Send, CalendarCheck, UserPlus } from "lucide-react";
+import { Sparkles, Target, FileBadge, Compass, MessageCircle, BookOpen, User, FileText, Link as LinkIcon, Download, Loader2, Mail, Phone, UserCircle2, Send, CalendarCheck, UserPlus, Plus, Trash2, Award, Briefcase } from "lucide-react";
 import ComingSoon from "./ComingSoon";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout, { Section } from "./EspaceLayout";
@@ -8,6 +8,7 @@ import { listerRessourcesPubliques, RessourcePublique } from "@/api/ressourcesAp
 import { getMonMentor, MonMentor } from "@/api/mentorApi";
 import { getConversation, envoyerMessage, Message } from "@/api/messagesApi";
 import { getMonParcours, EtapeParcours } from "@/api/parcoursApi";
+import { getMonPasseport, ajouterEntreePasseport, supprimerEntreePasseport, PasseportEntree } from "@/api/passeportApi";
 
 const items = [
   { to: "/espace/jeune", label: "Tableau de bord", icon: Sparkles },
@@ -94,7 +95,190 @@ export const JeuneParcours = () => {
   );
 };
 
-export const JeunePasseport = () => <ComingSoon title="Passeport Avenir" role="Jeune" roles={["jeune", "admin"]} items={items} pageLabel="Passeport Avenir" />;
+export const JeunePasseport = () => {
+  const [entrees, setEntrees] = useState<PasseportEntree[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [erreur, setErreur] = useState<string | null>(null);
+
+  const [showFormCompetence, setShowFormCompetence] = useState(false);
+  const [showFormRealisation, setShowFormRealisation] = useState(false);
+  const [titre, setTitre] = useState("");
+  const [description, setDescription] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const charger = async () => {
+    try {
+      const data = await getMonPasseport();
+      setEntrees(data);
+    } catch (e: any) {
+      setErreur(e.message || "Erreur lors du chargement");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    charger();
+  }, []);
+
+  const competences = entrees.filter((e) => e.type === "COMPETENCE");
+  const realisations = entrees.filter((e) => e.type === "REALISATION");
+
+  const handleAjouter = async (type: "COMPETENCE" | "REALISATION", e: React.FormEvent) => {
+    e.preventDefault();
+    if (!titre.trim()) return;
+    setSubmitting(true);
+    try {
+      await ajouterEntreePasseport({ type, titre: titre.trim(), description: description.trim() || undefined });
+      setTitre("");
+      setDescription("");
+      setShowFormCompetence(false);
+      setShowFormRealisation(false);
+      await charger();
+    } catch (e: any) {
+      alert(e.message || "Erreur");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleSupprimer = async (id: number) => {
+    if (!confirm("Supprimer cette entrée ?")) return;
+    try {
+      await supprimerEntreePasseport(id);
+      await charger();
+    } catch (e: any) {
+      alert(e.message || "Erreur");
+    }
+  };
+
+  return (
+    <ProtectedRoute roles={["jeune", "admin"]}>
+      <EspaceLayout title="Passeport Avenir" role="Jeune" items={items}>
+        {loading && (
+          <div className="flex items-center gap-2 text-muted-foreground py-10 justify-center">
+            <Loader2 className="animate-spin" size={20} /> Chargement...
+          </div>
+        )}
+
+        {erreur && (
+          <div className="text-red-600 bg-red-50 border border-red-200 rounded-md p-4 text-center">
+            {erreur}
+          </div>
+        )}
+
+        {!loading && !erreur && (
+          <>
+            <Section
+              title="Mes compétences"
+              action={
+                <button
+                  onClick={() => setShowFormCompetence(!showFormCompetence)}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition"
+                >
+                  <Plus className="h-4 w-4" /> Ajouter
+                </button>
+              }
+            >
+              {showFormCompetence && (
+                <form onSubmit={(e) => handleAjouter("COMPETENCE", e)} className="mb-5 p-5 rounded-2xl border bg-section-alt space-y-3">
+                  <div>
+                    <label className="text-xs font-medium mb-1 block">Compétence *</label>
+                    <input value={titre} onChange={(e) => setTitre(e.target.value)} required placeholder="Ex : Prise de parole en public" className="w-full px-3 py-2.5 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium mb-1 block">Détails (optionnel)</label>
+                    <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} className="w-full px-3 py-2.5 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+                  </div>
+                  <button type="submit" disabled={submitting} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold text-sm disabled:opacity-60">
+                    {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
+                    Ajouter
+                  </button>
+                </form>
+              )}
+
+              {competences.length === 0 ? (
+                <Placeholder label="Aucune compétence ajoutée pour le moment" />
+              ) : (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {competences.map((c) => (
+                    <div key={c.id} className="p-4 rounded-xl border bg-background flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3">
+                        <div className="h-9 w-9 rounded-lg bg-foreground text-background grid place-items-center shrink-0">
+                          <Award className="h-4 w-4" />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-sm">{c.titre}</h4>
+                          {c.description && <p className="text-xs text-muted-foreground mt-1">{c.description}</p>}
+                        </div>
+                      </div>
+                      <button onClick={() => handleSupprimer(c.id)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground shrink-0">
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </Section>
+
+            <Section
+              title="Mes réalisations"
+              action={
+                <button
+                  onClick={() => setShowFormRealisation(!showFormRealisation)}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition"
+                >
+                  <Plus className="h-4 w-4" /> Ajouter
+                </button>
+              }
+            >
+              {showFormRealisation && (
+                <form onSubmit={(e) => handleAjouter("REALISATION", e)} className="mb-5 p-5 rounded-2xl border bg-section-alt space-y-3">
+                  <div>
+                    <label className="text-xs font-medium mb-1 block">Réalisation *</label>
+                    <input value={titre} onChange={(e) => setTitre(e.target.value)} required placeholder="Ex : Organisation d'un atelier CV" className="w-full px-3 py-2.5 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium mb-1 block">Description (optionnel)</label>
+                    <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} className="w-full px-3 py-2.5 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+                  </div>
+                  <button type="submit" disabled={submitting} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold text-sm disabled:opacity-60">
+                    {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
+                    Ajouter
+                  </button>
+                </form>
+              )}
+
+              {realisations.length === 0 ? (
+                <Placeholder label="Aucune réalisation ajoutée pour le moment" />
+              ) : (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {realisations.map((r) => (
+                    <div key={r.id} className="p-4 rounded-xl border bg-background flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3">
+                        <div className="h-9 w-9 rounded-lg bg-foreground text-background grid place-items-center shrink-0">
+                          <Briefcase className="h-4 w-4" />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-sm">{r.titre}</h4>
+                          {r.description && <p className="text-xs text-muted-foreground mt-1">{r.description}</p>}
+                        </div>
+                      </div>
+                      <button onClick={() => handleSupprimer(r.id)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground shrink-0">
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </Section>
+          </>
+        )}
+      </EspaceLayout>
+    </ProtectedRoute>
+  );
+};
+
 export const JeuneOrientation = () => <ComingSoon title="Orientation" role="Jeune" roles={["jeune", "admin"]} items={items} pageLabel="Orientation" />;
 
 export const JeuneMentor = () => {
