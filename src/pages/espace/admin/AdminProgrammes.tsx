@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout from "../EspaceLayout";
 import { adminNavItems } from "../AdminPages";
 import {
@@ -109,6 +110,7 @@ export default function AdminProgrammes() {
   };
 
   return (
+    <ProtectedRoute roles={["admin"]}>
     <EspaceLayout title="Programmes" role="admin" items={adminNavItems}>
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
@@ -286,5 +288,6 @@ export default function AdminProgrammes() {
         )}
       </div>
     </EspaceLayout>
+    </ProtectedRoute>
   );
 }

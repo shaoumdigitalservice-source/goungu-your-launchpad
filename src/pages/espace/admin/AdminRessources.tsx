@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout from "../EspaceLayout";
 import { adminNavItems } from "../AdminPages";
 import {
@@ -9,6 +10,7 @@ import {
   supprimerRessource,
   Ressource,
 } from "@/api/adminRessourcesApi";
+import { API_ORIGIN } from "@/lib/apiConfig";
 import { Loader2, Trash2, Plus, X, Link as LinkIcon, FileText } from "lucide-react";
 
 export default function AdminRessources() {
@@ -131,6 +133,7 @@ export default function AdminRessources() {
   };
 
   return (
+    <ProtectedRoute roles={["admin"]}>
     <EspaceLayout title="Ressources" role="admin" items={adminNavItems}>
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
@@ -294,7 +297,7 @@ export default function AdminRessources() {
                       <a
                         href={
                           r.url.startsWith("/uploads")
-                            ? `http://localhost:8082${r.url}`
+                            ? `${API_ORIGIN}${r.url}`
                             : r.url
                         }
                         target="_blank"
@@ -332,5 +335,6 @@ export default function AdminRessources() {
         )}
       </div>
     </EspaceLayout>
+    </ProtectedRoute>
   );
 }

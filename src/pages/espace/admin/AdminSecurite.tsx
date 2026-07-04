@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout from "../EspaceLayout";
 import { adminNavItems } from "../AdminPages";
 import { statsParRole, StatsRoles } from "@/api/adminRolesApi";
@@ -41,6 +42,7 @@ export default function AdminSecurite() {
   const total = Object.values(stats).reduce((acc, n) => acc + n, 0);
 
   return (
+    <ProtectedRoute roles={["admin"]}>
     <EspaceLayout title="Rôles & sécurité" role="admin" items={adminNavItems}>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-2">Rôles & sécurité</h1>
@@ -104,5 +106,6 @@ export default function AdminSecurite() {
         )}
       </div>
     </EspaceLayout>
+    </ProtectedRoute>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout from "../EspaceLayout";
 import { adminNavItems } from "../AdminPages";
 import {
@@ -76,6 +77,7 @@ export default function AdminCandidatures() {
       : candidatures.filter((c) => c.statut === filtre);
 
   return (
+    <ProtectedRoute roles={["admin"]}>
     <EspaceLayout title="Candidatures" role="admin" items={adminNavItems}>
       <div className="p-6">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
@@ -166,5 +168,6 @@ export default function AdminCandidatures() {
         )}
       </div>
     </EspaceLayout>
+    </ProtectedRoute>
   );
 }
