@@ -26,3 +26,7 @@ dist-ssr
 
 .env.*
 !.env.example
+
+# Dépôt backend (goungu-backend) déposé temporairement ici pour audit croisé —
+# a son propre dépôt Git, ne doit jamais être suivi depuis le frontend.
+goungu-backend/
