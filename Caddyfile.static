@@ -1,0 +1,9 @@
+# Caddy interne au conteneur frontend : sert les fichiers statiques du build Vite
+# et retombe sur index.html pour les routes React Router (SPA). Ce n'est pas le
+# Caddy qui reçoit le trafic du VPS — voir Caddyfile dans goungu-backend pour ça.
+:80 {
+	root * /usr/share/caddy
+	encode gzip
+	try_files {path} /index.html
+	file_server
+}
