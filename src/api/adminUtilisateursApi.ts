@@ -10,6 +10,8 @@ export interface UtilisateurAdmin {
   ville?: string;
   dateNaissance?: string;
   bio?: string;
+  mentorId?: number | null;
+  parentId?: number | null;
 }
 
 const authHeaders = () => {
@@ -53,4 +55,34 @@ export async function supprimerUtilisateur(id: number): Promise<void> {
   if (!res.ok) {
     throw new Error(await res.text());
   }
+}
+
+export async function assignerMentor(
+  id: number,
+  mentorId: number | null
+): Promise<UtilisateurAdmin> {
+  const res = await fetch(`${API_BASE_URL}/utilisateurs/${id}/mentor`, {
+    method: "PUT",
+    headers: authHeaders(),
+    body: JSON.stringify({ mentorId }),
+  });
+  if (!res.ok) {
+    throw new Error(await res.text());
+  }
+  return res.json();
+}
+
+export async function assignerParent(
+  id: number,
+  parentId: number | null
+): Promise<UtilisateurAdmin> {
+  const res = await fetch(`${API_BASE_URL}/utilisateurs/${id}/parent`, {
+    method: "PUT",
+    headers: authHeaders(),
+    body: JSON.stringify({ parentId }),
+  });
+  if (!res.ok) {
+    throw new Error(await res.text());
+  }
+  return res.json();
 }

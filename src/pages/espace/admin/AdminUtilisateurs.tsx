@@ -7,6 +7,8 @@ import {
   listerUtilisateurs,
   changerRoleUtilisateur,
   supprimerUtilisateur,
+  assignerMentor,
+  assignerParent,
   UtilisateurAdmin,
 } from "@/api/adminUtilisateursApi";
 import { useAuth, AppRole } from "@/contexts/AuthContext";
@@ -65,6 +67,33 @@ export default function AdminUtilisateurs() {
     }
   };
 
+  const handleAssignerMentor = async (id: number, valeur: string) => {
+    setEnCoursId(id);
+    try {
+      const maj = await assignerMentor(id, valeur ? Number(valeur) : null);
+      setUtilisateurs((prev) => prev.map((u) => (u.id === id ? maj : u)));
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de l'assignation du mentor"));
+    } finally {
+      setEnCoursId(null);
+    }
+  };
+
+  const handleAssignerParent = async (id: number, valeur: string) => {
+    setEnCoursId(id);
+    try {
+      const maj = await assignerParent(id, valeur ? Number(valeur) : null);
+      setUtilisateurs((prev) => prev.map((u) => (u.id === id ? maj : u)));
+    } catch (e) {
+      alert(getErrorMessage(e, "Erreur lors de l'assignation du parent"));
+    } finally {
+      setEnCoursId(null);
+    }
+  };
+
+  const mentors = utilisateurs.filter((u) => u.role === "mentor");
+  const parents = utilisateurs.filter((u) => u.role === "parent");
+
   return (
     <ProtectedRoute roles={["admin"]}>
     <EspaceLayout title="Utilisateurs" role="admin" items={adminNavItems}>
@@ -91,6 +120,8 @@ export default function AdminUtilisateurs() {
                   <th className="p-3">Nom</th>
                   <th className="p-3">Email</th>
                   <th className="p-3">Rôle</th>
+                  <th className="p-3">Mentor</th>
+                  <th className="p-3">Parent</th>
                   <th className="p-3 text-right">Actions</th>
                 </tr>
               </thead>
@@ -116,6 +147,44 @@ export default function AdminUtilisateurs() {
                           </option>
                         ))}
                       </select>
+                    </td>
+                    <td className="p-3">
+                      {u.role === "jeune" ? (
+                        <select
+                          value={u.mentorId ?? ""}
+                          disabled={enCoursId === u.id}
+                          onChange={(e) => handleAssignerMentor(u.id, e.target.value)}
+                          className="border rounded-md px-2 py-1 bg-background"
+                        >
+                          <option value="">— Aucun —</option>
+                          {mentors.map((m) => (
+                            <option key={m.id} value={m.id}>
+                              {m.prenom} {m.nom}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <span className="text-muted-foreground">—</span>
+                      )}
+                    </td>
+                    <td className="p-3">
+                      {u.role === "jeune" ? (
+                        <select
+                          value={u.parentId ?? ""}
+                          disabled={enCoursId === u.id}
+                          onChange={(e) => handleAssignerParent(u.id, e.target.value)}
+                          className="border rounded-md px-2 py-1 bg-background"
+                        >
+                          <option value="">— Aucun —</option>
+                          {parents.map((p) => (
+                            <option key={p.id} value={p.id}>
+                              {p.prenom} {p.nom}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <span className="text-muted-foreground">—</span>
+                      )}
                     </td>
                     <td className="p-3 text-right">
                       <button
