@@ -51,6 +51,7 @@ import AdminProgrammesReel from "./pages/espace/admin/AdminProgrammes";
 import AdminRessourcesReel from "./pages/espace/admin/AdminRessources";
 import AdminEvenementsReel from "./pages/espace/admin/AdminEvenements";
 import AdminSecuriteReel from "./pages/espace/admin/AdminSecurite";
+import UsersPage from "./pages/admin/users/UsersPage";
 
 const queryClient = new QueryClient();
 
@@ -118,6 +119,7 @@ const App = () => (
             <Route path="/espace/admin/ressources" element={<AdminRessourcesReel />} />
             <Route path="/espace/admin/evenements" element={<AdminEvenementsReel />} />
             <Route path="/espace/admin/securite" element={<AdminSecuriteReel />} />
+            <Route path="/admin/users" element={<UsersPage />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/blog" element={<AdminBlog />} />
