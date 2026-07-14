@@ -4,7 +4,9 @@ import UsersActionsMenu from "./UsersActionsMenu";
 
 interface Props {
   users: UserApi[];
+  allUsers?: UserApi[];
   onChangeRole?: (user: UserApi) => void;
+  onAssignMentor?: (user: UserApi) => void;
 }
 
 function initials(prenom: string, nom: string) {
@@ -20,8 +22,19 @@ function formatDate(d?: string | null) {
   }
 }
 
-export default function UsersTable({ users, onChangeRole }: Props) {
+export default function UsersTable({
+  users,
+  allUsers,
+  onChangeRole,
+  onAssignMentor,
+}: Props) {
   const hasDateInscription = users.some((u) => !!u.dateInscription);
+  const mentorLookup = allUsers ?? users;
+  const getMentorName = (mentorId: number | null) => {
+    if (mentorId == null) return null;
+    const m = mentorLookup.find((u) => u.id === mentorId);
+    return m ? `${m.prenom} ${m.nom}` : null;
+  };
 
   return (
     <div className="overflow-x-auto rounded-2xl border bg-background">
@@ -35,6 +48,7 @@ export default function UsersTable({ users, onChangeRole }: Props) {
             <th className="p-3">Téléphone</th>
             <th className="p-3">Ville</th>
             <th className="p-3">Rôle</th>
+            <th className="p-3">Mentor</th>
             {hasDateInscription && <th className="p-3">Date d'inscription</th>}
             <th className="p-3 text-right">Actions</th>
           </tr>
@@ -55,11 +69,28 @@ export default function UsersTable({ users, onChangeRole }: Props) {
               <td className="p-3">
                 <UserRoleBadge role={u.role} />
               </td>
+              <td className="p-3">
+                {(() => {
+                  const name = getMentorName(u.mentorId);
+                  if (name) {
+                    return <span className="text-sm">{name}</span>;
+                  }
+                  return (
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-muted text-foreground/70 border-border">
+                      Non assigné
+                    </span>
+                  );
+                })()}
+              </td>
               {hasDateInscription && (
                 <td className="p-3">{formatDate(u.dateInscription)}</td>
               )}
               <td className="p-3 text-right">
-                <UsersActionsMenu onChangeRole={() => onChangeRole?.(u)} />
+                <UsersActionsMenu
+                  onChangeRole={() => onChangeRole?.(u)}
+                  onAssignMentor={() => onAssignMentor?.(u)}
+                  canAssignMentor={u.role === "jeune"}
+                />
               </td>
             </tr>
           ))}
