@@ -3,9 +3,15 @@ import { MoreVertical, Eye, UserCog, GraduationCap, Users as UsersIcon, Trash2 }
 
 interface Props {
   onChangeRole?: () => void;
+  onAssignMentor?: () => void;
+  canAssignMentor?: boolean;
 }
 
-export default function UsersActionsMenu({ onChangeRole }: Props) {
+export default function UsersActionsMenu({
+  onChangeRole,
+  onAssignMentor,
+  canAssignMentor,
+}: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -34,7 +40,15 @@ export default function UsersActionsMenu({ onChangeRole }: Props) {
         onChangeRole?.();
       },
     },
-    { icon: GraduationCap, label: "Assigner un mentor" },
+    {
+      icon: GraduationCap,
+      label: "Assigner un mentor",
+      enabled: !!canAssignMentor,
+      onClick: () => {
+        setOpen(false);
+        onAssignMentor?.();
+      },
+    },
     { icon: UsersIcon, label: "Associer un parent" },
     { icon: Trash2, label: "Supprimer", danger: true },
   ];
