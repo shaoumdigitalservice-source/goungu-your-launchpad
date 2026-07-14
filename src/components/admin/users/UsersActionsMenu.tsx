@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { MoreVertical, Eye, UserCog, GraduationCap, Users as UsersIcon, Trash2 } from "lucide-react";
 
-export default function UsersActionsMenu() {
+interface Props {
+  onChangeRole?: () => void;
+}
+
+export default function UsersActionsMenu({ onChangeRole }: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -13,9 +17,23 @@ export default function UsersActionsMenu() {
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
-  const items = [
+  const items: Array<{
+    icon: typeof Eye;
+    label: string;
+    danger?: boolean;
+    enabled?: boolean;
+    onClick?: () => void;
+  }> = [
     { icon: Eye, label: "Voir le profil" },
-    { icon: UserCog, label: "Modifier le rôle" },
+    {
+      icon: UserCog,
+      label: "Modifier le rôle",
+      enabled: true,
+      onClick: () => {
+        setOpen(false);
+        onChangeRole?.();
+      },
+    },
     { icon: GraduationCap, label: "Assigner un mentor" },
     { icon: UsersIcon, label: "Associer un parent" },
     { icon: Trash2, label: "Supprimer", danger: true },
@@ -37,11 +55,12 @@ export default function UsersActionsMenu() {
             <button
               key={it.label}
               type="button"
-              disabled
-              className={`w-full flex items-center gap-2 px-3 py-2 text-sm text-left cursor-not-allowed opacity-70 hover:bg-muted ${
-                it.danger ? "text-destructive" : ""
-              }`}
-              title="Bientôt disponible"
+              disabled={!it.enabled}
+              onClick={it.onClick}
+              className={`w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-muted ${
+                it.enabled ? "" : "cursor-not-allowed opacity-70"
+              } ${it.danger ? "text-destructive" : ""}`}
+              title={it.enabled ? undefined : "Bientôt disponible"}
             >
               <it.icon className="h-4 w-4" />
               {it.label}
