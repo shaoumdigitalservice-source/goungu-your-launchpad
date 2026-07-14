@@ -4,6 +4,7 @@ import UsersActionsMenu from "./UsersActionsMenu";
 
 interface Props {
   users: UserApi[];
+  onChangeRole?: (user: UserApi) => void;
 }
 
 function initials(prenom: string, nom: string) {
@@ -19,7 +20,7 @@ function formatDate(d?: string | null) {
   }
 }
 
-export default function UsersTable({ users }: Props) {
+export default function UsersTable({ users, onChangeRole }: Props) {
   const hasDateInscription = users.some((u) => !!u.dateInscription);
 
   return (
@@ -58,7 +59,7 @@ export default function UsersTable({ users }: Props) {
                 <td className="p-3">{formatDate(u.dateInscription)}</td>
               )}
               <td className="p-3 text-right">
-                <UsersActionsMenu />
+                <UsersActionsMenu onChangeRole={() => onChangeRole?.(u)} />
               </td>
             </tr>
           ))}

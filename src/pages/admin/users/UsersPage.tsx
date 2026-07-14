@@ -10,6 +10,7 @@ import UsersSearch from "@/components/admin/users/UsersSearch";
 import UsersFilter from "@/components/admin/users/UsersFilter";
 import UsersEmptyState from "@/components/admin/users/UsersEmptyState";
 import UsersLoading from "@/components/admin/users/UsersLoading";
+import ChangeRoleDialog from "@/components/admin/users/ChangeRoleDialog";
 
 export default function UsersPage() {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ export default function UsersPage() {
   const [errorStatus, setErrorStatus] = useState<number | null>(null);
   const [search, setSearch] = useState("");
   const [role, setRole] = useState("tous");
+  const [roleDialogUser, setRoleDialogUser] = useState<UserApi | null>(null);
+  const [roleDialogOpen, setRoleDialogOpen] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -108,8 +111,23 @@ export default function UsersPage() {
         {!loading && errorStatus === null && filtered.length === 0 && <UsersEmptyState />}
 
         {!loading && errorStatus === null && filtered.length > 0 && (
-          <UsersTable users={filtered} />
+          <UsersTable
+            users={filtered}
+            onChangeRole={(u) => {
+              setRoleDialogUser(u);
+              setRoleDialogOpen(true);
+            }}
+          />
         )}
+
+        <ChangeRoleDialog
+          open={roleDialogOpen}
+          user={roleDialogUser}
+          onOpenChange={setRoleDialogOpen}
+          onUpdated={(updated) =>
+            setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)))
+          }
+        />
       </EspaceLayout>
     </ProtectedRoute>
   );
