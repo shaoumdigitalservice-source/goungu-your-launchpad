@@ -12,6 +12,7 @@ import UsersEmptyState from "@/components/admin/users/UsersEmptyState";
 import UsersLoading from "@/components/admin/users/UsersLoading";
 import ChangeRoleDialog from "@/components/admin/users/ChangeRoleDialog";
 import AssignMentorDialog from "@/components/admin/users/AssignMentorDialog";
+import AssignParentDialog from "@/components/admin/users/AssignParentDialog";
 
 export default function UsersPage() {
   const navigate = useNavigate();
@@ -24,6 +25,8 @@ export default function UsersPage() {
   const [roleDialogOpen, setRoleDialogOpen] = useState(false);
   const [mentorDialogUser, setMentorDialogUser] = useState<UserApi | null>(null);
   const [mentorDialogOpen, setMentorDialogOpen] = useState(false);
+  const [parentDialogUser, setParentDialogUser] = useState<UserApi | null>(null);
+  const [parentDialogOpen, setParentDialogOpen] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -125,6 +128,10 @@ export default function UsersPage() {
               setMentorDialogUser(u);
               setMentorDialogOpen(true);
             }}
+            onAssignParent={(u) => {
+              setParentDialogUser(u);
+              setParentDialogOpen(true);
+            }}
           />
         )}
 
@@ -142,6 +149,16 @@ export default function UsersPage() {
           user={mentorDialogUser}
           allUsers={users}
           onOpenChange={setMentorDialogOpen}
+          onUpdated={(updated) =>
+            setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)))
+          }
+        />
+
+        <AssignParentDialog
+          open={parentDialogOpen}
+          user={parentDialogUser}
+          allUsers={users}
+          onOpenChange={setParentDialogOpen}
           onUpdated={(updated) =>
             setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)))
           }
