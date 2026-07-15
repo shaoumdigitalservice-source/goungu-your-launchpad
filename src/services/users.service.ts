@@ -70,3 +70,19 @@ export async function assignMentor(id: number, mentorId: number | null): Promise
   }
   return res.json();
 }
+
+export async function assignParent(id: number, parentId: number | null): Promise<UserApi> {
+  const token = localStorage.getItem("user_token");
+  const res = await fetch(`${API_BASE_URL}/utilisateurs/${id}/parent`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token ?? ""}`,
+    },
+    body: JSON.stringify({ parentId }),
+  });
+  if (!res.ok) {
+    throw new UsersServiceError(res.status, await res.text().catch(() => ""));
+  }
+  return res.json();
+}
