@@ -5,6 +5,7 @@ import UsersActionsMenu from "./UsersActionsMenu";
 interface Props {
   users: UserApi[];
   allUsers?: UserApi[];
+  onViewProfile?: (user: UserApi) => void;
   onChangeRole?: (user: UserApi) => void;
   onAssignMentor?: (user: UserApi) => void;
   onAssignParent?: (user: UserApi) => void;
@@ -26,6 +27,7 @@ function formatDate(d?: string | null) {
 export default function UsersTable({
   users,
   allUsers,
+  onViewProfile,
   onChangeRole,
   onAssignMentor,
   onAssignParent,
@@ -108,6 +110,7 @@ export default function UsersTable({
               )}
               <td className="p-3 text-right">
                 <UsersActionsMenu
+                  onViewProfile={() => onViewProfile?.(u)}
                   onChangeRole={() => onChangeRole?.(u)}
                   onAssignMentor={() => onAssignMentor?.(u)}
                   canAssignMentor={u.role === "jeune"}

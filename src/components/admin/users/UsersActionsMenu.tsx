@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { MoreVertical, Eye, UserCog, GraduationCap, Users as UsersIcon, Trash2 } from "lucide-react";
 
 interface Props {
+  onViewProfile?: () => void;
   onChangeRole?: () => void;
   onAssignMentor?: () => void;
   canAssignMentor?: boolean;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function UsersActionsMenu({
+  onViewProfile,
   onChangeRole,
   onAssignMentor,
   canAssignMentor,
@@ -34,7 +36,15 @@ export default function UsersActionsMenu({
     enabled?: boolean;
     onClick?: () => void;
   }> = [
-    { icon: Eye, label: "Voir le profil" },
+    {
+      icon: Eye,
+      label: "Voir le profil",
+      enabled: true,
+      onClick: () => {
+        setOpen(false);
+        onViewProfile?.();
+      },
+    },
     {
       icon: UserCog,
       label: "Modifier le rôle",

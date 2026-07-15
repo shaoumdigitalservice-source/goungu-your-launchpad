@@ -13,6 +13,7 @@ import UsersLoading from "@/components/admin/users/UsersLoading";
 import ChangeRoleDialog from "@/components/admin/users/ChangeRoleDialog";
 import AssignMentorDialog from "@/components/admin/users/AssignMentorDialog";
 import AssignParentDialog from "@/components/admin/users/AssignParentDialog";
+import UserProfileDrawer from "@/components/admin/users/UserProfileDrawer";
 
 export default function UsersPage() {
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ export default function UsersPage() {
   const [mentorDialogOpen, setMentorDialogOpen] = useState(false);
   const [parentDialogUser, setParentDialogUser] = useState<UserApi | null>(null);
   const [parentDialogOpen, setParentDialogOpen] = useState(false);
+  const [profileUser, setProfileUser] = useState<UserApi | null>(null);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -120,6 +123,10 @@ export default function UsersPage() {
           <UsersTable
             users={filtered}
             allUsers={users}
+            onViewProfile={(u) => {
+              setProfileUser(u);
+              setProfileOpen(true);
+            }}
             onChangeRole={(u) => {
               setRoleDialogUser(u);
               setRoleDialogOpen(true);
@@ -162,6 +169,14 @@ export default function UsersPage() {
           onUpdated={(updated) =>
             setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)))
           }
+        />
+
+        <UserProfileDrawer
+          open={profileOpen}
+          userId={profileUser?.id ?? null}
+          fallbackUser={profileUser}
+          allUsers={users}
+          onOpenChange={setProfileOpen}
         />
       </EspaceLayout>
     </ProtectedRoute>
