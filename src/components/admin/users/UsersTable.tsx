@@ -7,6 +7,7 @@ interface Props {
   allUsers?: UserApi[];
   onChangeRole?: (user: UserApi) => void;
   onAssignMentor?: (user: UserApi) => void;
+  onAssignParent?: (user: UserApi) => void;
 }
 
 function initials(prenom: string, nom: string) {
@@ -27,6 +28,7 @@ export default function UsersTable({
   allUsers,
   onChangeRole,
   onAssignMentor,
+  onAssignParent,
 }: Props) {
   const hasDateInscription = users.some((u) => !!u.dateInscription);
   const mentorLookup = allUsers ?? users;
@@ -34,6 +36,11 @@ export default function UsersTable({
     if (mentorId == null) return null;
     const m = mentorLookup.find((u) => u.id === mentorId);
     return m ? `${m.prenom} ${m.nom}` : null;
+  };
+  const getParentName = (parentId: number | null) => {
+    if (parentId == null) return null;
+    const p = mentorLookup.find((u) => u.id === parentId);
+    return p ? `${p.prenom} ${p.nom}` : null;
   };
 
   return (
@@ -49,6 +56,7 @@ export default function UsersTable({
             <th className="p-3">Ville</th>
             <th className="p-3">Rôle</th>
             <th className="p-3">Mentor</th>
+            <th className="p-3">Parent</th>
             {hasDateInscription && <th className="p-3">Date d'inscription</th>}
             <th className="p-3 text-right">Actions</th>
           </tr>
@@ -82,6 +90,19 @@ export default function UsersTable({
                   );
                 })()}
               </td>
+              <td className="p-3">
+                {(() => {
+                  const name = getParentName(u.parentId);
+                  if (name) {
+                    return <span className="text-sm">{name}</span>;
+                  }
+                  return (
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-muted text-foreground/70 border-border">
+                      Non associé
+                    </span>
+                  );
+                })()}
+              </td>
               {hasDateInscription && (
                 <td className="p-3">{formatDate(u.dateInscription)}</td>
               )}
@@ -90,6 +111,8 @@ export default function UsersTable({
                   onChangeRole={() => onChangeRole?.(u)}
                   onAssignMentor={() => onAssignMentor?.(u)}
                   canAssignMentor={u.role === "jeune"}
+                  onAssignParent={() => onAssignParent?.(u)}
+                  canAssignParent={u.role === "jeune"}
                 />
               </td>
             </tr>
