@@ -5,12 +5,16 @@ interface Props {
   onChangeRole?: () => void;
   onAssignMentor?: () => void;
   canAssignMentor?: boolean;
+  onAssignParent?: () => void;
+  canAssignParent?: boolean;
 }
 
 export default function UsersActionsMenu({
   onChangeRole,
   onAssignMentor,
   canAssignMentor,
+  onAssignParent,
+  canAssignParent,
 }: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -49,7 +53,15 @@ export default function UsersActionsMenu({
         onAssignMentor?.();
       },
     },
-    { icon: UsersIcon, label: "Associer un parent" },
+    {
+      icon: UsersIcon,
+      label: "Associer un parent",
+      enabled: !!canAssignParent,
+      onClick: () => {
+        setOpen(false);
+        onAssignParent?.();
+      },
+    },
     { icon: Trash2, label: "Supprimer", danger: true },
   ];
 
