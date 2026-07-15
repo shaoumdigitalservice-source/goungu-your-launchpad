@@ -37,6 +37,20 @@ export async function fetchUsers(): Promise<UserApi[]> {
   return res.json();
 }
 
+export async function fetchUserById(id: number): Promise<UserApi> {
+  const token = localStorage.getItem("user_token");
+  const res = await fetch(`${API_BASE_URL}/utilisateurs/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token ?? ""}`,
+    },
+  });
+  if (!res.ok) {
+    throw new UsersServiceError(res.status, await res.text().catch(() => ""));
+  }
+  return res.json();
+}
+
 export type UserRole = "admin" | "jeune" | "mentor" | "parent" | "formateur";
 
 export async function updateUserRole(id: number, role: UserRole): Promise<UserApi> {
