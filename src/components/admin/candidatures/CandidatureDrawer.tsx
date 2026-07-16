@@ -17,6 +17,7 @@ interface Props {
   candidatureId: number | null;
   fallbackCandidature?: CandidatureApi | null;
   onOpenChange: (open: boolean) => void;
+  onAccept?: (c: CandidatureApi) => void;
 }
 
 export default function CandidatureDrawer({
@@ -24,6 +25,7 @@ export default function CandidatureDrawer({
   candidatureId,
   fallbackCandidature,
   onOpenChange,
+  onAccept,
 }: Props) {
   const navigate = useNavigate();
   const [candidature, setCandidature] = useState<CandidatureApi | null>(null);
@@ -131,9 +133,9 @@ export default function CandidatureDrawer({
                 </button>
                 <button
                   type="button"
-                  disabled
-                  title="Bientôt disponible"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium opacity-60 cursor-not-allowed"
+                  onClick={() => candidature && onAccept?.(candidature)}
+                  disabled={candidature.statut === "ACCEPTEE"}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <Check className="h-4 w-4" />
                   Accepter
