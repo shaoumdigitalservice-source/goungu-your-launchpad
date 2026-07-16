@@ -81,6 +81,18 @@ export async function creerRessourceLien(data: RessourceLienInput): Promise<Ress
 
 export const creerLienRessource = creerRessourceLien;
 
+// Upload de fichier via FormData (sprint GNG-RES-002)
+export async function creerRessourceFichier(formData: FormData): Promise<Ressource> {
+  const res = await fetch(`${API_BASE_URL}/ressources/fichier`, {
+    method: "POST",
+    headers: authHeader(), // pas de Content-Type: le navigateur gère le boundary
+    body: formData,
+  });
+  await gererErreur(res, "Erreur lors de l'upload du fichier");
+  return res.json();
+}
+
+// Ancienne signature conservée pour rétro-compatibilité interne
 export async function creerRessourceFichier(
   titre: string,
   description: string,
