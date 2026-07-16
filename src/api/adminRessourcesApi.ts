@@ -92,30 +92,6 @@ export async function creerRessourceFichier(formData: FormData): Promise<Ressour
   return res.json();
 }
 
-// Ancienne signature conservée pour rétro-compatibilité interne
-export async function creerRessourceFichier(
-  titre: string,
-  description: string,
-  actif: boolean,
-  ordreAffichage: number,
-  fichier: File
-): Promise<Ressource> {
-  const formData = new FormData();
-  formData.append("titre", titre);
-  formData.append("description", description);
-  formData.append("actif", String(actif));
-  formData.append("ordreAffichage", String(ordreAffichage));
-  formData.append("fichier", fichier);
-
-  const res = await fetch(`${API_BASE_URL}/ressources/fichier`, {
-    method: "POST",
-    headers: authHeader(),
-    body: formData,
-  });
-  await gererErreur(res, "Erreur lors de l'upload du fichier");
-  return res.json();
-}
-
 export async function modifierRessource(
   id: number,
   data: RessourceLienInput
