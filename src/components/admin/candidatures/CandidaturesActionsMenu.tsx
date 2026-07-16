@@ -3,9 +3,10 @@ import { MoreVertical, Eye, Check, X } from "lucide-react";
 
 interface Props {
   onView?: () => void;
+  onAccept?: () => void;
 }
 
-export default function CandidaturesActionsMenu({ onView }: Props = {}) {
+export default function CandidaturesActionsMenu({ onView, onAccept }: Props = {}) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -17,10 +18,7 @@ export default function CandidaturesActionsMenu({ onView }: Props = {}) {
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
-  const disabledItems = [
-    { icon: Check, label: "Accepter", danger: false },
-    { icon: X, label: "Refuser", danger: true },
-  ];
+  const disabledItems = [{ icon: X, label: "Refuser", danger: true }];
 
   return (
     <div className="relative inline-block" ref={ref}>
@@ -44,6 +42,17 @@ export default function CandidaturesActionsMenu({ onView }: Props = {}) {
           >
             <Eye className="h-4 w-4" />
             Voir la candidature
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              onAccept?.();
+            }}
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-muted"
+          >
+            <Check className="h-4 w-4" />
+            Accepter
           </button>
           {disabledItems.map((it) => (
             <button

@@ -5,9 +5,10 @@ import CandidaturesActionsMenu from "./CandidaturesActionsMenu";
 interface Props {
   candidatures: CandidatureApi[];
   onView?: (c: CandidatureApi) => void;
+  onAccept?: (c: CandidatureApi) => void;
 }
 
-export default function CandidaturesTable({ candidatures, onView }: Props) {
+export default function CandidaturesTable({ candidatures, onView, onAccept }: Props) {
   return (
     <>
       <div className="hidden md:block overflow-x-auto rounded-2xl border bg-background">
@@ -33,7 +34,10 @@ export default function CandidaturesTable({ candidatures, onView }: Props) {
                   <CandidatureBadge statut={c.statut} />
                 </td>
                 <td className="p-3 text-right">
-                  <CandidaturesActionsMenu onView={() => onView?.(c)} />
+                  <CandidaturesActionsMenu
+                    onView={() => onView?.(c)}
+                    onAccept={() => onAccept?.(c)}
+                  />
                 </td>
               </tr>
             ))}
@@ -53,7 +57,10 @@ export default function CandidaturesTable({ candidatures, onView }: Props) {
                 <div className="text-xs text-muted-foreground truncate">{c.email}</div>
                 <div className="text-xs text-muted-foreground">{c.phone}</div>
               </div>
-              <CandidaturesActionsMenu onView={() => onView?.(c)} />
+              <CandidaturesActionsMenu
+                onView={() => onView?.(c)}
+                onAccept={() => onAccept?.(c)}
+              />
             </div>
             <div className="mt-3 flex items-center justify-between gap-2">
               <div className="text-sm">{c.programme || "—"}</div>

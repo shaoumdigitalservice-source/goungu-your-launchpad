@@ -15,6 +15,7 @@ import CandidaturesFilter from "@/components/admin/candidatures/CandidaturesFilt
 import CandidaturesLoading from "@/components/admin/candidatures/CandidaturesLoading";
 import CandidaturesEmpty from "@/components/admin/candidatures/CandidaturesEmpty";
 import CandidatureDrawer from "@/components/admin/candidatures/CandidatureDrawer";
+import AcceptCandidatureDialog from "@/components/admin/candidatures/AcceptCandidatureDialog";
 
 export default function CandidaturesPage() {
   const navigate = useNavigate();
@@ -25,6 +26,17 @@ export default function CandidaturesPage() {
   const [statut, setStatut] = useState("TOUS");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selected, setSelected] = useState<CandidatureApi | null>(null);
+  const [acceptOpen, setAcceptOpen] = useState(false);
+  const [acceptTarget, setAcceptTarget] = useState<CandidatureApi | null>(null);
+
+  const applyUpdate = (updated: CandidatureApi) => {
+    setCandidatures((prev) =>
+      prev.map((c) => (c.id === updated.id ? { ...c, ...updated } : c))
+    );
+    setSelected((prev) =>
+      prev && prev.id === updated.id ? { ...prev, ...updated } : prev
+    );
+  };
 
   const load = async () => {
     setLoading(true);
@@ -123,6 +135,10 @@ export default function CandidaturesPage() {
               setSelected(c);
               setDrawerOpen(true);
             }}
+            onAccept={(c) => {
+              setAcceptTarget(c);
+              setAcceptOpen(true);
+            }}
           />
         )}
 
@@ -134,6 +150,20 @@ export default function CandidaturesPage() {
             setDrawerOpen(o);
             if (!o) setSelected(null);
           }}
+          onAccept={(c) => {
+            setAcceptTarget(c);
+            setAcceptOpen(true);
+          }}
+        />
+
+        <AcceptCandidatureDialog
+          open={acceptOpen}
+          candidature={acceptTarget}
+          onOpenChange={(o) => {
+            setAcceptOpen(o);
+            if (!o) setAcceptTarget(null);
+          }}
+          onAccepted={(updated) => applyUpdate(updated)}
         />
       </EspaceLayout>
     </ProtectedRoute>
