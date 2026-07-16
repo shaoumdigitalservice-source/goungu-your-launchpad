@@ -47,3 +47,23 @@ export async function fetchCandidatureById(id: number): Promise<CandidatureApi> 
   }
   return res.json();
 }
+
+export async function acceptCandidature(id: number): Promise<CandidatureApi> {
+  const token = localStorage.getItem("user_token");
+  const res = await fetch(
+    `${API_BASE_URL}/candidatures/${id}/statut?statut=ACCEPTEE`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token ?? ""}`,
+      },
+    }
+  );
+  if (!res.ok) {
+    throw new CandidaturesServiceError(
+      res.status,
+      await res.text().catch(() => "")
+    );
+  }
+  return res.json().catch(() => ({} as CandidatureApi));
+}
