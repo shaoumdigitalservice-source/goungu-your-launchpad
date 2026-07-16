@@ -6,9 +6,15 @@ interface Props {
   candidatures: CandidatureApi[];
   onView?: (c: CandidatureApi) => void;
   onAccept?: (c: CandidatureApi) => void;
+  onReject?: (c: CandidatureApi) => void;
 }
 
-export default function CandidaturesTable({ candidatures, onView, onAccept }: Props) {
+export default function CandidaturesTable({
+  candidatures,
+  onView,
+  onAccept,
+  onReject,
+}: Props) {
   return (
     <>
       <div className="hidden md:block overflow-x-auto rounded-2xl border bg-background">
@@ -37,6 +43,7 @@ export default function CandidaturesTable({ candidatures, onView, onAccept }: Pr
                   <CandidaturesActionsMenu
                     onView={() => onView?.(c)}
                     onAccept={() => onAccept?.(c)}
+                    onReject={() => onReject?.(c)}
                   />
                 </td>
               </tr>
@@ -60,6 +67,7 @@ export default function CandidaturesTable({ candidatures, onView, onAccept }: Pr
               <CandidaturesActionsMenu
                 onView={() => onView?.(c)}
                 onAccept={() => onAccept?.(c)}
+                onReject={() => onReject?.(c)}
               />
             </div>
             <div className="mt-3 flex items-center justify-between gap-2">

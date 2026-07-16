@@ -67,3 +67,23 @@ export async function acceptCandidature(id: number): Promise<CandidatureApi> {
   }
   return res.json().catch(() => ({} as CandidatureApi));
 }
+
+export async function rejectCandidature(id: number): Promise<CandidatureApi> {
+  const token = localStorage.getItem("user_token");
+  const res = await fetch(
+    `${API_BASE_URL}/candidatures/${id}/statut?statut=REFUSEE`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token ?? ""}`,
+      },
+    }
+  );
+  if (!res.ok) {
+    throw new CandidaturesServiceError(
+      res.status,
+      await res.text().catch(() => "")
+    );
+  }
+  return res.json().catch(() => ({} as CandidatureApi));
+}

@@ -18,6 +18,7 @@ interface Props {
   fallbackCandidature?: CandidatureApi | null;
   onOpenChange: (open: boolean) => void;
   onAccept?: (c: CandidatureApi) => void;
+  onReject?: (c: CandidatureApi) => void;
 }
 
 export default function CandidatureDrawer({
@@ -26,6 +27,7 @@ export default function CandidatureDrawer({
   fallbackCandidature,
   onOpenChange,
   onAccept,
+  onReject,
 }: Props) {
   const navigate = useNavigate();
   const [candidature, setCandidature] = useState<CandidatureApi | null>(null);
@@ -134,9 +136,9 @@ export default function CandidatureDrawer({
               <div className="flex flex-wrap items-center justify-end gap-2 pt-2 border-t">
                 <button
                   type="button"
-                  disabled
-                  title="Bientôt disponible"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-medium opacity-60 cursor-not-allowed"
+                  onClick={() => candidature && onReject?.(candidature)}
+                  disabled={candidature.statut === "REFUSEE"}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-destructive/40 text-destructive text-sm font-medium hover:bg-destructive/10 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <X className="h-4 w-4" />
                   Refuser
