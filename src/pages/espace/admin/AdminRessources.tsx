@@ -380,12 +380,232 @@ export default function AdminRessources() {
                 {enEdition ? "Modifier la ressource" : "Nouvelle ressource"}
               </DialogTitle>
               <DialogDescription>
-                Créez ou modifiez une ressource de type lien. L'upload de
-                fichiers sera disponible prochainement.
+                {enEdition
+                  ? "Modifiez les informations de la ressource."
+                  : "Choisissez le type de ressource à créer : un lien externe ou un fichier téléversé."}
               </DialogDescription>
             </DialogHeader>
 
-            <div className="grid gap-4 py-2">
+            {!enEdition && (
+              <Tabs
+                value={modeCreation}
+                onValueChange={(v) => setModeCreation(v as "lien" | "fichier")}
+                className="w-full"
+              >
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="lien" className="gap-1.5">
+                    <LinkIcon size={14} /> Lien
+                  </TabsTrigger>
+                  <TabsTrigger value="fichier" className="gap-1.5">
+                    <Upload size={14} /> Fichier
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="fichier" className="mt-4">
+                  <div className="grid gap-4">
+                    <div className="grid gap-1.5">
+                      <Label htmlFor="fichier-titre">Titre</Label>
+                      <Input
+                        id="fichier-titre"
+                        value={fichierForm.titre}
+                        onChange={(e) =>
+                          setFichierForm((f) => ({ ...f, titre: e.target.value }))
+                        }
+                        placeholder="Titre de la ressource"
+                      />
+                    </div>
+                    <div className="grid gap-1.5">
+                      <Label htmlFor="fichier-description">Description</Label>
+                      <Textarea
+                        id="fichier-description"
+                        value={fichierForm.description}
+                        onChange={(e) =>
+                          setFichierForm((f) => ({
+                            ...f,
+                            description: e.target.value,
+                          }))
+                        }
+                        rows={2}
+                        placeholder="Description courte"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="grid gap-1.5">
+                        <Label htmlFor="fichier-categorie">Catégorie</Label>
+                        <Input
+                          id="fichier-categorie"
+                          value={fichierForm.categorie}
+                          onChange={(e) =>
+                            setFichierForm((f) => ({
+                              ...f,
+                              categorie: e.target.value,
+                            }))
+                          }
+                          placeholder="Ex: Guides..."
+                        />
+                      </div>
+                      <div className="grid gap-1.5">
+                        <Label htmlFor="fichier-ordre">Ordre d'affichage</Label>
+                        <Input
+                          id="fichier-ordre"
+                          type="number"
+                          value={fichierForm.ordreAffichage}
+                          onChange={(e) =>
+                            setFichierForm((f) => ({
+                              ...f,
+                              ordreAffichage: Number(e.target.value),
+                            }))
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid gap-1.5">
+                      <Label htmlFor="fichier-input">Fichier</Label>
+                      <Input
+                        id="fichier-input"
+                        type="file"
+                        accept={EXTENSIONS_AUTORISEES}
+                        onChange={(e) =>
+                          setFichierForm((f) => ({
+                            ...f,
+                            fichier: e.target.files?.[0] ?? null,
+                          }))
+                        }
+                      />
+                      {fichierForm.fichier && (
+                        <p className="text-xs text-muted-foreground truncate">
+                          Sélectionné : <span className="font-medium">{fichierForm.fichier.name}</span>{" "}
+                          ({Math.round(fichierForm.fichier.size / 1024)} Ko)
+                        </p>
+                      )}
+                      <p className="text-xs text-muted-foreground">
+                        Formats acceptés : PDF, DOC(X), PPT(X), XLS(X), JPG, PNG, WEBP, MP4.
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between rounded-md border p-3">
+                      <div>
+                        <Label htmlFor="fichier-actif" className="cursor-pointer">
+                          Visible publiquement
+                        </Label>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          Si désactivé, le fichier n'apparaîtra pas sur le site.
+                        </p>
+                      </div>
+                      <Switch
+                        id="fichier-actif"
+                        checked={fichierForm.actif}
+                        onCheckedChange={(v) =>
+                          setFichierForm((f) => ({ ...f, actif: v }))
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  <DialogFooter className="mt-4">
+                    <Button
+                      variant="outline"
+                      onClick={() => setDialogueOuvert(false)}
+                      disabled={uploadEnCours}
+                    >
+                      Annuler
+                    </Button>
+                    <Button onClick={soumettreFichier} disabled={uploadEnCours}>
+                      {uploadEnCours ? (
+                        <>
+                          <Loader2 className="animate-spin mr-1.5" size={14} />
+                          Téléversement...
+                        </>
+                      ) : (
+                        <>
+                          <Upload size={14} className="mr-1.5" />
+                          Téléverser
+                        </>
+                      )}
+                    </Button>
+                  </DialogFooter>
+                </TabsContent>
+
+                <TabsContent value="lien" className="mt-4">
+                  <FormulaireLien
+                    form={form}
+                    setForm={setForm}
+                    envoi={envoi}
+                    onCancel={() => setDialogueOuvert(false)}
+                    onSubmit={soumettre}
+                    enEdition={false}
+                  />
+                </TabsContent>
+              </Tabs>
+            )}
+
+            {enEdition && (
+              <FormulaireLien
+                form={form}
+                setForm={setForm}
+                envoi={envoi}
+                onCancel={() => setDialogueOuvert(false)}
+                onSubmit={soumettre}
+                enEdition={true}
+              />
+            )}
+          </DialogContent>
+        </Dialog>
+
+        <AlertDialog
+          open={!!suppressionCible}
+          onOpenChange={(open) => !open && setSuppressionCible(null)}
+        >
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Supprimer la ressource ?</AlertDialogTitle>
+              <AlertDialogDescription>
+                {suppressionCible &&
+                  `« ${suppressionCible.titre} » sera définitivement supprimée. Cette action est irréversible.`}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={suppressionEnCours}>
+                Annuler
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={(e) => {
+                  e.preventDefault();
+                  confirmerSuppression();
+                }}
+                disabled={suppressionEnCours}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                {suppressionEnCours ? "Suppression..." : "Supprimer"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </EspaceLayout>
+    </ProtectedRoute>
+  );
+}
+
+// Sous-composant : formulaire "Lien" (création + édition)
+function FormulaireLien({
+  form,
+  setForm,
+  envoi,
+  onCancel,
+  onSubmit,
+  enEdition,
+}: {
+  form: FormState;
+  setForm: React.Dispatch<React.SetStateAction<FormState>>;
+  envoi: boolean;
+  onCancel: () => void;
+  onSubmit: () => void;
+  enEdition: boolean;
+}) {
+  return (
+    <>
+      <div className="grid gap-4 py-2">
               <div className="grid gap-1.5">
                 <Label htmlFor="ressource-titre">Titre</Label>
                 <Input
@@ -473,12 +693,12 @@ export default function AdminRessources() {
             <DialogFooter>
               <Button
                 variant="outline"
-                onClick={() => setDialogueOuvert(false)}
+          onClick={onCancel}
                 disabled={envoi}
               >
                 Annuler
               </Button>
-              <Button onClick={soumettre} disabled={envoi}>
+        <Button onClick={onSubmit} disabled={envoi}>
                 {envoi ? (
                   <>
                     <Loader2 className="animate-spin mr-1.5" size={14} />
@@ -491,39 +711,6 @@ export default function AdminRessources() {
                 )}
               </Button>
             </DialogFooter>
-          </DialogContent>
-        </Dialog>
-
-        <AlertDialog
-          open={!!suppressionCible}
-          onOpenChange={(open) => !open && setSuppressionCible(null)}
-        >
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Supprimer la ressource ?</AlertDialogTitle>
-              <AlertDialogDescription>
-                {suppressionCible &&
-                  `« ${suppressionCible.titre} » sera définitivement supprimée. Cette action est irréversible.`}
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel disabled={suppressionEnCours}>
-                Annuler
-              </AlertDialogCancel>
-              <AlertDialogAction
-                onClick={(e) => {
-                  e.preventDefault();
-                  confirmerSuppression();
-                }}
-                disabled={suppressionEnCours}
-                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              >
-                {suppressionEnCours ? "Suppression..." : "Supprimer"}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </EspaceLayout>
-    </ProtectedRoute>
+    </>
   );
 }
