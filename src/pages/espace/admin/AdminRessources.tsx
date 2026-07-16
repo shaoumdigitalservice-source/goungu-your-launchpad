@@ -8,6 +8,7 @@ import { getErrorMessage } from "@/lib/utils";
 import {
   listerRessources,
   creerLienRessource,
+  creerRessourceFichier,
   modifierRessource,
   supprimerRessource,
   RessourceAdmin,
@@ -21,6 +22,7 @@ import {
   FileText,
   Link as LinkIcon,
   AlertCircle,
+  Upload,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -54,6 +56,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type FormState = RessourceLienInput;
 
@@ -66,6 +69,27 @@ const formVide: FormState = {
   ordreAffichage: 0,
 };
 
+type FichierFormState = {
+  titre: string;
+  description: string;
+  categorie: string;
+  actif: boolean;
+  ordreAffichage: number;
+  fichier: File | null;
+};
+
+const fichierFormVide: FichierFormState = {
+  titre: "",
+  description: "",
+  categorie: "",
+  actif: true,
+  ordreAffichage: 0,
+  fichier: null,
+};
+
+const EXTENSIONS_AUTORISEES =
+  ".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png,.webp,.mp4";
+
 export default function AdminRessources() {
   const navigate = useNavigate();
   const [ressources, setRessources] = useState<RessourceAdmin[]>([]);
@@ -76,6 +100,10 @@ export default function AdminRessources() {
   const [enEdition, setEnEdition] = useState<RessourceAdmin | null>(null);
   const [form, setForm] = useState<FormState>(formVide);
   const [envoi, setEnvoi] = useState(false);
+  const [modeCreation, setModeCreation] = useState<"lien" | "fichier">("lien");
+  const [fichierForm, setFichierForm] =
+    useState<FichierFormState>(fichierFormVide);
+  const [uploadEnCours, setUploadEnCours] = useState(false);
 
   const [suppressionCible, setSuppressionCible] =
     useState<RessourceAdmin | null>(null);
@@ -111,6 +139,8 @@ export default function AdminRessources() {
   const ouvrirCreation = () => {
     setEnEdition(null);
     setForm(formVide);
+    setFichierForm(fichierFormVide);
+    setModeCreation("lien");
     setDialogueOuvert(true);
   };
 
@@ -124,6 +154,7 @@ export default function AdminRessources() {
       actif: r.actif,
       ordreAffichage: r.ordreAffichage,
     });
+    setModeCreation("lien");
     setDialogueOuvert(true);
   };
 
@@ -157,6 +188,47 @@ export default function AdminRessources() {
       toast.error(getErrorMessage(e, "Erreur lors de l'enregistrement"));
     } finally {
       setEnvoi(false);
+    }
+  };
+
+  const soumettreFichier = async () => {
+    if (!fichierForm.titre.trim()) {
+      toast.error("Le titre est obligatoire");
+      return;
+    }
+    if (!fichierForm.fichier) {
+      toast.error("Veuillez sélectionner un fichier");
+      return;
+    }
+    setUploadEnCours(true);
+    try {
+      const fd = new FormData();
+      fd.append("titre", fichierForm.titre.trim());
+      if (fichierForm.description.trim())
+        fd.append("description", fichierForm.description.trim());
+      if (fichierForm.categorie.trim())
+        fd.append("categorie", fichierForm.categorie.trim());
+      fd.append("actif", String(fichierForm.actif));
+      fd.append("ordreAffichage", String(Number(fichierForm.ordreAffichage) || 0));
+      fd.append("fichier", fichierForm.fichier);
+
+      const creee = await creerRessourceFichier(fd);
+      setRessources((prev) => [...prev, creee]);
+      toast.success("Fichier téléversé avec succès");
+      setFichierForm(fichierFormVide);
+      setDialogueOuvert(false);
+      // Rafraîchir la liste depuis le serveur pour rester cohérent
+      charger();
+    } catch (e) {
+      if (gererErreurAuth(e)) return;
+      const status = (e as { status?: number })?.status;
+      let msg = getErrorMessage(e, "Erreur lors de l'upload du fichier");
+      if (status === 415 || status === 400) {
+        msg = "Format de fichier refusé ou requête invalide.";
+      }
+      toast.error(msg);
+    } finally {
+      setUploadEnCours(false);
     }
   };
 
