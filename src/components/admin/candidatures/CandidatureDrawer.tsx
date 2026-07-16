@@ -63,6 +63,16 @@ export default function CandidatureDrawer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, candidatureId]);
 
+  // Reflect external status updates (e.g. after acceptation) on the open drawer.
+  useEffect(() => {
+    if (open && fallbackCandidature && candidature) {
+      if (fallbackCandidature.statut !== candidature.statut) {
+        setCandidature({ ...candidature, statut: fallbackCandidature.statut });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fallbackCandidature?.statut]);
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="right" className="w-full sm:max-w-xl overflow-y-auto p-0">
