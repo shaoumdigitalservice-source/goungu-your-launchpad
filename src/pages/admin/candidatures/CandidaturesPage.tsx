@@ -16,6 +16,7 @@ import CandidaturesLoading from "@/components/admin/candidatures/CandidaturesLoa
 import CandidaturesEmpty from "@/components/admin/candidatures/CandidaturesEmpty";
 import CandidatureDrawer from "@/components/admin/candidatures/CandidatureDrawer";
 import AcceptCandidatureDialog from "@/components/admin/candidatures/AcceptCandidatureDialog";
+import RejectCandidatureDialog from "@/components/admin/candidatures/RejectCandidatureDialog";
 
 export default function CandidaturesPage() {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ export default function CandidaturesPage() {
   const [selected, setSelected] = useState<CandidatureApi | null>(null);
   const [acceptOpen, setAcceptOpen] = useState(false);
   const [acceptTarget, setAcceptTarget] = useState<CandidatureApi | null>(null);
+  const [rejectOpen, setRejectOpen] = useState(false);
+  const [rejectTarget, setRejectTarget] = useState<CandidatureApi | null>(null);
 
   const applyUpdate = (updated: CandidatureApi) => {
     setCandidatures((prev) =>
@@ -139,6 +142,10 @@ export default function CandidaturesPage() {
               setAcceptTarget(c);
               setAcceptOpen(true);
             }}
+            onReject={(c) => {
+              setRejectTarget(c);
+              setRejectOpen(true);
+            }}
           />
         )}
 
@@ -154,6 +161,10 @@ export default function CandidaturesPage() {
             setAcceptTarget(c);
             setAcceptOpen(true);
           }}
+          onReject={(c) => {
+            setRejectTarget(c);
+            setRejectOpen(true);
+          }}
         />
 
         <AcceptCandidatureDialog
@@ -164,6 +175,16 @@ export default function CandidaturesPage() {
             if (!o) setAcceptTarget(null);
           }}
           onAccepted={(updated) => applyUpdate(updated)}
+        />
+
+        <RejectCandidatureDialog
+          open={rejectOpen}
+          candidature={rejectTarget}
+          onOpenChange={(o) => {
+            setRejectOpen(o);
+            if (!o) setRejectTarget(null);
+          }}
+          onRejected={(updated) => applyUpdate(updated)}
         />
       </EspaceLayout>
     </ProtectedRoute>
