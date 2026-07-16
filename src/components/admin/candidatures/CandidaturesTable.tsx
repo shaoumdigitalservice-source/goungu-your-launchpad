@@ -4,9 +4,10 @@ import CandidaturesActionsMenu from "./CandidaturesActionsMenu";
 
 interface Props {
   candidatures: CandidatureApi[];
+  onView?: (c: CandidatureApi) => void;
 }
 
-export default function CandidaturesTable({ candidatures }: Props) {
+export default function CandidaturesTable({ candidatures, onView }: Props) {
   return (
     <>
       <div className="hidden md:block overflow-x-auto rounded-2xl border bg-background">
@@ -32,7 +33,7 @@ export default function CandidaturesTable({ candidatures }: Props) {
                   <CandidatureBadge statut={c.statut} />
                 </td>
                 <td className="p-3 text-right">
-                  <CandidaturesActionsMenu />
+                  <CandidaturesActionsMenu onView={() => onView?.(c)} />
                 </td>
               </tr>
             ))}
@@ -52,7 +53,7 @@ export default function CandidaturesTable({ candidatures }: Props) {
                 <div className="text-xs text-muted-foreground truncate">{c.email}</div>
                 <div className="text-xs text-muted-foreground">{c.phone}</div>
               </div>
-              <CandidaturesActionsMenu />
+              <CandidaturesActionsMenu onView={() => onView?.(c)} />
             </div>
             <div className="mt-3 flex items-center justify-between gap-2">
               <div className="text-sm">{c.programme || "—"}</div>
