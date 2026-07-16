@@ -33,3 +33,17 @@ export async function fetchCandidatures(): Promise<CandidatureApi[]> {
   }
   return res.json();
 }
+
+export async function fetchCandidatureById(id: number): Promise<CandidatureApi> {
+  const token = localStorage.getItem("user_token");
+  const res = await fetch(`${API_BASE_URL}/candidatures/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token ?? ""}`,
+    },
+  });
+  if (!res.ok) {
+    throw new CandidaturesServiceError(res.status, await res.text().catch(() => ""));
+  }
+  return res.json();
+}

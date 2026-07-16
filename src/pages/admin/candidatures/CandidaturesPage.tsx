@@ -14,6 +14,7 @@ import CandidaturesSearch from "@/components/admin/candidatures/CandidaturesSear
 import CandidaturesFilter from "@/components/admin/candidatures/CandidaturesFilter";
 import CandidaturesLoading from "@/components/admin/candidatures/CandidaturesLoading";
 import CandidaturesEmpty from "@/components/admin/candidatures/CandidaturesEmpty";
+import CandidatureDrawer from "@/components/admin/candidatures/CandidatureDrawer";
 
 export default function CandidaturesPage() {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ export default function CandidaturesPage() {
   const [errorStatus, setErrorStatus] = useState<number | null>(null);
   const [search, setSearch] = useState("");
   const [statut, setStatut] = useState("TOUS");
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selected, setSelected] = useState<CandidatureApi | null>(null);
 
   const load = async () => {
     setLoading(true);
@@ -114,8 +117,24 @@ export default function CandidaturesPage() {
         )}
 
         {!loading && errorStatus === null && filtered.length > 0 && (
-          <CandidaturesTable candidatures={filtered} />
+          <CandidaturesTable
+            candidatures={filtered}
+            onView={(c) => {
+              setSelected(c);
+              setDrawerOpen(true);
+            }}
+          />
         )}
+
+        <CandidatureDrawer
+          open={drawerOpen}
+          candidatureId={selected?.id ?? null}
+          fallbackCandidature={selected}
+          onOpenChange={(o) => {
+            setDrawerOpen(o);
+            if (!o) setSelected(null);
+          }}
+        />
       </EspaceLayout>
     </ProtectedRoute>
   );
