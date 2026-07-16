@@ -8,6 +8,7 @@ import { getErrorMessage } from "@/lib/utils";
 import {
   listerRessources,
   creerLienRessource,
+  creerRessourceFichier,
   modifierRessource,
   supprimerRessource,
   RessourceAdmin,
@@ -21,6 +22,7 @@ import {
   FileText,
   Link as LinkIcon,
   AlertCircle,
+  Upload,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -54,6 +56,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type FormState = RessourceLienInput;
 
@@ -66,6 +69,27 @@ const formVide: FormState = {
   ordreAffichage: 0,
 };
 
+type FichierFormState = {
+  titre: string;
+  description: string;
+  categorie: string;
+  actif: boolean;
+  ordreAffichage: number;
+  fichier: File | null;
+};
+
+const fichierFormVide: FichierFormState = {
+  titre: "",
+  description: "",
+  categorie: "",
+  actif: true,
+  ordreAffichage: 0,
+  fichier: null,
+};
+
+const EXTENSIONS_AUTORISEES =
+  ".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png,.webp,.mp4";
+
 export default function AdminRessources() {
   const navigate = useNavigate();
   const [ressources, setRessources] = useState<RessourceAdmin[]>([]);
@@ -76,6 +100,10 @@ export default function AdminRessources() {
   const [enEdition, setEnEdition] = useState<RessourceAdmin | null>(null);
   const [form, setForm] = useState<FormState>(formVide);
   const [envoi, setEnvoi] = useState(false);
+  const [modeCreation, setModeCreation] = useState<"lien" | "fichier">("lien");
+  const [fichierForm, setFichierForm] =
+    useState<FichierFormState>(fichierFormVide);
+  const [uploadEnCours, setUploadEnCours] = useState(false);
 
   const [suppressionCible, setSuppressionCible] =
     useState<RessourceAdmin | null>(null);
@@ -111,6 +139,8 @@ export default function AdminRessources() {
   const ouvrirCreation = () => {
     setEnEdition(null);
     setForm(formVide);
+    setFichierForm(fichierFormVide);
+    setModeCreation("lien");
     setDialogueOuvert(true);
   };
 
@@ -124,6 +154,7 @@ export default function AdminRessources() {
       actif: r.actif,
       ordreAffichage: r.ordreAffichage,
     });
+    setModeCreation("lien");
     setDialogueOuvert(true);
   };
 
@@ -157,6 +188,47 @@ export default function AdminRessources() {
       toast.error(getErrorMessage(e, "Erreur lors de l'enregistrement"));
     } finally {
       setEnvoi(false);
+    }
+  };
+
+  const soumettreFichier = async () => {
+    if (!fichierForm.titre.trim()) {
+      toast.error("Le titre est obligatoire");
+      return;
+    }
+    if (!fichierForm.fichier) {
+      toast.error("Veuillez sélectionner un fichier");
+      return;
+    }
+    setUploadEnCours(true);
+    try {
+      const fd = new FormData();
+      fd.append("titre", fichierForm.titre.trim());
+      if (fichierForm.description.trim())
+        fd.append("description", fichierForm.description.trim());
+      if (fichierForm.categorie.trim())
+        fd.append("categorie", fichierForm.categorie.trim());
+      fd.append("actif", String(fichierForm.actif));
+      fd.append("ordreAffichage", String(Number(fichierForm.ordreAffichage) || 0));
+      fd.append("fichier", fichierForm.fichier);
+
+      const creee = await creerRessourceFichier(fd);
+      setRessources((prev) => [...prev, creee]);
+      toast.success("Fichier téléversé avec succès");
+      setFichierForm(fichierFormVide);
+      setDialogueOuvert(false);
+      // Rafraîchir la liste depuis le serveur pour rester cohérent
+      charger();
+    } catch (e) {
+      if (gererErreurAuth(e)) return;
+      const status = (e as { status?: number })?.status;
+      let msg = getErrorMessage(e, "Erreur lors de l'upload du fichier");
+      if (status === 415 || status === 400) {
+        msg = "Format de fichier refusé ou requête invalide.";
+      }
+      toast.error(msg);
+    } finally {
+      setUploadEnCours(false);
     }
   };
 
@@ -308,12 +380,232 @@ export default function AdminRessources() {
                 {enEdition ? "Modifier la ressource" : "Nouvelle ressource"}
               </DialogTitle>
               <DialogDescription>
-                Créez ou modifiez une ressource de type lien. L'upload de
-                fichiers sera disponible prochainement.
+                {enEdition
+                  ? "Modifiez les informations de la ressource."
+                  : "Choisissez le type de ressource à créer : un lien externe ou un fichier téléversé."}
               </DialogDescription>
             </DialogHeader>
 
-            <div className="grid gap-4 py-2">
+            {!enEdition && (
+              <Tabs
+                value={modeCreation}
+                onValueChange={(v) => setModeCreation(v as "lien" | "fichier")}
+                className="w-full"
+              >
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="lien" className="gap-1.5">
+                    <LinkIcon size={14} /> Lien
+                  </TabsTrigger>
+                  <TabsTrigger value="fichier" className="gap-1.5">
+                    <Upload size={14} /> Fichier
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="fichier" className="mt-4">
+                  <div className="grid gap-4">
+                    <div className="grid gap-1.5">
+                      <Label htmlFor="fichier-titre">Titre</Label>
+                      <Input
+                        id="fichier-titre"
+                        value={fichierForm.titre}
+                        onChange={(e) =>
+                          setFichierForm((f) => ({ ...f, titre: e.target.value }))
+                        }
+                        placeholder="Titre de la ressource"
+                      />
+                    </div>
+                    <div className="grid gap-1.5">
+                      <Label htmlFor="fichier-description">Description</Label>
+                      <Textarea
+                        id="fichier-description"
+                        value={fichierForm.description}
+                        onChange={(e) =>
+                          setFichierForm((f) => ({
+                            ...f,
+                            description: e.target.value,
+                          }))
+                        }
+                        rows={2}
+                        placeholder="Description courte"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="grid gap-1.5">
+                        <Label htmlFor="fichier-categorie">Catégorie</Label>
+                        <Input
+                          id="fichier-categorie"
+                          value={fichierForm.categorie}
+                          onChange={(e) =>
+                            setFichierForm((f) => ({
+                              ...f,
+                              categorie: e.target.value,
+                            }))
+                          }
+                          placeholder="Ex: Guides..."
+                        />
+                      </div>
+                      <div className="grid gap-1.5">
+                        <Label htmlFor="fichier-ordre">Ordre d'affichage</Label>
+                        <Input
+                          id="fichier-ordre"
+                          type="number"
+                          value={fichierForm.ordreAffichage}
+                          onChange={(e) =>
+                            setFichierForm((f) => ({
+                              ...f,
+                              ordreAffichage: Number(e.target.value),
+                            }))
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid gap-1.5">
+                      <Label htmlFor="fichier-input">Fichier</Label>
+                      <Input
+                        id="fichier-input"
+                        type="file"
+                        accept={EXTENSIONS_AUTORISEES}
+                        onChange={(e) =>
+                          setFichierForm((f) => ({
+                            ...f,
+                            fichier: e.target.files?.[0] ?? null,
+                          }))
+                        }
+                      />
+                      {fichierForm.fichier && (
+                        <p className="text-xs text-muted-foreground truncate">
+                          Sélectionné : <span className="font-medium">{fichierForm.fichier.name}</span>{" "}
+                          ({Math.round(fichierForm.fichier.size / 1024)} Ko)
+                        </p>
+                      )}
+                      <p className="text-xs text-muted-foreground">
+                        Formats acceptés : PDF, DOC(X), PPT(X), XLS(X), JPG, PNG, WEBP, MP4.
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between rounded-md border p-3">
+                      <div>
+                        <Label htmlFor="fichier-actif" className="cursor-pointer">
+                          Visible publiquement
+                        </Label>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          Si désactivé, le fichier n'apparaîtra pas sur le site.
+                        </p>
+                      </div>
+                      <Switch
+                        id="fichier-actif"
+                        checked={fichierForm.actif}
+                        onCheckedChange={(v) =>
+                          setFichierForm((f) => ({ ...f, actif: v }))
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  <DialogFooter className="mt-4">
+                    <Button
+                      variant="outline"
+                      onClick={() => setDialogueOuvert(false)}
+                      disabled={uploadEnCours}
+                    >
+                      Annuler
+                    </Button>
+                    <Button onClick={soumettreFichier} disabled={uploadEnCours}>
+                      {uploadEnCours ? (
+                        <>
+                          <Loader2 className="animate-spin mr-1.5" size={14} />
+                          Téléversement...
+                        </>
+                      ) : (
+                        <>
+                          <Upload size={14} className="mr-1.5" />
+                          Téléverser
+                        </>
+                      )}
+                    </Button>
+                  </DialogFooter>
+                </TabsContent>
+
+                <TabsContent value="lien" className="mt-4">
+                  <FormulaireLien
+                    form={form}
+                    setForm={setForm}
+                    envoi={envoi}
+                    onCancel={() => setDialogueOuvert(false)}
+                    onSubmit={soumettre}
+                    enEdition={false}
+                  />
+                </TabsContent>
+              </Tabs>
+            )}
+
+            {enEdition && (
+              <FormulaireLien
+                form={form}
+                setForm={setForm}
+                envoi={envoi}
+                onCancel={() => setDialogueOuvert(false)}
+                onSubmit={soumettre}
+                enEdition={true}
+              />
+            )}
+          </DialogContent>
+        </Dialog>
+
+        <AlertDialog
+          open={!!suppressionCible}
+          onOpenChange={(open) => !open && setSuppressionCible(null)}
+        >
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Supprimer la ressource ?</AlertDialogTitle>
+              <AlertDialogDescription>
+                {suppressionCible &&
+                  `« ${suppressionCible.titre} » sera définitivement supprimée. Cette action est irréversible.`}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={suppressionEnCours}>
+                Annuler
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={(e) => {
+                  e.preventDefault();
+                  confirmerSuppression();
+                }}
+                disabled={suppressionEnCours}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                {suppressionEnCours ? "Suppression..." : "Supprimer"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </EspaceLayout>
+    </ProtectedRoute>
+  );
+}
+
+// Sous-composant : formulaire "Lien" (création + édition)
+function FormulaireLien({
+  form,
+  setForm,
+  envoi,
+  onCancel,
+  onSubmit,
+  enEdition,
+}: {
+  form: FormState;
+  setForm: React.Dispatch<React.SetStateAction<FormState>>;
+  envoi: boolean;
+  onCancel: () => void;
+  onSubmit: () => void;
+  enEdition: boolean;
+}) {
+  return (
+    <>
+      <div className="grid gap-4 py-2">
               <div className="grid gap-1.5">
                 <Label htmlFor="ressource-titre">Titre</Label>
                 <Input
@@ -401,12 +693,12 @@ export default function AdminRessources() {
             <DialogFooter>
               <Button
                 variant="outline"
-                onClick={() => setDialogueOuvert(false)}
+          onClick={onCancel}
                 disabled={envoi}
               >
                 Annuler
               </Button>
-              <Button onClick={soumettre} disabled={envoi}>
+        <Button onClick={onSubmit} disabled={envoi}>
                 {envoi ? (
                   <>
                     <Loader2 className="animate-spin mr-1.5" size={14} />
@@ -419,39 +711,6 @@ export default function AdminRessources() {
                 )}
               </Button>
             </DialogFooter>
-          </DialogContent>
-        </Dialog>
-
-        <AlertDialog
-          open={!!suppressionCible}
-          onOpenChange={(open) => !open && setSuppressionCible(null)}
-        >
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Supprimer la ressource ?</AlertDialogTitle>
-              <AlertDialogDescription>
-                {suppressionCible &&
-                  `« ${suppressionCible.titre} » sera définitivement supprimée. Cette action est irréversible.`}
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel disabled={suppressionEnCours}>
-                Annuler
-              </AlertDialogCancel>
-              <AlertDialogAction
-                onClick={(e) => {
-                  e.preventDefault();
-                  confirmerSuppression();
-                }}
-                disabled={suppressionEnCours}
-                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              >
-                {suppressionEnCours ? "Suppression..." : "Supprimer"}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </EspaceLayout>
-    </ProtectedRoute>
+    </>
   );
 }
