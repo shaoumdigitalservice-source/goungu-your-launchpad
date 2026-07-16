@@ -7,9 +7,22 @@ export interface Ressource {
   type: "FICHIER" | "LIEN";
   url: string;
   nomFichier?: string;
+  categorie?: string;
   actif: boolean;
   ordreAffichage: number;
   createdAt: string;
+}
+
+// Alias conforme au sprint GNG-RES-001
+export type RessourceAdmin = Ressource;
+
+export interface RessourceLienInput {
+  titre: string;
+  description?: string;
+  url: string;
+  categorie?: string;
+  actif: boolean;
+  ordreAffichage: number;
 }
 
 const authHeader = () => {
@@ -17,29 +30,56 @@ const authHeader = () => {
   return { Authorization: `Bearer ${token}` };
 };
 
+const authHeaders = () => ({
+  ...authHeader(),
+  "Content-Type": "application/json",
+});
+
+class RessourceApiError extends Error {
+  status: number;
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
+}
+
+const gererErreur = async (res: Response, actionFallback: string) => {
+  if (res.ok) return;
+  let message = actionFallback;
+  try {
+    const txt = await res.text();
+    if (txt) message = txt;
+  } catch {
+    // ignore
+  }
+  if (res.status === 401) message = "Session expirée, veuillez vous reconnecter.";
+  else if (res.status === 403) message = "Accès refusé : action réservée aux administrateurs.";
+  else if (res.status >= 500) message = "Erreur serveur, veuillez réessayer plus tard.";
+  throw new RessourceApiError(res.status, message);
+};
+
 export async function listerRessourcesAdmin(): Promise<Ressource[]> {
   const res = await fetch(`${API_BASE_URL}/ressources/admin`, {
     headers: authHeader(),
   });
-  if (!res.ok) throw new Error(await res.text());
+  await gererErreur(res, "Erreur lors du chargement des ressources");
   return res.json();
 }
 
-export async function creerRessourceLien(data: {
-  titre: string;
-  description?: string;
-  url: string;
-  actif: boolean;
-  ordreAffichage: number;
-}): Promise<Ressource> {
+// Alias public conforme à la nomenclature du sprint
+export const listerRessources = listerRessourcesAdmin;
+
+export async function creerRessourceLien(data: RessourceLienInput): Promise<Ressource> {
   const res = await fetch(`${API_BASE_URL}/ressources/lien`, {
     method: "POST",
-    headers: { ...authHeader(), "Content-Type": "application/json" },
+    headers: authHeaders(),
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error(await res.text());
+  await gererErreur(res, "Erreur lors de la création de la ressource");
   return res.json();
 }
+
+export const creerLienRessource = creerRessourceLien;
 
 export async function creerRessourceFichier(
   titre: string,
@@ -60,26 +100,20 @@ export async function creerRessourceFichier(
     headers: authHeader(),
     body: formData,
   });
-  if (!res.ok) throw new Error(await res.text());
+  await gererErreur(res, "Erreur lors de l'upload du fichier");
   return res.json();
 }
 
 export async function modifierRessource(
   id: number,
-  data: {
-    titre: string;
-    description?: string;
-    url: string;
-    actif: boolean;
-    ordreAffichage: number;
-  }
+  data: RessourceLienInput
 ): Promise<Ressource> {
   const res = await fetch(`${API_BASE_URL}/ressources/${id}`, {
     method: "PUT",
-    headers: { ...authHeader(), "Content-Type": "application/json" },
+    headers: authHeaders(),
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error(await res.text());
+  await gererErreur(res, "Erreur lors de la modification de la ressource");
   return res.json();
 }
 
@@ -88,5 +122,5 @@ export async function supprimerRessource(id: number): Promise<void> {
     method: "DELETE",
     headers: authHeader(),
   });
-  if (!res.ok) throw new Error(await res.text());
+  await gererErreur(res, "Erreur lors de la suppression de la ressource");
 }
