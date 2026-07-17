@@ -6,6 +6,7 @@ import Placeholder from "@/components/Placeholder";
 import { listerRessourcesPubliques, RessourcePublique } from "@/api/ressourcesApi";
 import { getMonMentor, MonMentor } from "@/api/mentorApi";
 import { getConversation, envoyerMessage, Message } from "@/api/messagesApi";
+import { toast } from "sonner";
 import { getMonParcours, EtapeParcours } from "@/api/parcoursApi";
 import { getMonPasseport, ajouterEntreePasseport, supprimerEntreePasseport, PasseportEntree } from "@/api/passeportApi";
 import { API_ORIGIN } from "@/lib/apiConfig";
@@ -415,8 +416,9 @@ export const JeuneMentor = () => {
       await envoyerMessage(mentor.id, texte.trim());
       setTexte("");
       await chargerMessages(true);
+      toast.success("Message envoyé");
     } catch (e) {
-      alert(getErrorMessage(e, "Erreur lors de l'envoi"));
+      toast.error(getErrorMessage(e, "Erreur lors de l'envoi"));
     } finally {
       setEnvoi(false);
     }

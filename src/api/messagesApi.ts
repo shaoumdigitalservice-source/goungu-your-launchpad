@@ -1,38 +1,9 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
-
-export interface Message {
-  id: number;
-  expediteurId: number;
-  destinataireId: number;
-  contenu: string;
-  dateEnvoi: string;
-  lu: boolean;
-}
-
-function getToken(): string | null {
-  return localStorage.getItem("user_token");
-}
-
-export async function getConversation(autreUserId: number): Promise<Message[]> {
-  const res = await fetch(`${API_BASE_URL}/messages/conversation/${autreUserId}`, {
-    headers: { Authorization: `Bearer ${getToken()}` },
-  });
-  if (!res.ok) {
-    const msg = await res.text();
-    throw new Error(msg || "Impossible de charger la conversation");
-  }
-  return res.json();
-}
-
-export async function envoyerMessage(destinataireId: number, contenu: string): Promise<Message> {
-  const res = await fetch(`${API_BASE_URL}/messages`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
-    body: JSON.stringify({ destinataireId, contenu }),
-  });
-  if (!res.ok) {
-    const msg = await res.text();
-    throw new Error(msg || "Erreur lors de l'envoi du message");
-  }
-  return res.json();
-}
+// Ce module est conservé pour compatibilité : les consommateurs existants
+// continuent d'importer depuis "@/api/messagesApi", mais toute la logique
+// vit désormais dans "@/api/adminMessagesApi" (sprint GNG-MSG-001).
+export type { Message } from "./adminMessagesApi";
+export {
+  chargerConversation,
+  envoyerMessage,
+  getConversation,
+} from "./adminMessagesApi";
