@@ -6,6 +6,7 @@ import Placeholder from "@/components/Placeholder";
 import { getMesJeunes, Jeune, getMesRendezVousMentor, creerRendezVous, changerStatutRendezVous, supprimerRendezVous, RendezVous } from "@/api/mentorApi";
 import { getErrorMessage } from "@/lib/utils";
 import { getConversation, envoyerMessage, Message } from "@/api/messagesApi";
+import { toast } from "sonner";
 
 const items = [
   { to: "/espace/mentor", label: "Tableau de bord", icon: ClipboardList },
@@ -347,8 +348,9 @@ export const MentorMessages = () => {
       await envoyerMessage(jeuneActifId, texte.trim());
       setTexte("");
       await chargerMessages(true);
+      toast.success("Message envoyé");
     } catch (e) {
-      alert(getErrorMessage(e, "Erreur lors de l'envoi"));
+      toast.error(getErrorMessage(e, "Erreur lors de l'envoi"));
     } finally {
       setEnvoi(false);
     }
