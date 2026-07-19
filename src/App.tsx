@@ -42,6 +42,7 @@ import Formateur from "./pages/espace/Formateur";
 import Admin from "./pages/espace/Admin";
 import Profil from "./pages/espace/Profil";
 import { JeuneParcours, JeunePasseport, JeuneOrientation, JeuneMentor, JeuneRessources } from "./pages/espace/JeuneParcours";
+import { JeuneRendezVous } from "./pages/espace/JeuneRendezVous";
 import { ParentSuivi, ParentParentalite, ParentDocuments, ParentRdv } from "./pages/espace/ParentPages";
 import { MentorJeunes, MentorAgenda, MentorMessages } from "./pages/espace/MentorPages";
 import { FormateurCohortes, FormateurModules, FormateurAgenda } from "./pages/espace/FormateurPages";
@@ -103,6 +104,7 @@ const App = () => (
             <Route path="/espace/jeune/passeport" element={<JeunePasseport />} />
             <Route path="/espace/jeune/orientation" element={<JeuneOrientation />} />
             <Route path="/espace/jeune/mentor" element={<JeuneMentor />} />
+            <Route path="/espace/jeune/rdv" element={<JeuneRendezVous />} />
             <Route path="/espace/jeune/ressources" element={<JeuneRessources />} />
             <Route path="/espace/parent/suivi" element={<ParentSuivi />} />
             <Route path="/espace/parent/parentalite" element={<ParentParentalite />} />
