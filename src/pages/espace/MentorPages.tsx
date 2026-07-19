@@ -141,9 +141,10 @@ export const MentorAgenda = () => {
       await creerRendezVous({ jeuneId: Number(jeuneId), dateHeure, sujet, notes: notes || undefined });
       setJeuneId(""); setDate(""); setHeure(""); setSujet(""); setNotes("");
       setAfficherForm(false);
-      charger();
+      await charger();
+      toast.success("Rendez-vous créé");
     } catch (e) {
-      alert(getErrorMessage(e, "Erreur lors de la création"));
+      toast.error(getErrorMessage(e, "Erreur lors de la création"));
     } finally {
       setSubmitting(false);
     }
@@ -152,9 +153,10 @@ export const MentorAgenda = () => {
   const handleStatut = async (id: number, statut: string) => {
     try {
       await changerStatutRendezVous(id, statut);
-      charger();
+      await charger();
+      toast.success("Statut mis à jour");
     } catch (e) {
-      alert(getErrorMessage(e, "Erreur"));
+      toast.error(getErrorMessage(e, "Erreur"));
     }
   };
 
@@ -162,9 +164,10 @@ export const MentorAgenda = () => {
     if (!confirm("Supprimer ce rendez-vous ?")) return;
     try {
       await supprimerRendezVous(id);
-      charger();
+      await charger();
+      toast.success("Rendez-vous supprimé");
     } catch (e) {
-      alert(getErrorMessage(e, "Erreur"));
+      toast.error(getErrorMessage(e, "Erreur"));
     }
   };
 
