@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Sparkles, Target, FileBadge, Compass, MessageCircle, BookOpen, User, FileText, Link as LinkIcon, Download, Loader2, Mail, Phone, UserCircle2, Send, CalendarCheck, UserPlus, Plus, Trash2, Award, Briefcase } from "lucide-react";
+import { Sparkles, Target, FileBadge, Compass, MessageCircle, BookOpen, User, FileText, Link as LinkIcon, Download, Loader2, Mail, Phone, UserCircle2, Send, CalendarCheck, UserPlus, Plus, Trash2, Award, Briefcase, Calendar } from "lucide-react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout, { Section } from "./EspaceLayout";
 import Placeholder from "@/components/Placeholder";
@@ -18,6 +18,7 @@ const items = [
   { to: "/espace/jeune/passeport", label: "Passeport Avenir", icon: FileBadge },
   { to: "/espace/jeune/orientation", label: "Orientation", icon: Compass },
   { to: "/espace/jeune/mentor", label: "Mon mentor", icon: MessageCircle },
+  { to: "/espace/jeune/rdv", label: "Rendez-vous", icon: Calendar },
   { to: "/espace/jeune/ressources", label: "Ressources", icon: BookOpen },
   { to: "/espace/profil", label: "Mon profil", icon: User },
 ];
