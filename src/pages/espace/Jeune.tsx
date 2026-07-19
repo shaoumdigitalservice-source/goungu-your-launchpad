@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { User, Compass, BookOpen, MessageCircle, Sparkles, Target, FileBadge, GraduationCap, Award, Loader2, UserPlus, CalendarCheck } from "lucide-react";
+import { User, Compass, BookOpen, MessageCircle, Sparkles, Target, FileBadge, GraduationCap, Award, Loader2, UserPlus, CalendarCheck, Calendar } from "lucide-react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout, { Section, StatCard } from "./EspaceLayout";
 import Placeholder from "@/components/Placeholder";
@@ -15,6 +15,7 @@ const items = [
   { to: "/espace/jeune/passeport", label: "Passeport Avenir", icon: FileBadge },
   { to: "/espace/jeune/orientation", label: "Orientation", icon: Compass },
   { to: "/espace/jeune/mentor", label: "Mon mentor", icon: MessageCircle },
+  { to: "/espace/jeune/rdv", label: "Rendez-vous", icon: Calendar },
   { to: "/espace/jeune/ressources", label: "Ressources", icon: BookOpen },
   { to: "/espace/profil", label: "Mon profil", icon: User },
 ];
