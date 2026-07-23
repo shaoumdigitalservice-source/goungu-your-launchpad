@@ -13,11 +13,6 @@ import Testimonials from "./pages/Testimonials";
 import Contact from "./pages/Contact";
 import Inscription from "./pages/Inscription";
 import NotFound from "./pages/NotFound";
-import AdminLogin from "./pages/admin/AdminLogin";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import AdminBlog from "./pages/admin/AdminBlog";
-import AdminProgrammes from "./pages/admin/AdminProgrammes";
-import AdminImages from "./pages/admin/AdminImages";
 import ProgrammesIndex from "./pages/programmes/ProgrammesIndex";
 import CampLacRose from "./pages/programmes/CampLacRose";
 import Parentalite from "./pages/programmes/Parentalite";
@@ -52,8 +47,9 @@ import AdminProgrammesReel from "./pages/espace/admin/AdminProgrammes";
 import AdminRessourcesReel from "./pages/espace/admin/AdminRessources";
 import AdminEvenementsReel from "./pages/espace/admin/AdminEvenements";
 import AdminSecuriteReel from "./pages/espace/admin/AdminSecurite";
-import UsersPage from "./pages/admin/users/UsersPage";
-import CandidaturesPage from "./pages/admin/candidatures/CandidaturesPage";
+import AdminArticlesReel from "./pages/espace/admin/AdminArticles";
+import AdminImagesReel from "./pages/espace/admin/AdminImagesSite";
+import AdminContactReel from "./pages/espace/admin/AdminContact";
 
 const queryClient = new QueryClient();
 
@@ -122,13 +118,9 @@ const App = () => (
             <Route path="/espace/admin/ressources" element={<AdminRessourcesReel />} />
             <Route path="/espace/admin/evenements" element={<AdminEvenementsReel />} />
             <Route path="/espace/admin/securite" element={<AdminSecuriteReel />} />
-            <Route path="/admin/users" element={<UsersPage />} />
-            <Route path="/admin/candidatures" element={<CandidaturesPage />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/blog" element={<AdminBlog />} />
-            <Route path="/admin/programmes" element={<AdminProgrammes />} />
-            <Route path="/admin/images" element={<AdminImages />} />
+            <Route path="/espace/admin/articles" element={<AdminArticlesReel />} />
+            <Route path="/espace/admin/images" element={<AdminImagesReel />} />
+            <Route path="/espace/admin/contact" element={<AdminContactReel />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </AuthProvider>
