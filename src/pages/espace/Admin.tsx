@@ -1,22 +1,11 @@
 import { useEffect, useState } from "react";
-import { User, Users, FileText, Library, Calendar, BarChart3, ShieldCheck, Megaphone } from "lucide-react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout, { Section, StatCard } from "./EspaceLayout";
 import Placeholder from "@/components/Placeholder";
 import { statsParRole } from "@/api/adminRolesApi";
 import { listerCandidatures } from "@/api/adminCandidaturesApi";
 import { listerRessourcesAdmin } from "@/api/adminRessourcesApi";
-
-const items = [
-  { to: "/espace/admin", label: "Vue d'ensemble", icon: BarChart3 },
-  { to: "/espace/admin/utilisateurs", label: "Utilisateurs", icon: Users },
-  { to: "/espace/admin/candidatures", label: "Candidatures", icon: FileText },
-  { to: "/espace/admin/programmes", label: "Programmes", icon: Megaphone },
-  { to: "/espace/admin/ressources", label: "Ressources", icon: Library },
-  { to: "/espace/admin/evenements", label: "Événements", icon: Calendar },
-  { to: "/espace/admin/securite", label: "Rôles & sécurité", icon: ShieldCheck },
-  { to: "/espace/profil", label: "Mon profil", icon: User },
-];
+import { adminNavItems } from "./AdminPages";
 
 const Admin = () => {
   const [totalUtilisateurs, setTotalUtilisateurs] = useState<string>("—");
@@ -55,7 +44,7 @@ const Admin = () => {
 
   return (
     <ProtectedRoute roles={["admin"]}>
-      <EspaceLayout title="Tableau de bord administrateur" role="Admin" items={items}>
+      <EspaceLayout title="Tableau de bord administrateur" role="Admin" items={adminNavItems}>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
           <StatCard label="Utilisateurs" value={totalUtilisateurs} hint="Tous rôles" />
           <StatCard label="Candidatures" value={candidaturesATraiter} hint="À traiter" />
