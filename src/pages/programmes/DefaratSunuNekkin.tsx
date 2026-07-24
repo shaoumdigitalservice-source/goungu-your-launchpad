@@ -306,7 +306,7 @@ const DefaratSunuNekkin = () => (
           {/* Pilier 1 */}
           <div className="rounded-3xl border bg-card overflow-hidden hover-lift flex flex-col">
             <div className="aspect-[16/9] overflow-hidden">
-              <img src={conseilImg} alt="Conseil de famille — gouvernance familiale" loading="lazy" width={1024} height={576} className="w-full h-full object-cover" />
+              <img src={defaratPilier1Img} alt="Conseil de famille — gouvernance familiale" loading="lazy" width={1280} height={720} className="w-full h-full object-cover" />
             </div>
             <div className="p-7 flex flex-col flex-1">
               <span className="text-xs uppercase tracking-wider text-primary font-semibold">Pilier 1</span>
@@ -361,7 +361,7 @@ const DefaratSunuNekkin = () => (
           {/* Pilier 3 */}
           <div className="rounded-3xl border bg-card overflow-hidden hover-lift flex flex-col">
             <div className="aspect-[16/9] overflow-hidden">
-              <img src={campImg} alt="Camp de redressement Lac Rose" loading="lazy" width={1024} height={576} className="w-full h-full object-cover" />
+              <img src={defaratPilier3Img} alt="Camp de redressement Lac Rose" loading="lazy" width={1280} height={720} className="w-full h-full object-cover" />
             </div>
             <div className="p-7 flex flex-col flex-1">
               <span className="text-xs uppercase tracking-wider text-primary font-semibold">Pilier 3</span>
