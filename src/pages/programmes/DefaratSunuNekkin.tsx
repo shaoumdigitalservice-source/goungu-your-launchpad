@@ -302,19 +302,24 @@ const DefaratSunuNekkin = () => (
 
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Pilier 1 */}
-          <div className="rounded-3xl border bg-card p-7 hover-lift flex flex-col">
-            <span className="text-xs uppercase tracking-wider text-primary font-semibold">Pilier 1</span>
-            <h3 className="font-display text-2xl mt-2">Doxalin njaboot</h3>
-            <div className="text-sm text-muted-foreground font-semibold">Gouvernance familiale</div>
-            <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
-              La mise en place d'une organisation interne dans chaque famille, avec conseil de famille et plateforme communale.
-            </p>
-            <a
-              href="#gouvernance-familiale"
-              className="inline-flex items-center gap-1 mt-auto pt-6 text-sm font-semibold text-primary hover:gap-2 transition-all"
-            >
-              En savoir plus <ArrowRight className="h-4 w-4" />
-            </a>
+          <div className="rounded-3xl border bg-card overflow-hidden hover-lift flex flex-col">
+            <div className="aspect-[16/9] overflow-hidden">
+              <img src={conseilImg} alt="Conseil de famille — gouvernance familiale" loading="lazy" width={1024} height={576} className="w-full h-full object-cover" />
+            </div>
+            <div className="p-7 flex flex-col flex-1">
+              <span className="text-xs uppercase tracking-wider text-primary font-semibold">Pilier 1</span>
+              <h3 className="font-display text-2xl mt-2">Doxalin njaboot</h3>
+              <div className="text-sm text-muted-foreground font-semibold">Gouvernance familiale</div>
+              <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
+                La mise en place d'une organisation interne dans chaque famille, avec conseil de famille et plateforme communale.
+              </p>
+              <a
+                href="#gouvernance-familiale"
+                className="inline-flex items-center gap-1 mt-auto pt-6 text-sm font-semibold text-primary hover:gap-2 transition-all"
+              >
+                En savoir plus <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
           </div>
 
           {/* Pilier 2 */}
