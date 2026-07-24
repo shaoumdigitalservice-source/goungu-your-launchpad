@@ -317,7 +317,7 @@ const DefaratSunuNekkin = () => (
               </p>
               <a
                 href="#gouvernance-familiale"
-                className="inline-flex items-center gap-1 mt-auto pt-6 text-sm font-semibold text-primary hover:gap-2 transition-all"
+                className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-primary hover:gap-2 transition-all"
               >
                 En savoir plus <ArrowRight className="h-4 w-4" />
               </a>
@@ -372,7 +372,7 @@ const DefaratSunuNekkin = () => (
               </p>
               <Link
                 to="/programmes/camp-lac-rose"
-                className="inline-flex items-center gap-1 mt-auto pt-6 text-sm font-semibold text-primary hover:gap-2 transition-all"
+                className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-primary hover:gap-2 transition-all"
               >
                 Découvrir le Camp Lac Rose <ArrowRight className="h-4 w-4" />
               </Link>
