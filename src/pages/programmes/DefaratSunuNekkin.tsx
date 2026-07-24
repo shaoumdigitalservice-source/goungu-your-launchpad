@@ -35,6 +35,8 @@ import {
 import heroImg from "@/assets/defarat-hero.jpg";
 import conseilImg from "@/assets/defarat-conseil.jpg";
 import coachingImg from "@/assets/defarat-coaching.jpg";
+import defaratPilier1Img from "@/assets/defarat-pilier1.jpg";
+import defaratPilier3Img from "@/assets/defarat-pilier3.jpg";
 import campImg from "@/assets/camp-lac-rose.jpg";
 import parentImg from "@/assets/parentalite.jpg";
 import heroPremium from "@/assets/hero-premium.jpg";
