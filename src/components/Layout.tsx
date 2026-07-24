@@ -9,9 +9,10 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <EventsTicker onHeightChange={setTickerHeight} />
-      <div style={{ paddingTop: tickerHeight }}>
-        <Navbar />
-      </div>
+      {tickerHeight > 0 && (
+        <style>{`nav.fixed.top-0 { top: ${tickerHeight}px !important; }`}</style>
+      )}
+      <Navbar />
       <main className="flex-1" style={{ paddingTop: 64 + tickerHeight }}>
         {children}
       </main>
