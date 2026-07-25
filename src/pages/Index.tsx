@@ -146,7 +146,7 @@ const Index = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Nos 6 domaines</span>
-          <h2 className="font-display text-7xl lg:text-8xl mt-3">Un accompagnement complet, du cœur à la carrière.</h2>
+          <h2 className="font-display text-4xl lg:text-5xl mt-3">Un accompagnement complet, du cœur à la carrière.</h2>
           <p className="mt-4 text-muted-foreground">Chaque jeune, chaque parent, chaque famille trouve chez Goungué une réponse personnalisée et humaine.</p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -172,7 +172,7 @@ const Index = () => {
         <div className="flex items-end justify-between flex-wrap gap-6 mb-12">
           <div className="max-w-xl">
             <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Parcours Goungué</span>
-            <h2 className="font-display text-7xl lg:text-8xl mt-3">Un chemin clair, six étapes humaines.</h2>
+            <h2 className="font-display text-4xl lg:text-5xl mt-3">Un chemin clair, six étapes humaines.</h2>
           </div>
           <Link to="/programmes" className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
             Détail des programmes <ArrowRight className="h-4 w-4" />
@@ -229,7 +229,7 @@ const Index = () => {
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-4">
             <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Témoignages</span>
-            <h2 className="font-display text-7xl lg:text-8xl mt-3">Des voix, des vies, des trajectoires.</h2>
+            <h2 className="font-display text-4xl lg:text-5xl mt-3">Des voix, des vies, des trajectoires.</h2>
             <p className="text-muted-foreground mt-4">Chaque histoire est unique. Toutes parlent d'écoute, de courage et de retrouvailles.</p>
             <Placeholder label="Témoignages à mettre à jour" />
           </div>
