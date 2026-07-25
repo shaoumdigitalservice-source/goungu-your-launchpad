@@ -19,7 +19,7 @@ const PageHero = ({ eyebrow, title, description, image, children }: Props) => (
     <div className="container mx-auto px-4 lg:px-8 relative">
       <div className="max-w-3xl animate-fade-up">
         {eyebrow && (
-          <span className="text-base uppercase tracking-[0.18em] text-primary font-semibold">{eyebrow}</span>
+          <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">{eyebrow}</span>
         )}
         <h1 className="font-display text-[clamp(3.2rem,7vw,6.5rem)] leading-[1.05] mt-3">{title}</h1>
         {description && <p className="mt-5 text-lg text-muted-foreground max-w-2xl leading-relaxed">{description}</p>}
