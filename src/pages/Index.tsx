@@ -60,10 +60,10 @@ const Index = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 animate-fade-up">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold">
-              <Sparkle className="h-3.5 w-3.5" /> Incubateur social · Sénégal
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+              <Sparkle className="h-4 w-4" /> Incubateur social · Sénégal
             </span>
-            <h1 className="font-display font-medium text-[clamp(2.4rem,5.6vw,4.6rem)] leading-[1.02] mt-5 text-foreground">
+            <h1 className="font-display font-medium text-[clamp(2.6rem,6vw,5rem)] leading-[1.02] mt-5 text-foreground">
               Révéler le potentiel des jeunes.<br />
               Renforcer les familles.<br />
               <span className="text-gradient italic">Construire l'avenir.</span>
@@ -122,7 +122,7 @@ const Index = () => {
         <div className="rounded-3xl bg-ink p-8 lg:p-12 ring-soft">
           <div className="flex items-end justify-between flex-wrap gap-4 mb-8">
             <div>
-              <h2 className="text-2xl lg:text-3xl font-display font-medium">Notre impact en chiffres</h2>
+              <h2 className="text-3xl lg:text-4xl font-display font-medium">Notre impact en chiffres</h2>
               <p className="text-sm opacity-70 mt-1">Mise à jour mensuelle — <Placeholder label="Chiffres à confirmer" /></p>
             </div>
             <Link to="/a-propos" className="text-sm opacity-80 hover:opacity-100 inline-flex items-center gap-1">
@@ -145,8 +145,8 @@ const Index = () => {
     <section className="py-16 lg:py-24 bg-section-alt">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
-          <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Nos 6 domaines</span>
-          <h2 className="font-display text-4xl lg:text-5xl mt-3">Un accompagnement complet, du cœur à la carrière.</h2>
+          <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Nos 6 domaines</span>
+          <h2 className="font-display text-5xl lg:text-6xl mt-3">Un accompagnement complet, du cœur à la carrière.</h2>
           <p className="mt-4 text-muted-foreground">Chaque jeune, chaque parent, chaque famille trouve chez Goungué une réponse personnalisée et humaine.</p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -157,7 +157,7 @@ const Index = () => {
                 <div className="h-12 w-12 rounded-2xl bg-foreground text-background grid place-items-center mb-5">
                   <d.icon className="h-5 w-5" />
                 </div>
-                <h3 className="text-xl font-display font-medium">{d.title}</h3>
+                <h3 className="text-2xl font-display font-medium">{d.title}</h3>
                 <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{d.desc}</p>
               </div>
             </div>
@@ -171,8 +171,8 @@ const Index = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-end justify-between flex-wrap gap-6 mb-12">
           <div className="max-w-xl">
-            <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Parcours Goungué</span>
-            <h2 className="font-display text-4xl lg:text-5xl mt-3">Un chemin clair, six étapes humaines.</h2>
+            <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Parcours Goungué</span>
+            <h2 className="font-display text-5xl lg:text-6xl mt-3">Un chemin clair, six étapes humaines.</h2>
           </div>
           <Link to="/programmes" className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
             Détail des programmes <ArrowRight className="h-4 w-4" />
@@ -187,7 +187,7 @@ const Index = () => {
                 <div className="relative z-10 h-12 w-12 rounded-full grid place-items-center font-display text-sm font-semibold bg-background border-2 border-primary text-primary">
                   {p.step}
                 </div>
-                <h3 className="mt-5 font-display text-lg">{p.title}</h3>
+                <h3 className="mt-5 font-display text-xl">{p.title}</h3>
                 <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{p.desc}</p>
               </div>
             ))}
@@ -200,8 +200,8 @@ const Index = () => {
     <section className="py-16 lg:py-24 bg-section-alt">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
-          <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Programmes phares</span>
-          <h2 className="font-display text-4xl lg:text-5xl mt-3">Des expériences qui transforment.</h2>
+          <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Programmes phares</span>
+          <h2 className="font-display text-5xl lg:text-6xl mt-3">Des expériences qui transforment.</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {programmesPreview.map((p) => (
@@ -211,7 +211,7 @@ const Index = () => {
               </div>
               <div className="p-6">
                 <span className="inline-block text-[10px] uppercase tracking-widest font-semibold text-primary mb-2">{p.tag}</span>
-                <h3 className="font-display text-xl">{p.title}</h3>
+                <h3 className="font-display text-2xl">{p.title}</h3>
                 <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{p.desc}</p>
                 <span className="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-foreground group-hover:text-primary transition">
                   Découvrir <ArrowUpRight className="h-4 w-4" />
@@ -228,8 +228,8 @@ const Index = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-4">
-            <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Témoignages</span>
-            <h2 className="font-display text-4xl lg:text-5xl mt-3">Des voix, des vies, des trajectoires.</h2>
+            <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Témoignages</span>
+            <h2 className="font-display text-5xl lg:text-6xl mt-3">Des voix, des vies, des trajectoires.</h2>
             <p className="text-muted-foreground mt-4">Chaque histoire est unique. Toutes parlent d'écoute, de courage et de retrouvailles.</p>
             <Placeholder label="Témoignages à mettre à jour" />
           </div>
@@ -260,8 +260,8 @@ const Index = () => {
             <img src={ambassadeursImg} alt="Ambassadeurs Goungué" loading="lazy" className="w-full h-[420px] object-cover" />
           </div>
           <div>
-            <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Réseau des Ambassadeurs</span>
-            <h2 className="font-display text-4xl lg:text-5xl mt-3">Une voix Goungué dans chaque région.</h2>
+            <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Réseau des Ambassadeurs</span>
+            <h2 className="font-display text-5xl lg:text-6xl mt-3">Une voix Goungué dans chaque région.</h2>
             <p className="mt-4 text-muted-foreground">Nos ambassadeurs sont d'anciens bénéficiaires et engagés communautaires qui portent la voix de Goungué dans leur quartier, leur école et leur ville.</p>
             <ul className="mt-6 space-y-3">
               {["Témoignage et inspiration", "Détection de jeunes en besoin", "Animation d'ateliers locaux", "Veille terrain et reporting"].map((l) => (
@@ -284,7 +284,7 @@ const Index = () => {
         <div className="relative overflow-hidden rounded-[2rem] bg-hero-gradient text-primary-foreground p-10 lg:p-16">
           <div className="absolute inset-0 pattern-grain opacity-30" />
           <div className="relative max-w-2xl">
-            <h2 className="font-display text-4xl lg:text-5xl">Prêt à écrire votre prochain chapitre ?</h2>
+            <h2 className="font-display text-5xl lg:text-6xl">Prêt à écrire votre prochain chapitre ?</h2>
             <p className="mt-4 opacity-90">Que vous soyez jeune, parent ou mentor : il existe une porte d'entrée chez Goungué qui vous correspond.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/inscription" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-background text-foreground font-semibold hover-lift">

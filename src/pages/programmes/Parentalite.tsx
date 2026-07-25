@@ -42,7 +42,7 @@ const Parentalite = () => (
               <span className="font-display text-3xl text-primary">{m.n}</span>
               <span className="text-xs uppercase tracking-wider text-muted-foreground">Module {m.n}</span>
             </div>
-            <h3 className="font-display text-2xl">{m.title}</h3>
+            <h3 className="font-display text-3xl">{m.title}</h3>
             <p className="text-muted-foreground mt-3 leading-relaxed">{m.desc}</p>
           </div>
         ))}
@@ -52,14 +52,14 @@ const Parentalite = () => (
     <section className="py-20 bg-section-alt">
       <div className="container mx-auto px-4 lg:px-8 grid md:grid-cols-12 gap-10 items-start">
         <div className="md:col-span-5">
-          <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">FAQ</span>
-          <h2 className="font-display text-4xl mt-3">Vos questions, nos réponses.</h2>
+          <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">FAQ</span>
+          <h2 className="font-display text-5xl mt-3">Vos questions, nos réponses.</h2>
         </div>
         <div className="md:col-span-7">
           <Accordion type="single" collapsible className="space-y-2">
             {faqs.map((f, i) => (
               <AccordionItem key={i} value={`item-${i}`} className="rounded-2xl border bg-card px-5 py-1">
-                <AccordionTrigger className="font-display text-lg text-left">{f.q}</AccordionTrigger>
+                <AccordionTrigger className="font-display text-xl text-left">{f.q}</AccordionTrigger>
                 <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
               </AccordionItem>
             ))}

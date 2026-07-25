@@ -26,8 +26,8 @@ const Ambassadeurs = () => (
       <div className="container mx-auto px-4 lg:px-8 grid lg:grid-cols-12 gap-10">
         <div className="lg:col-span-5">
           <div className="rounded-3xl border bg-card p-6 sticky top-24">
-            <div className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Carte du Sénégal</div>
-            <h3 className="font-display text-2xl mt-2">11 régions couvertes</h3>
+            <div className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Carte du Sénégal</div>
+            <h3 className="font-display text-3xl mt-2">11 régions couvertes</h3>
             <Placeholder label="Carte interactive à venir" />
             <div className="mt-4 aspect-[4/5] rounded-2xl bg-section-alt pattern-weave flex items-center justify-center">
               <div className="text-center p-8">
@@ -43,7 +43,7 @@ const Ambassadeurs = () => (
               <div className="h-14 w-14 rounded-full bg-gradient-to-br from-primary to-accent text-primary-foreground grid place-items-center font-display text-xl">
                 {a.name.split(" ").map((n) => n[0]).join("")}
               </div>
-              <h3 className="font-display text-xl mt-4">{a.name}</h3>
+              <h3 className="font-display text-2xl mt-4">{a.name}</h3>
               <div className="text-xs uppercase tracking-wider text-muted-foreground mt-1">{a.role}</div>
               <div className="flex items-center gap-1 mt-3 text-sm">
                 <MapPin className="h-4 w-4 text-primary" /> {a.region}
