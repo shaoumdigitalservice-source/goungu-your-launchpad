@@ -44,54 +44,6 @@ import { Tent } from "lucide-react";
 import defaratParentsImg from "@/assets/defarat-parents.jpg";
 import defaratQuartierImg from "@/assets/defarat-quartier.jpg";
 
-const pilier2Activites = [
-  { nom: "Académie des Parents", freq: "Mensuelle" },
-  { nom: "Café des Parents", freq: "Deux fois par mois" },
-  { nom: "Cliniques familiales", freq: "Hebdomadaire" },
-  { nom: "Coaching économique", freq: "Sur rendez-vous" },
-  { nom: "Caravane Defarat Sunu Nekkin", freq: "Trimestrielle" },
-  { nom: "Journée Famille & Bien-être", freq: "Trimestrielle" },
-  { nom: "Foire des initiatives familiales", freq: "Annuelle" },
-  { nom: "Prix des Familles Inspirantes", freq: "Annuelle" },
-];
-
-const pilier2Axes = [
-  "Renforcement des compétences parentales",
-  "Autonomisation économique",
-  "Santé et bien-être familial",
-  "Accompagnement psychosocial",
-  "Développement communautaire",
-  "Accompagnement numérique",
-];
-
-const pilier4Objectifs = [
-  "Organiser le nettoyage régulier des espaces publics",
-  "Assurer l'entretien léger des infrastructures communales",
-  "Développer le verdissement des quartiers",
-  "Renforcer la sécurité communautaire",
-  "Prévenir la délinquance et les violences",
-  "Promouvoir le civisme",
-  "Créer une dynamique locale d'engagement citoyen",
-  "Valoriser le volontariat des jeunes",
-];
-
-const pilier4Acteurs = [
-  "Goungué Incub",
-  "Communes",
-  "Préfecture",
-  "Jeunes bénévoles",
-  "Délégués de quartier",
-  "ASC",
-  "Associations de femmes",
-  "Bajenu Gox",
-  "Établissements scolaires",
-  "Entreprises locales",
-  "Forces de défense et de sécurité",
-  "Services d'hygiène",
-  "Services des eaux et forêts",
-  "Médias",
-];
-
 const volets = [
   {
     to: "/programmes/camp-lac-rose",
