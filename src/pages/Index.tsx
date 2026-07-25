@@ -284,7 +284,7 @@ const Index = () => {
         <div className="relative overflow-hidden rounded-[2rem] bg-hero-gradient text-primary-foreground p-10 lg:p-16">
           <div className="absolute inset-0 pattern-grain opacity-30" />
           <div className="relative max-w-2xl">
-            <h2 className="font-display text-7xl lg:text-8xl">Prêt à écrire votre prochain chapitre ?</h2>
+            <h2 className="font-display text-4xl lg:text-5xl">Prêt à écrire votre prochain chapitre ?</h2>
             <p className="mt-4 opacity-90">Que vous soyez jeune, parent ou mentor : il existe une porte d'entrée chez Goungué qui vous correspond.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/inscription" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-background text-foreground font-semibold hover-lift">
