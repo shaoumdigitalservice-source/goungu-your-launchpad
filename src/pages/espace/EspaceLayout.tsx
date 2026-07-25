@@ -72,7 +72,7 @@ const EspaceLayout = ({ title, role, items, children }: Props) => {
         <div className="flex items-center justify-between mb-6">
           <div>
             <div className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Espace {role}</div>
-            <h1 className="font-display text-3xl lg:text-4xl">{title}</h1>
+            <h1 className="font-display text-5xl lg:text-6xl">{title}</h1>
           </div>
           <button onClick={signOut} className="lg:hidden flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium text-destructive border border-destructive/30">
             <LogOut className="h-3.5 w-3.5" /> Sortir
@@ -89,7 +89,7 @@ export default EspaceLayout;
 export const StatCard = ({ label, value, hint }: { label: string; value: string; hint?: string }) => (
   <div className="bg-background border rounded-2xl p-5">
     <div className="text-xs uppercase tracking-widest text-muted-foreground">{label}</div>
-    <div className="font-display text-3xl mt-1.5">{value}</div>
+    <div className="font-display text-4xl mt-1.5">{value}</div>
     {hint && <div className="text-xs text-muted-foreground mt-1">{hint}</div>}
   </div>
 );
@@ -97,7 +97,7 @@ export const StatCard = ({ label, value, hint }: { label: string; value: string;
 export const Section = ({ title, action, children }: { title: string; action?: ReactNode; children: ReactNode }) => (
   <section className="bg-background border rounded-2xl p-6 mb-6">
     <div className="flex items-center justify-between mb-4">
-      <h2 className="font-display text-xl">{title}</h2>
+      <h2 className="font-display text-2xl">{title}</h2>
       {action}
     </div>
     {children}

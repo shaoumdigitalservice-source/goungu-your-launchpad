@@ -33,7 +33,7 @@ const Inscription = () => {
             <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="h-8 w-8 text-secondary" />
             </div>
-            <h1 className="text-3xl font-extrabold mb-4">Inscription reçue !</h1>
+            <h1 className="text-4xl font-extrabold mb-4">Inscription reçue !</h1>
             <p className="text-muted-foreground max-w-md mx-auto">
               Merci pour votre candidature. Notre équipe vous contactera très bientôt pour la suite du processus.
             </p>
@@ -49,7 +49,7 @@ const Inscription = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-extrabold mb-6">
+              <h1 className="text-6xl md:text-7xl font-extrabold mb-6">
                 <span className="text-gradient">Inscription</span>
               </h1>
               <p className="text-muted-foreground text-lg">

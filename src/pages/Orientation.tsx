@@ -48,7 +48,7 @@ const Orientation = () => {
                 <div className="h-11 w-11 rounded-2xl bg-primary/10 text-primary grid place-items-center mb-3">
                   <m.icon className="h-5 w-5" />
                 </div>
-                <h3 className="font-display text-xl">{m.name}</h3>
+                <h3 className="font-display text-2xl">{m.name}</h3>
                 <p className="text-sm text-muted-foreground mt-1">{m.desc}</p>
               </div>
             ))}
@@ -63,7 +63,7 @@ const Orientation = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="rounded-3xl bg-hero-gradient text-primary-foreground p-10 lg:p-14 flex items-center justify-between flex-wrap gap-6">
             <div>
-              <h2 className="font-display text-4xl">Quiz d'orientation Goungué</h2>
+              <h2 className="font-display text-5xl">Quiz d'orientation Goungué</h2>
               <p className="opacity-90 mt-2 max-w-xl">15 questions pour explorer vos talents, vos valeurs et trois pistes de métiers qui pourraient vous correspondre.</p>
               <Placeholder label="Quiz interactif à connecter" />
             </div>

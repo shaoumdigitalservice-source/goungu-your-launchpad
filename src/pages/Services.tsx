@@ -28,7 +28,7 @@ const Services = () => (
     <section className="py-20">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6">
+          <h1 className="text-6xl md:text-7xl font-extrabold mb-6">
             Nos <span className="text-gradient">Services</span>
           </h1>
           <p className="text-muted-foreground text-lg">
@@ -43,7 +43,7 @@ const Services = () => (
                 <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
                   <s.icon className="h-7 w-7 text-primary" />
                 </div>
-                <h2 className="text-2xl font-bold mb-3">{s.title}</h2>
+                <h2 className="text-3xl font-bold mb-3">{s.title}</h2>
                 <p className="text-muted-foreground mb-5 leading-relaxed">{s.desc}</p>
                 <ul className="space-y-3">
                   {s.features.map((f) => (

@@ -36,7 +36,7 @@ const Blog = () => (
                   <span className="font-semibold text-primary">{p.cat}</span>
                   <span>{p.date} · {p.min}</span>
                 </div>
-                <h2 className="font-display text-3xl flex items-start justify-between gap-3">
+                <h2 className="font-display text-4xl flex items-start justify-between gap-3">
                   {p.title}
                   <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition mt-1" />
                 </h2>
@@ -51,7 +51,7 @@ const Blog = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="rounded-3xl bg-hero-gradient text-primary-foreground p-10 flex items-center justify-between flex-wrap gap-6">
           <div>
-            <h3 className="font-display text-3xl">Newsletter Goungué</h3>
+            <h3 className="font-display text-4xl">Newsletter Goungué</h3>
             <p className="opacity-90 mt-1">Une fois par mois — conseils, opportunités et coulisses.</p>
           </div>
           <form className="flex gap-2 w-full md:w-auto">

@@ -170,7 +170,7 @@ export default function AdminArticles() {
       <EspaceLayout title="Articles" role="admin" items={adminNavItems}>
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold">Gestion des articles</h1>
+            <h1 className="text-3xl font-bold">Gestion des articles</h1>
             <Button onClick={ouvrirCreation} size="sm" className="gap-1.5">
               <Plus size={16} /> Nouvel article
             </Button>

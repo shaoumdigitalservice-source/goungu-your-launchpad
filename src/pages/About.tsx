@@ -15,7 +15,7 @@ const About = () => (
     <section className="py-20">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6">
+          <h1 className="text-6xl md:text-7xl font-extrabold mb-6">
             À propos de <span className="text-gradient">GOUNGUÉ</span>
           </h1>
           <p className="text-muted-foreground text-lg leading-relaxed">
@@ -26,11 +26,11 @@ const About = () => (
         <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
           <img src={teamImg} alt="L'équipe GOUNGUÉ" className="rounded-2xl shadow-lg w-full object-cover h-80" loading="lazy" width={1280} height={720} />
           <div>
-            <h2 className="text-2xl font-bold mb-4">Notre Mission</h2>
+            <h2 className="text-3xl font-bold mb-4">Notre Mission</h2>
             <p className="text-muted-foreground leading-relaxed mb-6">
               Offrir aux jeunes et aux femmes du Sénégal un cadre d'accompagnement personnalisé — de l'orientation au lancement de leur projet entrepreneurial. Nous croyons en une Afrique portée par sa jeunesse.
             </p>
-            <h2 className="text-2xl font-bold mb-4">Notre Vision</h2>
+            <h2 className="text-3xl font-bold mb-4">Notre Vision</h2>
             <p className="text-muted-foreground leading-relaxed">
               Devenir le premier incubateur de référence au Sénégal pour l'accompagnement humain des jeunes et des femmes, en créant un écosystème d'innovation et de solidarité.
             </p>
@@ -38,7 +38,7 @@ const About = () => (
         </div>
 
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold mb-4">Nos Valeurs</h2>
+          <h2 className="text-4xl font-extrabold mb-4">Nos Valeurs</h2>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {values.map((v) => (

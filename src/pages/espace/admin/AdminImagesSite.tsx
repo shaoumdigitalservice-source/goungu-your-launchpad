@@ -85,7 +85,7 @@ export default function AdminImagesSite() {
       <EspaceLayout title="Images du site" role="admin" items={adminNavItems}>
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold">Images du site</h1>
+            <h1 className="text-3xl font-bold">Images du site</h1>
             <Button onClick={() => setDialogOuvert(true)} size="sm" className="gap-1.5">
               <Upload size={16} /> Téléverser
             </Button>

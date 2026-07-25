@@ -31,7 +31,7 @@ const KeparGi = () => (
             <div className="h-12 w-12 rounded-2xl bg-secondary text-secondary-foreground grid place-items-center mb-4">
               <s.icon className="h-5 w-5" />
             </div>
-            <h3 className="font-display text-2xl">{s.title}</h3>
+            <h3 className="font-display text-3xl">{s.title}</h3>
             <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{s.desc}</p>
           </div>
         ))}
@@ -44,7 +44,7 @@ const KeparGi = () => (
           <img src={keparImg} alt="Intérieur de Kepar gi" loading="lazy" width={1024} height={1024} className="w-full h-[400px] object-cover" />
         </div>
         <div>
-          <h2 className="font-display text-5xl">Un abri où l'on revient.</h2>
+          <h2 className="font-display text-6xl">Un abri où l'on revient.</h2>
           <p className="text-muted-foreground mt-4">Bibliothèque, salle d'études, espace d'écoute, salles d'ateliers, jardin : chaque détail a été pensé pour offrir aux jeunes et aux familles un cocon d'apprentissage et de vie.</p>
           <Link to="/communaute" className="inline-flex items-center gap-2 mt-6 text-primary font-semibold">
             Voir les prochains événements <ArrowRight className="h-4 w-4" />

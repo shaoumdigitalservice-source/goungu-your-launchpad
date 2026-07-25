@@ -104,10 +104,10 @@
     font-feature-settings: "ss01", "ss02";
   }
 
-  h1 { @apply text-5xl lg:text-6xl; }
-  h2 { @apply text-4xl lg:text-5xl; }
-  h3 { @apply text-2xl lg:text-3xl; }
-  h4 { @apply text-xl lg:text-2xl; }
+  h1 { @apply text-6xl lg:text-7xl; }
+  h2 { @apply text-5xl lg:text-6xl; }
+  h3 { @apply text-3xl lg:text-4xl; }
+  h4 { @apply text-2xl lg:text-3xl; }
 }
 
 @layer utilities {

@@ -98,7 +98,7 @@ export default function AdminUtilisateurs() {
     <ProtectedRoute roles={["admin"]}>
     <EspaceLayout title="Utilisateurs" role="admin" items={adminNavItems}>
       <div className="p-6">
-        <h1 className="text-2xl font-bold mb-6">Gestion des utilisateurs</h1>
+        <h1 className="text-3xl font-bold mb-6">Gestion des utilisateurs</h1>
 
         {loading && (
           <div className="flex items-center gap-2 text-muted-foreground">

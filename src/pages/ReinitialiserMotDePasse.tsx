@@ -57,7 +57,7 @@ const ReinitialiserMotDePasse = () => {
       <Layout>
         <section className="py-16 lg:py-24">
           <div className="container mx-auto px-4 max-w-md text-center">
-            <h1 className="font-display text-4xl lg:text-5xl mb-2">Lien invalide</h1>
+            <h1 className="font-display text-6xl lg:text-7xl mb-2">Lien invalide</h1>
             <p className="text-muted-foreground text-sm mb-6">
               Ce lien de réinitialisation est incomplet ou incorrect.
             </p>
@@ -75,7 +75,7 @@ const ReinitialiserMotDePasse = () => {
       <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4 max-w-md">
           <div className="text-center mb-8">
-            <h1 className="font-display text-4xl lg:text-5xl mb-2">Nouveau mot de passe</h1>
+            <h1 className="font-display text-6xl lg:text-7xl mb-2">Nouveau mot de passe</h1>
             <p className="text-muted-foreground text-sm">
               Choisissez un nouveau mot de passe pour votre compte.
             </p>
