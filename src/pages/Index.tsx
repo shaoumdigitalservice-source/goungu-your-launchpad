@@ -60,10 +60,10 @@ const Index = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 animate-fade-up">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold">
-              <Sparkle className="h-3.5 w-3.5" /> Incubateur social · Sénégal
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+              <Sparkle className="h-4 w-4" /> Incubateur social · Sénégal
             </span>
-            <h1 className="font-display font-medium text-[clamp(2.4rem,5.6vw,4.6rem)] leading-[1.02] mt-5 text-foreground">
+            <h1 className="font-display font-medium text-[clamp(2.6rem,6vw,5rem)] leading-[1.02] mt-5 text-foreground">
               Révéler le potentiel des jeunes.<br />
               Renforcer les familles.<br />
               <span className="text-gradient italic">Construire l'avenir.</span>
