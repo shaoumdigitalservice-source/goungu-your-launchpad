@@ -201,7 +201,7 @@ const Index = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Programmes phares</span>
-          <h2 className="font-display text-7xl lg:text-8xl mt-3">Des expériences qui transforment.</h2>
+          <h2 className="font-display text-4xl lg:text-5xl mt-3">Des expériences qui transforment.</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {programmesPreview.map((p) => (
