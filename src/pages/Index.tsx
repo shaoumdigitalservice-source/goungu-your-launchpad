@@ -50,6 +50,16 @@ const testimonials = [
   { name: "Moussa Ndiaye", role: "Parent accompagné", quote: "Les ateliers de parentalité positive nous ont aidés à rétablir un vrai dialogue avec notre fils.", image: testimonial2 },
 ];
 
+const programmesBar = [
+  { label: "DEFARAT SUNU NEKKIN", to: "/programmes/defarat-sunu-nekkin", accent: "bg-primary text-primary-foreground" },
+  { label: "Kepar gi", to: "/programmes/kepar-gi", accent: "bg-secondary text-secondary-foreground" },
+  { label: "Meñil War Wi", to: "/programmes/menil-war-wi", accent: "bg-accent text-accent-foreground" },
+  { label: "Incubateur Goungué", to: "/programmes/incubateur-goungue", accent: "bg-primary text-primary-foreground" },
+  { label: "Camp Lac Rose", to: "/programmes/camp-lac-rose", accent: "bg-secondary text-secondary-foreground" },
+  { label: "Parentalité Positive", to: "/programmes/parentalite-positive", accent: "bg-accent text-accent-foreground" },
+  { label: "Ambassadeurs", to: "/ambassadeurs", accent: "bg-primary text-primary-foreground" },
+];
+
 const Index = () => {
   const heroImgDynamic = useImageSite("hero-accueil", heroImg);
 
