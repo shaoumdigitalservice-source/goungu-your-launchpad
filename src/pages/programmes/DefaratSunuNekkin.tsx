@@ -44,54 +44,6 @@ import { Tent } from "lucide-react";
 import defaratParentsImg from "@/assets/defarat-parents.jpg";
 import defaratQuartierImg from "@/assets/defarat-quartier.jpg";
 
-const pilier2Activites = [
-  { nom: "Académie des Parents", freq: "Mensuelle" },
-  { nom: "Café des Parents", freq: "Deux fois par mois" },
-  { nom: "Cliniques familiales", freq: "Hebdomadaire" },
-  { nom: "Coaching économique", freq: "Sur rendez-vous" },
-  { nom: "Caravane Defarat Sunu Nekkin", freq: "Trimestrielle" },
-  { nom: "Journée Famille & Bien-être", freq: "Trimestrielle" },
-  { nom: "Foire des initiatives familiales", freq: "Annuelle" },
-  { nom: "Prix des Familles Inspirantes", freq: "Annuelle" },
-];
-
-const pilier2Axes = [
-  "Renforcement des compétences parentales",
-  "Autonomisation économique",
-  "Santé et bien-être familial",
-  "Accompagnement psychosocial",
-  "Développement communautaire",
-  "Accompagnement numérique",
-];
-
-const pilier4Objectifs = [
-  "Organiser le nettoyage régulier des espaces publics",
-  "Assurer l'entretien léger des infrastructures communales",
-  "Développer le verdissement des quartiers",
-  "Renforcer la sécurité communautaire",
-  "Prévenir la délinquance et les violences",
-  "Promouvoir le civisme",
-  "Créer une dynamique locale d'engagement citoyen",
-  "Valoriser le volontariat des jeunes",
-];
-
-const pilier4Acteurs = [
-  "Goungué Incub",
-  "Communes",
-  "Préfecture",
-  "Jeunes bénévoles",
-  "Délégués de quartier",
-  "ASC",
-  "Associations de femmes",
-  "Bajenu Gox",
-  "Établissements scolaires",
-  "Entreprises locales",
-  "Forces de défense et de sécurité",
-  "Services d'hygiène",
-  "Services des eaux et forêts",
-  "Médias",
-];
-
 const volets = [
   {
     to: "/programmes/camp-lac-rose",
@@ -336,25 +288,12 @@ const DefaratSunuNekkin = () => (
               <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
                 Un levier de renforcement du bien-être familial, de la résilience économique et de la réussite éducative des enfants, décliné en six axes.
               </p>
-              <div className="mt-5">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-2">Les six axes</div>
-                <div className="flex flex-wrap gap-2">
-                  {pilier2Axes.map((a) => (
-                    <span key={a} className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary font-medium">{a}</span>
-                  ))}
-                </div>
-              </div>
-              <div className="mt-6">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Activités phares</div>
-                <ul className="space-y-2">
-                  {pilier2Activites.map((a) => (
-                    <li key={a.nom} className="flex justify-between gap-4 text-sm border-b border-border/50 pb-2 last:border-0">
-                      <span className="text-foreground/90">{a.nom}</span>
-                      <span className="text-muted-foreground text-xs uppercase tracking-wider whitespace-nowrap">{a.freq}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <Link
+                to="/programmes/doolel-wajur-yi"
+                className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-primary hover:gap-2 transition-all"
+              >
+                En savoir plus <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
 
@@ -391,25 +330,12 @@ const DefaratSunuNekkin = () => (
               <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
                 Initiative citoyenne visant à faire des jeunes les acteurs principaux de l'amélioration du cadre de vie dans leur quartier, en lien avec la préparation des Jeux Olympiques de la Jeunesse (JOJ Dakar 2026).
               </p>
-              <div className="mt-5">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Objectifs</div>
-                <ul className="space-y-2">
-                  {pilier4Objectifs.map((o) => (
-                    <li key={o} className="flex gap-2 text-sm text-foreground/90">
-                      <span className="text-primary mt-1">•</span>
-                      <span>{o}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-6">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Acteurs impliqués</div>
-                <div className="flex flex-wrap gap-2">
-                  {pilier4Acteurs.map((a) => (
-                    <span key={a} className="text-xs px-3 py-1.5 rounded-full bg-foreground/5 border border-border text-foreground/80 font-medium">{a}</span>
-                  ))}
-                </div>
-              </div>
+              <Link
+                to="/programmes/sama-gox-sama-yitte"
+                className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-primary hover:gap-2 transition-all"
+              >
+                En savoir plus <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
         </div>
