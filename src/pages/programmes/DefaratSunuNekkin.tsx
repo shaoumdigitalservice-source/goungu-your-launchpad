@@ -336,25 +336,12 @@ const DefaratSunuNekkin = () => (
               <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
                 Un levier de renforcement du bien-être familial, de la résilience économique et de la réussite éducative des enfants, décliné en six axes.
               </p>
-              <div className="mt-5">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-2">Les six axes</div>
-                <div className="flex flex-wrap gap-2">
-                  {pilier2Axes.map((a) => (
-                    <span key={a} className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary font-medium">{a}</span>
-                  ))}
-                </div>
-              </div>
-              <div className="mt-6">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Activités phares</div>
-                <ul className="space-y-2">
-                  {pilier2Activites.map((a) => (
-                    <li key={a.nom} className="flex justify-between gap-4 text-sm border-b border-border/50 pb-2 last:border-0">
-                      <span className="text-foreground/90">{a.nom}</span>
-                      <span className="text-muted-foreground text-xs uppercase tracking-wider whitespace-nowrap">{a.freq}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <Link
+                to="/programmes/doolel-wajur-yi"
+                className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-primary hover:gap-2 transition-all"
+              >
+                En savoir plus <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
 
