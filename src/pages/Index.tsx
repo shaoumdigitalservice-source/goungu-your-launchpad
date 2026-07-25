@@ -65,6 +65,26 @@ const Index = () => {
 
   return (
   <Layout>
+    {/* BARRE PROGRAMMES */}
+    <div className="bg-ink border-b border-border">
+      <div className="container mx-auto px-4 lg:px-8 py-2.5">
+        <div className="flex items-center gap-3 overflow-x-auto no-scrollbar">
+          <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground whitespace-nowrap shrink-0">
+            Programmes :
+          </span>
+          {programmesBar.map((p) => (
+            <Link
+              key={p.label}
+              to={p.to}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 hover:opacity-90 transition ${p.accent}`}
+            >
+              {p.label} <ChevronRight className="h-3.5 w-3.5" />
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+
     {/* HERO */}
     <section className="relative pt-10 lg:pt-16 overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
