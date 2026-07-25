@@ -378,25 +378,12 @@ const DefaratSunuNekkin = () => (
               <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
                 Initiative citoyenne visant à faire des jeunes les acteurs principaux de l'amélioration du cadre de vie dans leur quartier, en lien avec la préparation des Jeux Olympiques de la Jeunesse (JOJ Dakar 2026).
               </p>
-              <div className="mt-5">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Objectifs</div>
-                <ul className="space-y-2">
-                  {pilier4Objectifs.map((o) => (
-                    <li key={o} className="flex gap-2 text-sm text-foreground/90">
-                      <span className="text-primary mt-1">•</span>
-                      <span>{o}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-6">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Acteurs impliqués</div>
-                <div className="flex flex-wrap gap-2">
-                  {pilier4Acteurs.map((a) => (
-                    <span key={a} className="text-xs px-3 py-1.5 rounded-full bg-foreground/5 border border-border text-foreground/80 font-medium">{a}</span>
-                  ))}
-                </div>
-              </div>
+              <Link
+                to="/programmes/sama-gox-sama-yitte"
+                className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-primary hover:gap-2 transition-all"
+              >
+                En savoir plus <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
         </div>
