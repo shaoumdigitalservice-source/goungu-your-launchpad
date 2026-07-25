@@ -46,7 +46,7 @@ const AccompagnementFamilial = () => (
           { title: "Résultats attendus", items: resultats },
         ].map((b) => (
           <div key={b.title} className="rounded-3xl border bg-card p-8">
-            <h3 className="font-display text-2xl">{b.title}</h3>
+            <h3 className="font-display text-3xl">{b.title}</h3>
             <ul className="mt-5 space-y-3">
               {b.items.map((i) => (
                 <li key={i} className="flex items-start gap-2 text-sm">
@@ -63,7 +63,7 @@ const AccompagnementFamilial = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="rounded-3xl bg-ink p-10 lg:p-14 flex items-center justify-between flex-wrap gap-6">
           <div>
-            <h2 className="font-display text-3xl">Chaque famille mérite un cadre pour respirer.</h2>
+            <h2 className="font-display text-4xl">Chaque famille mérite un cadre pour respirer.</h2>
             <p className="opacity-80 mt-2">Notre équipe de psychologues et médiateurs vous accompagne en toute confidentialité.</p>
           </div>
           <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-background text-foreground font-semibold hover-lift">

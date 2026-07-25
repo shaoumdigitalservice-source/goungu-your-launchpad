@@ -28,8 +28,8 @@ const IncubateurGoungue = () => (
     <section className="pb-16">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-10">
-          <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Le parcours</span>
-          <h2 className="font-display text-3xl lg:text-4xl mt-3">Six étapes, un objectif : lancer et durer.</h2>
+          <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Le parcours</span>
+          <h2 className="font-display text-4xl lg:text-5xl mt-3">Six étapes, un objectif : lancer et durer.</h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {etapes.map((e, i) => (
@@ -40,7 +40,7 @@ const IncubateurGoungue = () => (
                 </div>
                 <span className="text-xs font-mono text-muted-foreground">0{i + 1}</span>
               </div>
-              <h3 className="font-display text-xl">{e.title}</h3>
+              <h3 className="font-display text-2xl">{e.title}</h3>
               <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{e.desc}</p>
             </div>
           ))}
@@ -54,7 +54,7 @@ const IncubateurGoungue = () => (
           <img src={incubImg} alt="Séance de travail à l'incubateur Goungué" loading="lazy" width={1024} height={1024} className="w-full h-[400px] object-cover" />
         </div>
         <div>
-          <h2 className="font-display text-4xl">Ce que reçoit chaque cohorte.</h2>
+          <h2 className="font-display text-5xl">Ce que reçoit chaque cohorte.</h2>
           <ul className="mt-4 space-y-3 text-muted-foreground">
             <li>• 9 mois d'accompagnement intensif, hybride présentiel/distanciel</li>
             <li>• Un mentor senior référent et un pool d'experts sectoriels</li>

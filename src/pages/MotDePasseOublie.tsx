@@ -37,7 +37,7 @@ const MotDePasseOublie = () => {
       <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4 max-w-md">
           <div className="text-center mb-8">
-            <h1 className="font-display text-3xl lg:text-4xl mb-2">Mot de passe oublié</h1>
+            <h1 className="font-display text-4xl lg:text-5xl mb-2">Mot de passe oublié</h1>
             <p className="text-muted-foreground text-sm">
               Entrez votre email, nous vous enverrons un lien pour réinitialiser votre mot de passe.
             </p>

@@ -64,7 +64,7 @@ const Evenements = () => {
                         {date.toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" })}
                       </span>
                     </div>
-                    <h3 className="font-display text-lg flex-1">{e.titre}</h3>
+                    <h3 className="font-display text-xl flex-1">{e.titre}</h3>
                     {e.description && (
                       <p className="text-sm text-muted-foreground mt-2">{e.description}</p>
                     )}

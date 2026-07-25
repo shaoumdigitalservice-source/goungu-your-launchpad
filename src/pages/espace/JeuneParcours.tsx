@@ -458,7 +458,7 @@ export const JeuneMentor = () => {
                   {mentor.prenom?.[0]}{mentor.nom?.[0]}
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-display text-xl">{mentor.prenom} {mentor.nom}</h3>
+                  <h3 className="font-display text-2xl">{mentor.prenom} {mentor.nom}</h3>
                   <p className="text-xs uppercase tracking-widest text-primary font-semibold mt-1">Mentor Goungué</p>
 
                   {mentor.bio && <p className="text-sm text-muted-foreground mt-3">{mentor.bio}</p>}

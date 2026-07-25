@@ -54,7 +54,7 @@ const ProgrammesIndex = () => (
                 </span>
                 <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition" />
               </div>
-              <h2 className="font-display text-3xl lg:text-4xl">{mainProgram.title}</h2>
+              <h2 className="font-display text-4xl lg:text-5xl">{mainProgram.title}</h2>
               <p className="text-muted-foreground mt-4 leading-relaxed">{mainProgram.desc}</p>
             </div>
           </div>
@@ -65,8 +65,8 @@ const ProgrammesIndex = () => (
     <section className="pb-24">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-8">
-          <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Nos autres programmes</span>
-          <h2 className="font-display text-3xl mt-3">Entreprendre, résister, se retrouver.</h2>
+          <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Nos autres programmes</span>
+          <h2 className="font-display text-4xl mt-3">Entreprendre, résister, se retrouver.</h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {others.map((p) => (
@@ -81,7 +81,7 @@ const ProgrammesIndex = () => (
                   </span>
                   <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition" />
                 </div>
-                <h3 className="font-display text-2xl">{p.title}</h3>
+                <h3 className="font-display text-3xl">{p.title}</h3>
                 <p className="text-muted-foreground mt-3 text-sm leading-relaxed">{p.desc}</p>
               </div>
             </Link>

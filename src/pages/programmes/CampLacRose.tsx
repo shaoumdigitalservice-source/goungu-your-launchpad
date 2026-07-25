@@ -69,8 +69,8 @@ const CampLacRose = () => (
     <section className="py-16 bg-section-alt">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
-          <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Les 4 piliers</span>
-          <h2 className="font-display text-4xl mt-3">Un cadre simple, profond et structurant.</h2>
+          <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Les 4 piliers</span>
+          <h2 className="font-display text-5xl mt-3">Un cadre simple, profond et structurant.</h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {piliers.map((p) => (
@@ -78,7 +78,7 @@ const CampLacRose = () => (
               <div className="h-12 w-12 rounded-2xl bg-foreground text-background grid place-items-center mb-4">
                 <p.icon className="h-5 w-5" />
               </div>
-              <h3 className="font-display text-xl">{p.title}</h3>
+              <h3 className="font-display text-2xl">{p.title}</h3>
               <p className="text-sm text-muted-foreground mt-2">{p.desc}</p>
             </div>
           ))}
@@ -90,8 +90,8 @@ const CampLacRose = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
           <div>
-            <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Programme jour par jour</span>
-            <h2 className="font-display text-4xl mt-3">15 journées, un rythme pensé pour chaque étape.</h2>
+            <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Programme jour par jour</span>
+            <h2 className="font-display text-5xl mt-3">15 journées, un rythme pensé pour chaque étape.</h2>
           </div>
           <Placeholder label="Détails susceptibles d'évoluer" />
         </div>
@@ -113,7 +113,7 @@ const CampLacRose = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="rounded-3xl bg-hero-gradient text-primary-foreground p-10 lg:p-14 flex flex-wrap gap-6 items-center justify-between">
           <div>
-            <h3 className="font-display text-3xl">Une session limitée à 30 jeunes par promotion.</h3>
+            <h3 className="font-display text-4xl">Une session limitée à 30 jeunes par promotion.</h3>
             <p className="opacity-90 mt-2">Pré-inscriptions ouvertes — places attribuées sur dossier et entretien.</p>
           </div>
           <Link to="/inscription?programme=camp" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-background text-foreground font-semibold hover-lift">
