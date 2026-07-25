@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import {
   ArrowRight, ArrowUpRight, Heart, Compass, Briefcase, Users, Megaphone, Sparkles,
-  PlayCircle, Quote, MapPin, CheckCircle2, Sparkle
+  PlayCircle, Quote, MapPin, CheckCircle2, Sparkle, ChevronRight
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import Placeholder from "@/components/Placeholder";
@@ -50,11 +50,41 @@ const testimonials = [
   { name: "Moussa Ndiaye", role: "Parent accompagné", quote: "Les ateliers de parentalité positive nous ont aidés à rétablir un vrai dialogue avec notre fils.", image: testimonial2 },
 ];
 
+const programmesBar = [
+  { label: "DEFARAT SUNU NEKKIN", to: "/programmes/defarat-sunu-nekkin", accent: "bg-primary text-primary-foreground" },
+  { label: "Kepar gi", to: "/programmes/kepar-gi", accent: "bg-secondary text-secondary-foreground" },
+  { label: "Meñil War Wi", to: "/programmes/menil-war-wi", accent: "bg-accent text-accent-foreground" },
+  { label: "Incubateur Goungué", to: "/programmes/incubateur-goungue", accent: "bg-primary text-primary-foreground" },
+  { label: "Camp Lac Rose", to: "/programmes/camp-lac-rose", accent: "bg-secondary text-secondary-foreground" },
+  { label: "Parentalité Positive", to: "/programmes/parentalite-positive", accent: "bg-accent text-accent-foreground" },
+  { label: "Ambassadeurs", to: "/ambassadeurs", accent: "bg-primary text-primary-foreground" },
+];
+
 const Index = () => {
   const heroImgDynamic = useImageSite("hero-accueil", heroImg);
 
   return (
   <Layout>
+    {/* BARRE PROGRAMMES */}
+    <div className="bg-ink border-b border-border">
+      <div className="container mx-auto px-4 lg:px-8 py-2.5">
+        <div className="flex items-center gap-3 overflow-x-auto no-scrollbar">
+          <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground whitespace-nowrap shrink-0">
+            Programmes :
+          </span>
+          {programmesBar.map((p) => (
+            <Link
+              key={p.label}
+              to={p.to}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 hover:opacity-90 transition ${p.accent}`}
+            >
+              {p.label} <ChevronRight className="h-3.5 w-3.5" />
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+
     {/* HERO */}
     <section className="relative pt-10 lg:pt-16 overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
