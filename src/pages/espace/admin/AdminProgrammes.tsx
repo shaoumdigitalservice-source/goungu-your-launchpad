@@ -115,7 +115,7 @@ export default function AdminProgrammes() {
     <EspaceLayout title="Programmes" role="admin" items={adminNavItems}>
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">Gestion des programmes</h1>
+          <h1 className="text-3xl font-bold">Gestion des programmes</h1>
           <button
             onClick={ouvrirCreation}
             className="flex items-center gap-1.5 text-sm px-4 py-2 rounded-md bg-primary text-primary-foreground hover:opacity-90"

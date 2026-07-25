@@ -28,7 +28,7 @@ const ProtectedRoute = ({ children, roles }: Props) => {
     return (
       <div className="min-h-screen grid place-items-center px-6">
         <div className="max-w-md text-center">
-          <h1 className="font-display text-3xl mb-2">Accès restreint</h1>
+          <h1 className="font-display text-4xl mb-2">Accès restreint</h1>
           <p className="text-muted-foreground">Cet espace est réservé aux profils : {roles.join(", ")}.</p>
         </div>
       </div>

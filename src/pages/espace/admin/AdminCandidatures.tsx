@@ -82,7 +82,7 @@ export default function AdminCandidatures() {
     <EspaceLayout title="Candidatures" role="admin" items={adminNavItems}>
       <div className="p-6">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-          <h1 className="text-2xl font-bold">Gestion des candidatures</h1>
+          <h1 className="text-3xl font-bold">Gestion des candidatures</h1>
           <select
             value={filtre}
             onChange={(e) => setFiltre(e.target.value)}

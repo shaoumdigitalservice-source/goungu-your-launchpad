@@ -258,7 +258,7 @@ export default function AdminRessources() {
         <div className="p-6 space-y-6">
           <div className="flex items-center justify-between gap-4 flex-wrap">
             <div>
-              <h1 className="text-2xl font-bold">Gestion des ressources</h1>
+              <h1 className="text-3xl font-bold">Gestion des ressources</h1>
               <p className="text-sm text-muted-foreground mt-1">
                 Créez et administrez les liens partagés dans le centre de
                 ressources.

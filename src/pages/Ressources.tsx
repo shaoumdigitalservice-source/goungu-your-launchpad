@@ -73,7 +73,7 @@ const Ressources = () => {
                         {r.type === "FICHIER" ? "Document" : "Lien"}
                       </span>
                     </div>
-                    <h3 className="font-display text-xl flex-1">{r.titre}</h3>
+                    <h3 className="font-display text-2xl flex-1">{r.titre}</h3>
                     {r.description && (
                       <p className="text-sm text-muted-foreground mt-2">
                         {r.description}

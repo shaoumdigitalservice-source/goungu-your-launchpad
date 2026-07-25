@@ -38,7 +38,7 @@ const Programme = () => (
     <section className="py-20">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6">
+          <h1 className="text-6xl md:text-7xl font-extrabold mb-6">
             Programme d'<span className="text-gradient">Incubation</span>
           </h1>
           <p className="text-muted-foreground text-lg">
@@ -55,7 +55,7 @@ const Programme = () => (
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                 <p.icon className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-xl font-bold mb-1">{p.title}</h3>
+              <h3 className="text-2xl font-bold mb-1">{p.title}</h3>
               <p className="text-primary text-sm font-semibold mb-3">{p.duration}</p>
               <p className="text-sm text-muted-foreground mb-4">{p.desc}</p>
               <ul className="space-y-2">
@@ -71,7 +71,7 @@ const Programme = () => (
         </div>
 
         <div className="bg-hero-gradient text-primary-foreground rounded-2xl p-10 md:p-14 text-center">
-          <h2 className="text-2xl font-bold mb-8">Les avantages du programme</h2>
+          <h2 className="text-3xl font-bold mb-8">Les avantages du programme</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {advantages.map((a) => (
               <div key={a.label} className="flex flex-col items-center gap-3">

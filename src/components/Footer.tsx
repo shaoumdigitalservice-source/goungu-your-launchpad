@@ -6,7 +6,7 @@ const Footer = () => (
     <div className="container mx-auto px-4 lg:px-8">
       <div className="grid md:grid-cols-12 gap-10">
         <div className="md:col-span-4">
-          <h3 className="text-3xl font-display font-semibold mb-3">GOUNGUÉ <span className="opacity-60 text-sm font-sans align-middle">Incub</span></h3>
+          <h3 className="text-4xl font-display font-semibold mb-3">GOUNGUÉ <span className="opacity-60 text-sm font-sans align-middle">Incub</span></h3>
           <p className="text-sm opacity-80 leading-relaxed max-w-xs">
             Révéler le potentiel des jeunes. Renforcer les familles.
             Construire l'avenir d'un Sénégal solidaire.

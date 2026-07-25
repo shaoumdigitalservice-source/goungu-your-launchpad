@@ -36,7 +36,7 @@ const Testimonials = () => (
     <section className="py-20">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6">
+          <h1 className="text-6xl md:text-7xl font-extrabold mb-6">
             <span className="text-gradient">Success Stories</span>
           </h1>
           <p className="text-muted-foreground text-lg">

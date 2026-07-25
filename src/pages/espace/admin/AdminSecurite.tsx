@@ -46,7 +46,7 @@ export default function AdminSecurite() {
     <ProtectedRoute roles={["admin"]}>
     <EspaceLayout title="Rôles & sécurité" role="admin" items={adminNavItems}>
       <div className="p-6">
-        <h1 className="text-2xl font-bold mb-2">Rôles & sécurité</h1>
+        <h1 className="text-3xl font-bold mb-2">Rôles & sécurité</h1>
         <p className="text-sm text-muted-foreground mb-6">
           Répartition des comptes par rôle sur la plateforme.
         </p>
@@ -79,7 +79,7 @@ export default function AdminSecurite() {
                       <Icon size={22} />
                     </div>
                     <div>
-                      <div className="font-display text-3xl">{count}</div>
+                      <div className="font-display text-4xl">{count}</div>
                       <div className="text-xs uppercase tracking-widest text-muted-foreground">
                         {info.label}
                       </div>
@@ -93,7 +93,7 @@ export default function AdminSecurite() {
               <div className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
                 Total des comptes
               </div>
-              <div className="font-display text-3xl">{total}</div>
+              <div className="font-display text-4xl">{total}</div>
               <p className="text-sm text-muted-foreground mt-3">
                 Pour modifier le rôle d'un utilisateur ou en supprimer un, rendez-vous
                 dans la section{" "}

@@ -33,7 +33,7 @@ const MenilWarWi = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-10">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Les 4 piliers</span>
-          <h2 className="font-display text-4xl lg:text-5xl mt-3">Quatre postures pour traverser les tempêtes.</h2>
+          <h2 className="font-display text-6xl lg:text-7xl mt-3">Quatre postures pour traverser les tempêtes.</h2>
         </div>
         <div className="grid md:grid-cols-2 gap-5">
           {piliers.map((p) => (
@@ -41,7 +41,7 @@ const MenilWarWi = () => (
               <div className="h-12 w-12 rounded-2xl bg-secondary text-secondary-foreground grid place-items-center mb-4">
                 <p.icon className="h-5 w-5" />
               </div>
-              <h3 className="font-display text-2xl">{p.title}</h3>
+              <h3 className="font-display text-3xl">{p.title}</h3>
               <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{p.desc}</p>
             </div>
           ))}
@@ -56,7 +56,7 @@ const MenilWarWi = () => (
             <div className="h-12 w-12 rounded-2xl bg-primary/10 text-primary grid place-items-center mb-4">
               <s.icon className="h-5 w-5" />
             </div>
-            <h3 className="font-display text-2xl">{s.title}</h3>
+            <h3 className="font-display text-3xl">{s.title}</h3>
             <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{s.desc}</p>
           </div>
         ))}
@@ -69,7 +69,7 @@ const MenilWarWi = () => (
           <img src={menilImg} alt="Coaching d'entreprise Meñil War Wi" loading="lazy" width={1024} height={1024} className="w-full h-[400px] object-cover" />
         </div>
         <div>
-          <h2 className="font-display text-5xl">Pour qui&nbsp;?</h2>
+          <h2 className="font-display text-6xl">Pour qui&nbsp;?</h2>
           <p className="text-muted-foreground mt-4">TPE et PME sénégalaises confrontées à un ralentissement, un choc externe ou une phase de transformation. Meñil War Wi s'adresse aux dirigeants prêts à travailler leur résilience en équipe et sur la durée.</p>
           <Link to="/inscription" className="inline-flex items-center gap-2 mt-6 text-primary font-semibold">
             Déposer ma candidature <ArrowRight className="h-4 w-4" />

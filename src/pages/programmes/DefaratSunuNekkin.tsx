@@ -208,12 +208,12 @@ const DefaratSunuNekkin = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Pourquoi ce programme ?</span>
-          <h2 className="font-display text-5xl mt-3">Les défis auxquels DEFARAT SUNU NEKKIN répond.</h2>
+          <h2 className="font-display text-6xl mt-3">Les défis auxquels DEFARAT SUNU NEKKIN répond.</h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {defis.map((d) => (
             <div key={d.title} className="rounded-2xl border bg-card p-6 hover-lift">
-              <h3 className="font-display text-xl">{d.title}</h3>
+              <h3 className="font-display text-2xl">{d.title}</h3>
               <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{d.desc}</p>
             </div>
           ))}
@@ -226,7 +226,7 @@ const DefaratSunuNekkin = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Objectifs</span>
-          <h2 className="font-display text-5xl mt-3">Six objectifs au service des familles et des communautés.</h2>
+          <h2 className="font-display text-6xl mt-3">Six objectifs au service des familles et des communautés.</h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {objectifs.map((o) => (
@@ -234,7 +234,7 @@ const DefaratSunuNekkin = () => (
               <div className="h-12 w-12 rounded-2xl bg-primary/10 text-primary grid place-items-center mb-4">
                 <o.icon className="h-5 w-5" />
               </div>
-              <h3 className="font-display text-2xl">{o.title}</h3>
+              <h3 className="font-display text-3xl">{o.title}</h3>
               <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{o.desc}</p>
             </div>
           ))}
@@ -248,7 +248,7 @@ const DefaratSunuNekkin = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Architecture du programme</span>
-          <h2 className="font-display text-5xl mt-3">Les 4 piliers du programme.</h2>
+          <h2 className="font-display text-6xl mt-3">Les 4 piliers du programme.</h2>
           <p className="text-muted-foreground mt-4 leading-relaxed">
             Defarat Sunu Nekkin s'articule autour de quatre piliers complémentaires : la famille, les parents, les jeunes et le quartier. Ensemble, ils forment une chaîne de transformation cohérente, du foyer à la communauté.
           </p>
@@ -262,7 +262,7 @@ const DefaratSunuNekkin = () => (
             </div>
             <div className="p-7 flex flex-col flex-1">
               <span className="text-xs uppercase tracking-wider text-primary font-semibold">Pilier 1</span>
-              <h3 className="font-display text-3xl mt-2">Doxalin njaboot</h3>
+              <h3 className="font-display text-4xl mt-2">Doxalin njaboot</h3>
               <div className="text-sm text-muted-foreground font-semibold">Gouvernance familiale</div>
               <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
                 La mise en place d'une organisation interne dans chaque famille, avec conseil de famille et plateforme communale.
@@ -283,7 +283,7 @@ const DefaratSunuNekkin = () => (
             </div>
             <div className="p-7 flex flex-col flex-1">
               <span className="text-xs uppercase tracking-wider text-primary font-semibold">Pilier 2</span>
-              <h3 className="font-display text-3xl mt-2">Doolel wajur yi</h3>
+              <h3 className="font-display text-4xl mt-2">Doolel wajur yi</h3>
               <div className="text-sm text-muted-foreground font-semibold">Accompagnement des parents</div>
               <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
                 Un levier de renforcement du bien-être familial, de la résilience économique et de la réussite éducative des enfants, décliné en six axes.
@@ -304,7 +304,7 @@ const DefaratSunuNekkin = () => (
             </div>
             <div className="p-7 flex flex-col flex-1">
               <span className="text-xs uppercase tracking-wider text-primary font-semibold">Pilier 3</span>
-              <h3 className="font-display text-3xl mt-2">Dalalu jubbanti</h3>
+              <h3 className="font-display text-4xl mt-2">Dalalu jubbanti</h3>
               <div className="text-sm text-muted-foreground font-semibold">Camp de redressement pour jeunes</div>
               <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
                 Un séjour de 15 jours d'accompagnement psychosocial, de médiation familiale et d'orientation pour les jeunes en difficulté scolaire ou familiale.
@@ -325,7 +325,7 @@ const DefaratSunuNekkin = () => (
             </div>
             <div className="p-7 flex flex-col flex-1">
               <span className="text-xs uppercase tracking-wider text-primary font-semibold">Pilier 4</span>
-              <h3 className="font-display text-3xl mt-2">Sama gox, sama yitte</h3>
+              <h3 className="font-display text-4xl mt-2">Sama gox, sama yitte</h3>
               <div className="text-sm text-muted-foreground font-semibold">Mon quartier, mon engagement</div>
               <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
                 Initiative citoyenne visant à faire des jeunes les acteurs principaux de l'amélioration du cadre de vie dans leur quartier, en lien avec la préparation des Jeux Olympiques de la Jeunesse (JOJ Dakar 2026).
@@ -347,7 +347,7 @@ const DefaratSunuNekkin = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Les piliers</span>
-          <h2 className="font-display text-5xl mt-3">Sept piliers pour une famille forte et engagée.</h2>
+          <h2 className="font-display text-6xl mt-3">Sept piliers pour une famille forte et engagée.</h2>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {piliers.map((p) => (
@@ -355,7 +355,7 @@ const DefaratSunuNekkin = () => (
               <div className="h-12 w-12 rounded-2xl bg-foreground text-background grid place-items-center mb-4">
                 <p.icon className="h-5 w-5" />
               </div>
-              <h3 className="font-display text-xl">{p.title}</h3>
+              <h3 className="font-display text-2xl">{p.title}</h3>
               <p className="text-sm text-muted-foreground mt-2">{p.desc}</p>
             </div>
           ))}
@@ -368,7 +368,7 @@ const DefaratSunuNekkin = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-10">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Les volets opérationnels</span>
-          <h2 className="font-display text-5xl mt-3">Trois portes d'entrée vers la même transformation.</h2>
+          <h2 className="font-display text-6xl mt-3">Trois portes d'entrée vers la même transformation.</h2>
           <p className="text-muted-foreground mt-4 leading-relaxed">
             Defarat Sunu Nekkin se déploie concrètement à travers trois volets complémentaires qui s'adressent aux jeunes, aux parents et aux familles. Chaque volet alimente la même dynamique nationale de gouvernance familiale et de cohésion sociale.
           </p>
@@ -383,7 +383,7 @@ const DefaratSunuNekkin = () => (
                 <span className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-semibold text-primary">
                   <v.icon className="h-4 w-4" /> {v.tag}
                 </span>
-                <h3 className="font-display text-2xl mt-2">{v.title}</h3>
+                <h3 className="font-display text-3xl mt-2">{v.title}</h3>
                 <p className="text-muted-foreground mt-2 text-sm leading-relaxed">{v.desc}</p>
                 <span className="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-primary group-hover:gap-2 transition-all">
                   Découvrir le volet <ArrowRight className="h-4 w-4" />
@@ -401,7 +401,7 @@ const DefaratSunuNekkin = () => (
         <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
           <div>
             <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Le fonctionnement</span>
-            <h2 className="font-display text-5xl mt-3">Un parcours en huit étapes, clair et progressif.</h2>
+            <h2 className="font-display text-6xl mt-3">Un parcours en huit étapes, clair et progressif.</h2>
           </div>
           <Placeholder label="Étapes susceptibles d'évoluer" />
         </div>
@@ -427,7 +427,7 @@ const DefaratSunuNekkin = () => (
         </div>
         <div>
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Les Conseils de Famille</span>
-          <h2 className="font-display text-5xl mt-3">Une parole structurée, des décisions partagées.</h2>
+          <h2 className="font-display text-6xl mt-3">Une parole structurée, des décisions partagées.</h2>
           <p className="text-muted-foreground mt-4 leading-relaxed">
             Le Conseil de Famille est le cœur du programme : un espace régulier où chacun s'écoute, décide et s'engage.
           </p>
@@ -454,7 +454,7 @@ const DefaratSunuNekkin = () => (
       <div className="container mx-auto px-4 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
         <div className="order-2 lg:order-1">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Coaching des familles</span>
-          <h2 className="font-display text-5xl mt-3">Un accompagnement humain, sur mesure.</h2>
+          <h2 className="font-display text-6xl mt-3">Un accompagnement humain, sur mesure.</h2>
           <p className="text-muted-foreground mt-4 leading-relaxed">
             Chaque famille est unique. Nos facilitateurs formés accompagnent les familles dans la durée, avec discrétion et bienveillance.
           </p>
@@ -485,7 +485,7 @@ const DefaratSunuNekkin = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Les Labels</span>
-          <h2 className="font-display text-5xl mt-3">Quatre niveaux de reconnaissance pour valoriser l'engagement.</h2>
+          <h2 className="font-display text-6xl mt-3">Quatre niveaux de reconnaissance pour valoriser l'engagement.</h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {labels.map((l) => (
@@ -495,7 +495,7 @@ const DefaratSunuNekkin = () => (
               </div>
               <div className="p-6">
                 <div className="text-xs uppercase tracking-wider text-muted-foreground">Niveau {l.level}</div>
-                <h3 className="font-display text-2xl mt-1">{l.name}</h3>
+                <h3 className="font-display text-3xl mt-1">{l.name}</h3>
                 <div className="mt-4 space-y-3 text-sm">
                   <div>
                     <div className="text-[11px] uppercase tracking-wider text-primary font-semibold">Critères</div>
@@ -521,7 +521,7 @@ const DefaratSunuNekkin = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Les outils du programme</span>
-          <h2 className="font-display text-5xl mt-3">Des documents officiels pour cadrer l'engagement.</h2>
+          <h2 className="font-display text-6xl mt-3">Des documents officiels pour cadrer l'engagement.</h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {outils.map((o) => (
@@ -530,7 +530,7 @@ const DefaratSunuNekkin = () => (
                 <FileText className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="font-display text-xl">{o.title}</h3>
+                <h3 className="font-display text-2xl">{o.title}</h3>
                 <p className="text-sm text-muted-foreground mt-1">{o.desc}</p>
               </div>
             </div>
@@ -544,7 +544,7 @@ const DefaratSunuNekkin = () => (
       <div className="container mx-auto px-4 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Plateforme communale</span>
-          <h2 className="font-display text-5xl mt-3">Une plateforme numérique au service des communes et des familles.</h2>
+          <h2 className="font-display text-6xl mt-3">Une plateforme numérique au service des communes et des familles.</h2>
           <p className="text-muted-foreground mt-4 leading-relaxed">
             DEFARAT SUNU NEKKIN s'appuie sur un outil numérique moderne, accessible et sécurisé, pensé pour les facilitateurs locaux et les autorités communales.
           </p>
@@ -577,7 +577,7 @@ const DefaratSunuNekkin = () => (
                 { v: "42", l: "Facilitateurs" },
               ].map((s) => (
                 <div key={s.l} className="rounded-xl bg-card border p-4">
-                  <div className="font-display text-2xl">{s.v}</div>
+                  <div className="font-display text-3xl">{s.v}</div>
                   <div className="text-[11px] uppercase tracking-wider text-muted-foreground">{s.l}</div>
                 </div>
               ))}
@@ -603,7 +603,7 @@ const DefaratSunuNekkin = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Les bénéficiaires</span>
-          <h2 className="font-display text-5xl mt-3">Un programme qui rassemble tous les acteurs de la société.</h2>
+          <h2 className="font-display text-6xl mt-3">Un programme qui rassemble tous les acteurs de la société.</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
           {beneficiaires.map((b) => (
@@ -624,14 +624,14 @@ const DefaratSunuNekkin = () => (
         <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
           <div>
             <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Impact attendu</span>
-            <h2 className="font-display text-5xl mt-3">Des chiffres au service d'une transformation durable.</h2>
+            <h2 className="font-display text-6xl mt-3">Des chiffres au service d'une transformation durable.</h2>
           </div>
           <Placeholder label="Données prévisionnelles" />
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {stats.map((s) => (
             <div key={s.label} className="rounded-2xl border bg-card p-6 text-center">
-              <div className="font-display text-4xl text-primary">{s.value}</div>
+              <div className="font-display text-5xl text-primary">{s.value}</div>
               <div className="text-xs uppercase tracking-wider text-muted-foreground mt-2">{s.label}</div>
             </div>
           ))}
@@ -643,11 +643,11 @@ const DefaratSunuNekkin = () => (
     <section className="py-20">
       <div className="container mx-auto px-4 lg:px-8 max-w-3xl">
         <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">FAQ</span>
-        <h2 className="font-display text-5xl mt-3 mb-8">Vos questions, nos réponses.</h2>
+        <h2 className="font-display text-6xl mt-3 mb-8">Vos questions, nos réponses.</h2>
         <Accordion type="single" collapsible className="rounded-2xl border bg-card px-6">
           {faq.map((f, i) => (
             <AccordionItem key={i} value={`item-${i}`} className="border-b last:border-0">
-              <AccordionTrigger className="text-left font-display text-xl">{f.q}</AccordionTrigger>
+              <AccordionTrigger className="text-left font-display text-2xl">{f.q}</AccordionTrigger>
               <AccordionContent className="text-muted-foreground leading-relaxed">{f.a}</AccordionContent>
             </AccordionItem>
           ))}
@@ -660,7 +660,7 @@ const DefaratSunuNekkin = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="rounded-3xl bg-hero-gradient text-primary-foreground p-10 lg:p-14">
           <div className="max-w-3xl">
-            <h3 className="font-display text-4xl lg:text-5xl leading-tight">
+            <h3 className="font-display text-6xl lg:text-7xl leading-tight">
               Familles, communes, partenaires, institutions : rejoignez DEFARAT SUNU NEKKIN.
             </h3>
             <p className="opacity-90 mt-3 text-lg">

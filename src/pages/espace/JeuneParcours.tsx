@@ -454,11 +454,11 @@ export const JeuneMentor = () => {
           {!loading && !erreur && mentor && mentor.assigne && (
             <>
               <div className="flex flex-col sm:flex-row items-start gap-6 bg-background border rounded-2xl p-6 mb-6">
-                <div className="h-16 w-16 rounded-2xl bg-foreground text-background grid place-items-center text-xl font-display shrink-0">
+                <div className="h-16 w-16 rounded-2xl bg-foreground text-background grid place-items-center text-2xl font-display shrink-0">
                   {mentor.prenom?.[0]}{mentor.nom?.[0]}
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-display text-2xl">{mentor.prenom} {mentor.nom}</h3>
+                  <h3 className="font-display text-3xl">{mentor.prenom} {mentor.nom}</h3>
                   <p className="text-xs uppercase tracking-widest text-primary font-semibold mt-1">Mentor Goungué</p>
 
                   {mentor.bio && <p className="text-sm text-muted-foreground mt-3">{mentor.bio}</p>}
