@@ -261,7 +261,7 @@ const Index = () => {
           </div>
           <div>
             <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Réseau des Ambassadeurs</span>
-            <h2 className="font-display text-7xl lg:text-8xl mt-3">Une voix Goungué dans chaque région.</h2>
+            <h2 className="font-display text-4xl lg:text-5xl mt-3">Une voix Goungué dans chaque région.</h2>
             <p className="mt-4 text-muted-foreground">Nos ambassadeurs sont d'anciens bénéficiaires et engagés communautaires qui portent la voix de Goungué dans leur quartier, leur école et leur ville.</p>
             <ul className="mt-6 space-y-3">
               {["Témoignage et inspiration", "Détection de jeunes en besoin", "Animation d'ateliers locaux", "Veille terrain et reporting"].map((l) => (
