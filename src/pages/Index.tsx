@@ -201,7 +201,7 @@ const Index = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Programmes phares</span>
-          <h2 className="font-display text-7xl lg:text-8xl mt-3">Des expériences qui transforment.</h2>
+          <h2 className="font-display text-4xl lg:text-5xl mt-3">Des expériences qui transforment.</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {programmesPreview.map((p) => (
@@ -261,7 +261,7 @@ const Index = () => {
           </div>
           <div>
             <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Réseau des Ambassadeurs</span>
-            <h2 className="font-display text-7xl lg:text-8xl mt-3">Une voix Goungué dans chaque région.</h2>
+            <h2 className="font-display text-4xl lg:text-5xl mt-3">Une voix Goungué dans chaque région.</h2>
             <p className="mt-4 text-muted-foreground">Nos ambassadeurs sont d'anciens bénéficiaires et engagés communautaires qui portent la voix de Goungué dans leur quartier, leur école et leur ville.</p>
             <ul className="mt-6 space-y-3">
               {["Témoignage et inspiration", "Détection de jeunes en besoin", "Animation d'ateliers locaux", "Veille terrain et reporting"].map((l) => (
@@ -284,7 +284,7 @@ const Index = () => {
         <div className="relative overflow-hidden rounded-[2rem] bg-hero-gradient text-primary-foreground p-10 lg:p-16">
           <div className="absolute inset-0 pattern-grain opacity-30" />
           <div className="relative max-w-2xl">
-            <h2 className="font-display text-7xl lg:text-8xl">Prêt à écrire votre prochain chapitre ?</h2>
+            <h2 className="font-display text-4xl lg:text-5xl">Prêt à écrire votre prochain chapitre ?</h2>
             <p className="mt-4 opacity-90">Que vous soyez jeune, parent ou mentor : il existe une porte d'entrée chez Goungué qui vous correspond.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/inscription" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-background text-foreground font-semibold hover-lift">
