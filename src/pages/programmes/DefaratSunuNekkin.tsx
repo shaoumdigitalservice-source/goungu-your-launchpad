@@ -37,22 +37,14 @@ import conseilImg from "@/assets/defarat-conseil.jpg";
 import coachingImg from "@/assets/defarat-coaching.jpg";
 import defaratPilier1Img from "@/assets/defarat-pilier1.jpg";
 import defaratPilier3Img from "@/assets/defarat-pilier3.jpg";
-import campImg from "@/assets/camp-lac-rose.jpg";
+
 import parentImg from "@/assets/parentalite.jpg";
 import heroPremium from "@/assets/hero-premium.jpg";
-import { Tent } from "lucide-react";
+
 import defaratParentsImg from "@/assets/defarat-parents.jpg";
 import defaratQuartierImg from "@/assets/defarat-quartier.jpg";
 
 const volets = [
-  {
-    to: "/programmes/dalalu-jubbanti",
-    title: "Camp de Vacances d'Incubation Sociale",
-    tag: "Dalalu jubbanti · 15 jours",
-    icon: Tent,
-    img: campImg,
-    desc: "Une immersion de 15 jours au Lac Rose pour se comprendre, se reconstruire, se projeter et se réconcilier avec sa famille.",
-  },
   {
     to: "/programmes/parentalite-positive",
     title: "Parentalité Positive",
