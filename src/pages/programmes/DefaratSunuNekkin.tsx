@@ -280,12 +280,9 @@ const DefaratSunuNekkin = () => (
               <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
                 Un levier de renforcement du bien-être familial, de la résilience économique et de la réussite éducative des enfants, décliné en six axes.
               </p>
-              <Link
-                to="/programmes/doolel-wajur-yi"
-                className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-primary hover:gap-2 transition-all"
-              >
-                En savoir plus <ArrowRight className="h-4 w-4" />
-              </Link>
+              <span className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-muted-foreground">
+                Page dédiée à venir
+              </span>
             </div>
           </div>
 
@@ -322,12 +319,9 @@ const DefaratSunuNekkin = () => (
               <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
                 Initiative citoyenne visant à faire des jeunes les acteurs principaux de l'amélioration du cadre de vie dans leur quartier, en lien avec la préparation des Jeux Olympiques de la Jeunesse (JOJ Dakar 2026).
               </p>
-              <Link
-                to="/programmes/sama-gox-sama-yitte"
-                className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-primary hover:gap-2 transition-all"
-              >
-                En savoir plus <ArrowRight className="h-4 w-4" />
-              </Link>
+              <span className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-muted-foreground">
+                Page dédiée à venir
+              </span>
             </div>
           </div>
         </div>
@@ -338,8 +332,8 @@ const DefaratSunuNekkin = () => (
     <section id="gouvernance-familiale" className="py-20 bg-section-alt scroll-mt-24">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-12">
-          <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Les piliers</span>
-          <h2 className="font-display text-6xl mt-3">Sept piliers pour une famille forte et engagée.</h2>
+          <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Doxalin njaboot, en détail</span>
+          <h2 className="font-display text-6xl mt-3">Les axes de la gouvernance familiale.</h2>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {piliers.map((p) => (
@@ -360,12 +354,12 @@ const DefaratSunuNekkin = () => (
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mb-10">
           <span className="text-sm uppercase tracking-[0.18em] text-primary font-semibold">Les volets opérationnels</span>
-          <h2 className="font-display text-6xl mt-3">Trois portes d'entrée vers la même transformation.</h2>
+          <h2 className="font-display text-6xl mt-3">Deux portes d'entrée vers la même transformation.</h2>
           <p className="text-muted-foreground mt-4 leading-relaxed">
-            Defarat Sunu Nekkin se déploie concrètement à travers trois volets complémentaires qui s'adressent aux jeunes, aux parents et aux familles. Chaque volet alimente la même dynamique nationale de gouvernance familiale et de cohésion sociale.
+            Defarat Sunu Nekkin se déploie concrètement à travers deux volets complémentaires qui s'adressent aux parents et aux familles. Chaque volet alimente la même dynamique nationale de gouvernance familiale et de cohésion sociale.
           </p>
         </div>
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 gap-5">
           {volets.map((v) => (
             <Link key={v.to} to={v.to} className="group rounded-3xl overflow-hidden border bg-card hover-lift block">
               <div className="aspect-[16/10] overflow-hidden">
