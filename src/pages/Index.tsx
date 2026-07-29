@@ -40,7 +40,7 @@ const parcours = [
 ];
 
 const programmesPreview = [
-  { tag: "Camp", title: "Camp de Vacances d'Incubation Sociale", desc: "15 jours immersifs au Lac Rose. Se comprendre, se reconstruire, se projeter, se réconcilier.", img: campImg, to: "/programmes/camp-lac-rose" },
+  { tag: "Camp", title: "Camp de Vacances d'Incubation Sociale", desc: "15 jours immersifs au Lac Rose. Se comprendre, se reconstruire, se projeter, se réconcilier.", img: campImg, to: "/programmes/dalalu-jubbanti" },
   { tag: "Famille", title: "Parentalité Positive", desc: "6 modules pour outiller les parents face à l'adolescence, aux réseaux sociaux et à l'orientation.", img: parentImg, to: "/programmes/parentalite-positive" },
   { tag: "Réseau", title: "Ambassadeurs Goungué", desc: "Un réseau national de jeunes engagés, témoins et relais dans chaque région du Sénégal.", img: ambassadeursImg, to: "/ambassadeurs" },
 ];
@@ -55,7 +55,7 @@ const programmesBar = [
   { label: "Kepar gi", to: "/programmes/kepar-gi", accent: "bg-secondary text-secondary-foreground" },
   { label: "Meñil War Wi", to: "/programmes/menil-war-wi", accent: "bg-accent text-accent-foreground" },
   { label: "Incubateur Goungué", to: "/programmes/incubateur-goungue", accent: "bg-primary text-primary-foreground" },
-  { label: "Camp Lac Rose", to: "/programmes/camp-lac-rose", accent: "bg-secondary text-secondary-foreground" },
+  { label: "Camp Lac Rose", to: "/programmes/dalalu-jubbanti", accent: "bg-secondary text-secondary-foreground" },
   { label: "Parentalité Positive", to: "/programmes/parentalite-positive", accent: "bg-accent text-accent-foreground" },
   { label: "Ambassadeurs", to: "/ambassadeurs", accent: "bg-primary text-primary-foreground" },
 ];

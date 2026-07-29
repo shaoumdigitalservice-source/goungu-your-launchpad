@@ -46,9 +46,9 @@ import defaratQuartierImg from "@/assets/defarat-quartier.jpg";
 
 const volets = [
   {
-    to: "/programmes/camp-lac-rose",
+    to: "/programmes/dalalu-jubbanti",
     title: "Camp de Vacances d'Incubation Sociale",
-    tag: "Volet jeunes · 15 jours",
+    tag: "Dalalu jubbanti · 15 jours",
     icon: Tent,
     img: campImg,
     desc: "Une immersion de 15 jours au Lac Rose pour se comprendre, se reconstruire, se projeter et se réconcilier avec sa famille.",
@@ -310,7 +310,7 @@ const DefaratSunuNekkin = () => (
                 Un séjour de 15 jours d'accompagnement psychosocial, de médiation familiale et d'orientation pour les jeunes en difficulté scolaire ou familiale.
               </p>
               <Link
-                to="/programmes/camp-lac-rose"
+                to="/programmes/dalalu-jubbanti"
                 className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-primary hover:gap-2 transition-all"
               >
                 Découvrir le Camp Lac Rose <ArrowRight className="h-4 w-4" />
