@@ -36,10 +36,10 @@ const facts = [
   { icon: Clock, label: "Prochaine session", value: "Été 2026" },
 ];
 
-const CampLacRose = () => (
+const DalaluJubbanti = () => (
   <Layout>
     <PageHero
-      eyebrow="Camp de Vacances d'Incubation Sociale"
+      eyebrow="Dalalu jubbanti"
       title="15 jours pour se retrouver, se reconstruire et se réconcilier."
       description="Au bord du Lac Rose, dans un cadre apaisant, jeunes et mentors vivent une expérience humaine intense et structurante."
       image={campImg}
@@ -125,4 +125,4 @@ const CampLacRose = () => (
   </Layout>
 );
 
-export default CampLacRose;
+export default DalaluJubbanti;
