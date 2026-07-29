@@ -22,6 +22,7 @@ import {
   Landmark,
   Handshake,
   ChevronDown,
+  CheckCircle2,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
@@ -244,6 +245,24 @@ const DefaratSunuNekkin = () => (
           <p className="text-muted-foreground mt-4 leading-relaxed">
             Defarat Sunu Nekkin s'articule autour de quatre piliers complémentaires : la famille, les parents, les jeunes et le quartier. Ensemble, ils forment une chaîne de transformation cohérente, du foyer à la communauté.
           </p>
+
+          <div className="mt-8 rounded-2xl border bg-card p-6">
+            <span className="text-sm font-semibold text-foreground/80">Résultats attendus</span>
+            <ul className="grid md:grid-cols-2 gap-3 mt-4">
+              {[
+                "Des familles réconciliées et épanouies",
+                "Un engagement des populations au service de la communauté",
+                "Un bénévolat structuré pour l'amélioration du cadre de vie communautaire",
+                "Des jeunes réintégrés dans leur famille ou dans le système éducatif",
+                "Des communes salubres et sécurisées",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3 text-sm text-foreground/80">
+                  <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
