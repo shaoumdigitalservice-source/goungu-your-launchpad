@@ -16,8 +16,8 @@ const Inscription = () => {
     email: "",
     phone: "",
     programme: (() => {
-      const p = searchParams.get("programme");
-      return p && programmes.includes(p) ? p : "";
+      const p = programmeParam;
+      return p && programmes.includes(p) && !isMenilMode ? p : "";
     })(),
     motivation: "",
   });
