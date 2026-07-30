@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight, ArrowUpRight, Heart, Compass, Briefcase, Users, Megaphone, Sparkles,
-  PlayCircle, Quote, MapPin, CheckCircle2, Sparkle, ChevronRight
+  PlayCircle, Quote, MapPin, CheckCircle2, Sparkle
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import Placeholder from "@/components/Placeholder";
@@ -58,25 +59,62 @@ const programmesBar = [
   { label: "Incubateur Goungué", to: "/programmes/incubateur-goungue", accent: "bg-primary text-primary-foreground" },
 ];
 
+const defaratSub = [
+  { label: "Doxalin njaboot", to: "/programmes/defarat-sunu-nekkin#gouvernance-familiale" },
+  { label: "Doolel wajur yi", to: "/programmes/doolel-wajur-yi" },
+  { label: "Dalalu jubbanti", to: "/programmes/dalalu-jubbanti" },
+  { label: "Sama gox, sama yitte", to: "/programmes/sama-gox-sama-yitte" },
+];
+
 const Index = () => {
   const heroImgDynamic = useImageSite("hero-accueil", heroImg);
+  const [openBarMenu, setOpenBarMenu] = useState<string | null>(null);
 
   return (
   <Layout>
     {/* BARRE PROGRAMMES */}
-    <div className="bg-ink border-b border-border">
+    <div className="bg-section-alt border-b border-border">
       <div className="container mx-auto px-4 lg:px-8 py-2.5">
-        <div className="flex items-center gap-3 overflow-x-auto no-scrollbar">
-          <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground whitespace-nowrap shrink-0">
+        <div className="flex items-center justify-center gap-3 overflow-x-auto no-scrollbar">
+          <span className="text-xs font-semibold uppercase tracking-wider text-foreground whitespace-nowrap shrink-0">
             Programmes :
           </span>
-          {programmesBar.map((p) => (
+          {programmesBar.map((p) => p.label === "DEFARAT SUNU NEKKIN" ? (
+            <div
+              key={p.label}
+              className="relative shrink-0"
+              onMouseEnter={() => setOpenBarMenu(p.label)}
+              onMouseLeave={() => setOpenBarMenu(null)}
+            >
+              <Link
+                to={p.to}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold uppercase whitespace-nowrap hover:opacity-90 transition ${p.accent}`}
+              >
+                {p.label}
+              </Link>
+              {openBarMenu === p.label && (
+                <div className="absolute top-full left-0 pt-2 w-60 z-50 animate-fade-up">
+                  <div className="glass rounded-2xl p-2 ring-soft">
+                    {defaratSub.map((s) => (
+                      <Link
+                        key={s.to}
+                        to={s.to}
+                        className="block px-3 py-2 rounded-xl text-sm font-medium text-foreground hover:bg-primary/10 transition"
+                      >
+                        {s.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
             <Link
               key={p.label}
               to={p.to}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 hover:opacity-90 transition ${p.accent}`}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold uppercase whitespace-nowrap shrink-0 hover:opacity-90 transition ${p.accent}`}
             >
-              {p.label} <ChevronRight className="h-3.5 w-3.5" />
+              {p.label}
             </Link>
           ))}
         </div>
