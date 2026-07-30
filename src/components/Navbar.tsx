@@ -6,7 +6,7 @@ import { useAuth, defaultDashboardPath } from "@/contexts/AuthContext";
 import logoLight from "@/assets/logo-light.jpeg";
 import logoDark from "@/assets/logo-dark.jpeg";
 
-const navLinks: { label: string; path?: string; children?: { label: string; path: string; desc?: string; sub?: { label: string; path: string }[] }[] }[] = [
+const navLinks: { label: string; path?: string; children?: { label: string; path: string; desc?: string; sub?: { label: string; path: string; desc?: string }[] }[] }[] = [
   { label: "Accueil", path: "/" },
   { label: "À propos", path: "/a-propos" },
   {
