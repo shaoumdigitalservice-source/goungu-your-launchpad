@@ -8,7 +8,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
-import Programme from "./pages/Programme";
+
 import Testimonials from "./pages/Testimonials";
 import Contact from "./pages/Contact";
 import Inscription from "./pages/Inscription";
@@ -87,7 +87,7 @@ const App = () => (
             <Route path="/blog" element={<Blog />} />
             {/* Legacy aliases */}
             <Route path="/services" element={<Services />} />
-            <Route path="/programme" element={<Programme />} />
+            
             <Route path="/temoignages" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/inscription" element={<Inscription />} />
