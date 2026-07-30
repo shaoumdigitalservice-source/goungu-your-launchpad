@@ -26,6 +26,10 @@ const Inscription = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.programme) {
+      toast.error("Veuillez sélectionner un programme.");
+      return;
+    }
     setLoading(true);
     try {
       await envoyerCandidature(form);
