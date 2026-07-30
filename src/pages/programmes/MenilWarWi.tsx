@@ -25,7 +25,7 @@ const MenilWarWi = () => (
       description="Un programme d'accompagnement des entreprises sénégalaises pour supporter les difficultés, endurer les épreuves, faire preuve de patience face aux contraintes et résister aux aléas."
       image={menilImg}
     >
-      <Link to="/inscription" className="px-6 py-3.5 rounded-full bg-foreground text-background font-semibold hover-lift">Candidater</Link>
+      <Link to="/inscription?programme=Meñil War Wi" className="px-6 py-3.5 rounded-full bg-foreground text-background font-semibold hover-lift">Candidater</Link>
       <Link to="/contact" className="px-6 py-3.5 rounded-full border border-foreground/20 font-semibold hover:bg-foreground/5 transition">Parler à un conseiller</Link>
     </PageHero>
 
@@ -71,7 +71,7 @@ const MenilWarWi = () => (
         <div>
           <h2 className="font-display text-6xl">Pour qui&nbsp;?</h2>
           <p className="text-muted-foreground mt-4">TPE et PME sénégalaises confrontées à un ralentissement, un choc externe ou une phase de transformation. Meñil War Wi s'adresse aux dirigeants prêts à travailler leur résilience en équipe et sur la durée.</p>
-          <Link to="/inscription" className="inline-flex items-center gap-2 mt-6 text-primary font-semibold">
+          <Link to="/inscription?programme=Meñil War Wi" className="inline-flex items-center gap-2 mt-6 text-primary font-semibold">
             Déposer ma candidature <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

@@ -44,7 +44,7 @@ const DalaluJubbanti = () => (
       description="Au bord du Lac Rose, dans un cadre apaisant, jeunes et mentors vivent une expérience humaine intense et structurante."
       image={campImg}
     >
-      <Link to="/inscription?programme=camp" className="px-6 py-3.5 rounded-full bg-foreground text-background font-semibold hover-lift">
+      <Link to="/inscription?programme=Dalalu jubbanti" className="px-6 py-3.5 rounded-full bg-foreground text-background font-semibold hover-lift">
         Candidater au prochain camp
       </Link>
       <Link to="/contact" className="px-6 py-3.5 rounded-full border border-foreground/20 font-semibold hover:bg-foreground/5 transition">
@@ -116,7 +116,7 @@ const DalaluJubbanti = () => (
             <h3 className="font-display text-5xl">Une session limitée à 30 jeunes par promotion.</h3>
             <p className="opacity-90 mt-2">Pré-inscriptions ouvertes — places attribuées sur dossier et entretien.</p>
           </div>
-          <Link to="/inscription?programme=camp" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-background text-foreground font-semibold hover-lift">
+          <Link to="/inscription?programme=Dalalu jubbanti" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-background text-foreground font-semibold hover-lift">
             Candidater <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

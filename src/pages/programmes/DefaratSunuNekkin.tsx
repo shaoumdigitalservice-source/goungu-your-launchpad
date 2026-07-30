@@ -183,7 +183,7 @@ const DefaratSunuNekkin = () => (
       image={heroImg}
     >
       <Link
-        to="/inscription?programme=defarat-sunu-nekkin"
+        to="/inscription?programme=Defarat Sunu Nekkin"
         className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-foreground text-background font-semibold hover-lift"
       >
         Rejoindre le programme <ArrowRight className="h-4 w-4" />
@@ -674,7 +674,7 @@ const DefaratSunuNekkin = () => (
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
-              to="/inscription?programme=defarat-sunu-nekkin"
+              to="/inscription?programme=Defarat Sunu Nekkin"
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-background text-foreground font-semibold hover-lift"
             >
               Rejoindre le programme <ArrowRight className="h-4 w-4" />

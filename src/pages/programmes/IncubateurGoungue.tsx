@@ -21,7 +21,7 @@ const IncubateurGoungue = () => (
       description="Un parcours d'incubation de 9 mois pour les porteurs de projets à fort impact social, économique ou éducatif au Sénégal. Formation, mentorat, financement d'amorçage et mise en réseau."
       image={incubImg}
     >
-      <Link to="/inscription" className="px-6 py-3.5 rounded-full bg-foreground text-background font-semibold hover-lift">Candidater à la prochaine promo</Link>
+      <Link to="/inscription?programme=Incubateur Goungué" className="px-6 py-3.5 rounded-full bg-foreground text-background font-semibold hover-lift">Candidater à la prochaine promo</Link>
       <Link to="/contact" className="px-6 py-3.5 rounded-full border border-foreground/20 font-semibold hover:bg-foreground/5 transition">En savoir plus</Link>
     </PageHero>
 
@@ -62,7 +62,7 @@ const IncubateurGoungue = () => (
             <li>• Une bourse d'amorçage et une mise en relation avec des investisseurs</li>
             <li>• L'intégration à vie à la communauté des alumni Goungué</li>
           </ul>
-          <Link to="/inscription" className="inline-flex items-center gap-2 mt-6 text-primary font-semibold">
+          <Link to="/inscription?programme=Incubateur Goungué" className="inline-flex items-center gap-2 mt-6 text-primary font-semibold">
             Postuler maintenant <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
