@@ -6,7 +6,7 @@ import { useAuth, defaultDashboardPath } from "@/contexts/AuthContext";
 import logoLight from "@/assets/logo-light.jpeg";
 import logoDark from "@/assets/logo-dark.jpeg";
 
-const navLinks: { label: string; path?: string; children?: { label: string; path: string; desc?: string; sub?: { label: string; path: string }[] }[] }[] = [
+const navLinks: { label: string; path?: string; children?: { label: string; path: string; desc?: string; sub?: { label: string; path: string; desc?: string }[] }[] }[] = [
   { label: "Accueil", path: "/" },
   { label: "À propos", path: "/a-propos" },
   {
@@ -19,7 +19,9 @@ const navLinks: { label: string; path?: string; children?: { label: string; path
         desc: "Programme national — gouvernance familiale",
         sub: [
           { label: "Doxalin njaboot", path: "/programmes/defarat-sunu-nekkin#gouvernance-familiale" },
+          { label: "Doolel wajur yi", path: "/programmes/doolel-wajur-yi", desc: "Accompagnement des parents" },
           { label: "Dalalu jubbanti", path: "/programmes/dalalu-jubbanti" },
+          { label: "Sama gox, sama yitte", path: "/programmes/sama-gox-sama-yitte", desc: "Engagement communautaire" },
         ],
       },
       { label: "Kepar Gi", path: "/programmes/kepar-gi", desc: "L'abri — suivi post-incubation" },
