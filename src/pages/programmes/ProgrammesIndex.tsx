@@ -27,9 +27,16 @@ const others = [
     desc: "Accompagnement des TPE/PME sénégalaises pour supporter les difficultés, endurer les épreuves et résister aux aléas.",
   },
   {
-    to: "/programmes/kepar-gi", title: "Kepar gi", tag: "Post-incubation", icon: Home, img: keparImg,
+    to: "/programmes/kepar-gi", title: "Kepar Gi", tag: "Post-incubation", icon: Home, img: keparImg,
     desc: "L'abri où l'on grandit et où l'on revient : mentorat, soutien éducatif, médiation et accompagnement psychosocial.",
   },
+];
+
+const composantes = [
+  { label: "Doxalin njaboot", desc: "Gouvernance familiale", to: "/programmes/defarat-sunu-nekkin#gouvernance-familiale" },
+  { label: "Doolel wajur yi", desc: "Accompagnement des parents", to: "/programmes/doolel-wajur-yi" },
+  { label: "Dalalu jubbanti", desc: "Camp de redressement", to: "/programmes/dalalu-jubbanti" },
+  { label: "Sama gox, sama yitte", desc: "Engagement communautaire", to: "/programmes/sama-gox-sama-yitte" },
 ];
 
 const ProgrammesIndex = () => (
@@ -59,6 +66,20 @@ const ProgrammesIndex = () => (
             </div>
           </div>
         </Link>
+
+        <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {composantes.map((c) => (
+            <Link key={c.to} to={c.to} className="group rounded-2xl border bg-card p-5 hover-lift block">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <div className="font-semibold text-foreground">{c.label}</div>
+                  <div className="text-xs text-muted-foreground mt-1">{c.desc}</div>
+                </div>
+                <ArrowUpRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition shrink-0" />
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
 
