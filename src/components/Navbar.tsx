@@ -19,9 +19,7 @@ const navLinks: { label: string; path?: string; children?: { label: string; path
         desc: "Programme national — gouvernance familiale",
         sub: [
           { label: "Doxalin njaboot", path: "/programmes/defarat-sunu-nekkin#gouvernance-familiale" },
-          { label: "Doolel wajur yi", path: "/programmes/doolel-wajur-yi" },
           { label: "Dalalu jubbanti", path: "/programmes/dalalu-jubbanti" },
-          { label: "Sama gox, sama yitte", path: "/programmes/sama-gox-sama-yitte" },
         ],
       },
       { label: "Kepar Gi", path: "/programmes/kepar-gi", desc: "L'abri — suivi post-incubation" },
