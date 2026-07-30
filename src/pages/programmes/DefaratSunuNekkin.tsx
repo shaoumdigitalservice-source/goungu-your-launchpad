@@ -299,9 +299,9 @@ const DefaratSunuNekkin = () => (
               <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
                 Un levier de renforcement du bien-être familial, de la résilience économique et de la réussite éducative des enfants, décliné en six axes.
               </p>
-              <span className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-muted-foreground">
-                Page dédiée à venir
-              </span>
+              <Link to="/programmes/doolel-wajur-yi" className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-primary hover:gap-2 transition-all">
+                En savoir plus <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
 
@@ -338,9 +338,9 @@ const DefaratSunuNekkin = () => (
               <p className="text-sm text-foreground/80 mt-4 leading-relaxed">
                 Initiative citoyenne visant à faire des jeunes les acteurs principaux de l'amélioration du cadre de vie dans leur quartier, en lien avec la préparation des Jeux Olympiques de la Jeunesse (JOJ Dakar 2026).
               </p>
-              <span className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-muted-foreground">
-                Page dédiée à venir
-              </span>
+              <Link to="/programmes/sama-gox-sama-yitte" className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-primary hover:gap-2 transition-all">
+                En savoir plus <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
         </div>
