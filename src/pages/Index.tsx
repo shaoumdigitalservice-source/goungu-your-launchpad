@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import {
   ArrowRight, ArrowUpRight, Heart, Compass, Briefcase, Users, Megaphone, Sparkles,
@@ -69,6 +70,8 @@ const defaratSub = [
 const Index = () => {
   const heroImgDynamic = useImageSite("hero-accueil", heroImg);
   const [openBarMenu, setOpenBarMenu] = useState<string | null>(null);
+  const defaratTriggerRef = useRef<HTMLDivElement>(null);
+  const [defaratMenuPos, setDefaratMenuPos] = useState<{ top: number; left: number } | null>(null);
 
   return (
   <Layout>
@@ -82,8 +85,15 @@ const Index = () => {
           {programmesBar.map((p) => p.label === "DEFARAT SUNU NEKKIN" ? (
             <div
               key={p.label}
+              ref={defaratTriggerRef}
               className="relative shrink-0"
-              onMouseEnter={() => setOpenBarMenu(p.label)}
+              onMouseEnter={() => {
+                setOpenBarMenu(p.label);
+                const rect = defaratTriggerRef.current?.getBoundingClientRect();
+                if (rect) {
+                  setDefaratMenuPos({ top: rect.bottom + 8, left: rect.left });
+                }
+              }}
               onMouseLeave={() => setOpenBarMenu(null)}
             >
               <Link
@@ -92,8 +102,13 @@ const Index = () => {
               >
                 {p.label}
               </Link>
-              {openBarMenu === p.label && (
-                <div className="absolute top-full left-0 pt-2 w-60 z-50 animate-fade-up">
+              {openBarMenu === p.label && defaratMenuPos && createPortal(
+                <div
+                  className="fixed w-60 z-[100] animate-fade-up"
+                  style={{ top: defaratMenuPos.top, left: defaratMenuPos.left }}
+                  onMouseEnter={() => setOpenBarMenu(p.label)}
+                  onMouseLeave={() => setOpenBarMenu(null)}
+                >
                   <div className="glass rounded-2xl p-2 ring-soft">
                     {defaratSub.map((s) => (
                       <Link
@@ -105,7 +120,8 @@ const Index = () => {
                       </Link>
                     ))}
                   </div>
-                </div>
+                </div>,
+                document.body
               )}
             </div>
           ) : (
