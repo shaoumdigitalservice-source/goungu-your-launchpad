@@ -6,15 +6,23 @@ import { useAuth, defaultDashboardPath } from "@/contexts/AuthContext";
 import logoLight from "@/assets/logo-light.jpeg";
 import logoDark from "@/assets/logo-dark.jpeg";
 
-const navLinks: { label: string; path?: string; children?: { label: string; path: string; desc?: string }[] }[] = [
+const navLinks: { label: string; path?: string; children?: { label: string; path: string; desc?: string; sub?: { label: string; path: string }[] }[] }[] = [
   { label: "Accueil", path: "/" },
   { label: "À propos", path: "/a-propos" },
   {
     label: "Programmes",
     children: [
       { label: "Vue d'ensemble", path: "/programmes", desc: "Nos programmes phares" },
-      { label: "Defarat Sunu Nekkin", path: "/programmes/defarat-sunu-nekkin", desc: "Programme national — gouvernance familiale" },
-      { label: "Kepar gi", path: "/programmes/kepar-gi", desc: "L'abri — suivi post-incubation" },
+      {
+        label: "Defarat Sunu Nekkin",
+        path: "/programmes/defarat-sunu-nekkin",
+        desc: "Programme national — gouvernance familiale",
+        sub: [
+          { label: "Doxalin njaboot", path: "/programmes/defarat-sunu-nekkin#gouvernance-familiale" },
+          { label: "Dalalu jubbanti", path: "/programmes/dalalu-jubbanti" },
+        ],
+      },
+      { label: "Kepar Gi", path: "/programmes/kepar-gi", desc: "L'abri — suivi post-incubation" },
       { label: "Meñil War Wi", path: "/programmes/menil-war-wi", desc: "Résilience des entreprises" },
       { label: "Incubateur Goungué", path: "/programmes/incubateur-goungue", desc: "De l'idée à l'impact" },
     ],
@@ -24,7 +32,7 @@ const navLinks: { label: string; path?: string; children?: { label: string; path
     children: [
       { label: "Centre d'Orientation", path: "/orientation", desc: "Fiches métiers & quiz" },
       { label: "Centre de Ressources", path: "/ressources", desc: "Bibliothèque numérique" },
-      { label: "Ambassadeurs", path: "/ambassadeurs", desc: "Notre réseau au Sénégal" },
+      { label: "Réseau des Ambassadeurs", path: "/ambassadeurs", desc: "Notre réseau au Sénégal" },
       { label: "Communauté", path: "/communaute", desc: "Événements & forums" },
       { label: "Événements", path: "/evenements", desc: "Nos prochains rendez-vous" },
     ],
@@ -70,10 +78,21 @@ const Navbar = () => {
                 <div className="absolute top-full left-0 pt-2 w-72 animate-fade-up">
                   <div className="glass rounded-2xl p-2 ring-soft">
                     {link.children.map((c) => (
-                      <Link key={c.path} to={c.path} className="block px-3 py-2.5 rounded-xl hover:bg-primary/10 transition">
-                        <div className="text-sm font-semibold text-foreground">{c.label}</div>
-                        {c.desc && <div className="text-xs text-muted-foreground">{c.desc}</div>}
-                      </Link>
+                      <div key={c.path}>
+                        <Link to={c.path} className="block px-3 py-2.5 rounded-xl hover:bg-primary/10 transition">
+                          <div className="text-sm font-semibold text-foreground">{c.label}</div>
+                          {c.desc && <div className="text-xs text-muted-foreground">{c.desc}</div>}
+                        </Link>
+                        {c.sub && (
+                          <div className="ml-3 pl-3 border-l border-border">
+                            {c.sub.map((s) => (
+                              <Link key={s.path} to={s.path} className="block px-3 py-1.5 rounded-lg text-xs text-muted-foreground hover:text-foreground hover:bg-primary/10 transition">
+                                {s.label}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -146,9 +165,16 @@ const Navbar = () => {
             <div key={link.label} className="py-2">
               <div className="px-4 pt-2 pb-1 text-[10px] tracking-widest uppercase text-muted-foreground">{link.label}</div>
               {link.children.map((c) => (
-                <Link key={c.path} to={c.path} onClick={() => setIsOpen(false)} className="block px-4 py-2.5 rounded-lg text-sm font-medium text-foreground/80 hover:bg-muted">
-                  {c.label}
-                </Link>
+                <div key={c.path}>
+                  <Link to={c.path} onClick={() => setIsOpen(false)} className="block px-4 py-2.5 rounded-lg text-sm font-medium text-foreground/80 hover:bg-muted">
+                    {c.label}
+                  </Link>
+                  {c.sub?.map((s) => (
+                    <Link key={s.path} to={s.path} onClick={() => setIsOpen(false)} className="block pl-8 pr-4 py-2 rounded-lg text-xs text-muted-foreground hover:bg-muted">
+                      {s.label}
+                    </Link>
+                  ))}
+                </div>
               ))}
             </div>
           ) : (
