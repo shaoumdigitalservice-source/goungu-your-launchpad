@@ -20,7 +20,7 @@ const KeparGi = () => (
       description="Après l'incubation, le lien ne se rompt pas. Kepar gi (« l'abri » en wolof) est notre espace de vie, de mentorat et de ressources pour celles et ceux qui continuent le chemin avec Goungué."
       image={keparImg}
     >
-      <Link to="/inscription" className="px-6 py-3.5 rounded-full bg-foreground text-background font-semibold hover-lift">Rejoindre Kepar gi</Link>
+      <Link to="/inscription?programme=Kepar Gi" className="px-6 py-3.5 rounded-full bg-foreground text-background font-semibold hover-lift">Rejoindre Kepar gi</Link>
       <Link to="/contact" className="px-6 py-3.5 rounded-full border border-foreground/20 font-semibold hover:bg-foreground/5 transition">Visiter nos locaux</Link>
     </PageHero>
 

@@ -1,13 +1,24 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Send, CheckCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { envoyerCandidature } from "@/lib/api";
 
-const programmes = ["Orientation", "Accompagnement entrepreneurial", "Programme d'incubation"];
+const programmes = ["Defarat Sunu Nekkin", "Kepar Gi", "Meñil War Wi", "Incubateur Goungué", "Dalalu jubbanti"];
 
 const Inscription = () => {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", programme: "", motivation: "" });
+  const [searchParams] = useSearchParams();
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    programme: (() => {
+      const p = searchParams.get("programme");
+      return p && programmes.includes(p) ? p : "";
+    })(),
+    motivation: "",
+  });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
