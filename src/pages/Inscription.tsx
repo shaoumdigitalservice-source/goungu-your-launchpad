@@ -10,14 +10,16 @@ const programmes = ["Defarat Sunu Nekkin", "Kepar Gi", "Meñil War Wi", "Incubat
 const Inscription = () => {
   const [searchParams] = useSearchParams();
   const programmeParam = searchParams.get("programme");
+  const profilParam = searchParams.get("profil");
   const isMenilMode = programmeParam === "Meñil War Wi";
+  const isDoolelMode = programmeParam === "Doolel wajur yi" || profilParam === "parent";
   const [form, setForm] = useState({
     name: "",
     email: "",
     phone: "",
     programme: (() => {
       const p = programmeParam;
-      return p && programmes.includes(p) && !isMenilMode ? p : "";
+      return p && programmes.includes(p) && !isMenilMode && !isDoolelMode ? p : "";
     })(),
     motivation: "",
   });
