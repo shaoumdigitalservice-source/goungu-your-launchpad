@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight, ArrowUpRight, Heart, Compass, Briefcase, Users, Megaphone, Sparkles,
-  PlayCircle, Quote, MapPin, CheckCircle2, Sparkle, ChevronRight
+  PlayCircle, Quote, MapPin, CheckCircle2, Sparkle
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import Placeholder from "@/components/Placeholder";
