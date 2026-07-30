@@ -32,11 +32,11 @@ const others = [
   },
 ];
 
-const composantes = [
+const composantes: { label: string; desc: string; to?: string }[] = [
   { label: "Doxalin njaboot", desc: "Gouvernance familiale", to: "/programmes/defarat-sunu-nekkin#gouvernance-familiale" },
-  { label: "Doolel wajur yi", desc: "Accompagnement des parents", to: "/programmes/doolel-wajur-yi" },
+  { label: "Doolel wajur yi", desc: "Accompagnement des parents — page dédiée à venir" },
   { label: "Dalalu jubbanti", desc: "Camp de redressement", to: "/programmes/dalalu-jubbanti" },
-  { label: "Sama gox, sama yitte", desc: "Engagement communautaire", to: "/programmes/sama-gox-sama-yitte" },
+  { label: "Sama gox, sama yitte", desc: "Engagement communautaire — page dédiée à venir" },
 ];
 
 const ProgrammesIndex = () => (
@@ -68,8 +68,8 @@ const ProgrammesIndex = () => (
         </Link>
 
         <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {composantes.map((c) => (
-            <Link key={c.to} to={c.to} className="group rounded-2xl border bg-card p-5 hover-lift block">
+          {composantes.map((c) => c.to ? (
+            <Link key={c.label} to={c.to} className="group rounded-2xl border bg-card p-5 hover-lift block">
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <div className="font-semibold text-foreground">{c.label}</div>
@@ -78,6 +78,11 @@ const ProgrammesIndex = () => (
                 <ArrowUpRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition shrink-0" />
               </div>
             </Link>
+          ) : (
+            <div key={c.label} className="rounded-2xl border border-dashed bg-card/50 p-5">
+              <div className="font-semibold text-muted-foreground">{c.label}</div>
+              <div className="text-xs text-muted-foreground mt-1">{c.desc}</div>
+            </div>
           ))}
         </div>
       </div>
