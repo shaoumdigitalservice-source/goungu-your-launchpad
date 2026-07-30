@@ -9,6 +9,8 @@ const programmes = ["Defarat Sunu Nekkin", "Kepar Gi", "Meñil War Wi", "Incubat
 
 const Inscription = () => {
   const [searchParams] = useSearchParams();
+  const programmeParam = searchParams.get("programme");
+  const isMenilMode = programmeParam === "Meñil War Wi";
   const [form, setForm] = useState({
     name: "",
     email: "",
