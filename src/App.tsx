@@ -21,6 +21,8 @@ import DefaratSunuNekkin from "./pages/programmes/DefaratSunuNekkin";
 import KeparGi from "./pages/programmes/KeparGi";
 import MenilWarWi from "./pages/programmes/MenilWarWi";
 import IncubateurGoungue from "./pages/programmes/IncubateurGoungue";
+import DoolelWajurYi from "./pages/programmes/DoolelWajurYi";
+import SamaGoxSamaYitte from "./pages/programmes/SamaGoxSamaYitte";
 import Orientation from "./pages/Orientation";
 import Ressources from "./pages/Ressources";
 import Evenements from "./pages/Evenements";
@@ -73,6 +75,8 @@ const App = () => (
             <Route path="/programmes/kepar-gi" element={<KeparGi />} />
             <Route path="/programmes/menil-war-wi" element={<MenilWarWi />} />
             <Route path="/programmes/incubateur-goungue" element={<IncubateurGoungue />} />
+            <Route path="/programmes/doolel-wajur-yi" element={<DoolelWajurYi />} />
+            <Route path="/programmes/sama-gox-sama-yitte" element={<SamaGoxSamaYitte />} />
             {/* Legacy alias */}
             <Route path="/foyer" element={<KeparGi />} />
             <Route path="/orientation" element={<Orientation />} />
