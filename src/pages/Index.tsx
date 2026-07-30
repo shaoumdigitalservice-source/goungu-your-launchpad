@@ -51,13 +51,11 @@ const testimonials = [
 ];
 
 const programmesBar = [
+  { label: "Tous les programmes", to: "/programmes", accent: "bg-muted text-foreground" },
   { label: "DEFARAT SUNU NEKKIN", to: "/programmes/defarat-sunu-nekkin", accent: "bg-primary text-primary-foreground" },
-  { label: "Kepar gi", to: "/programmes/kepar-gi", accent: "bg-secondary text-secondary-foreground" },
+  { label: "Kepar Gi", to: "/programmes/kepar-gi", accent: "bg-secondary text-secondary-foreground" },
   { label: "Meñil War Wi", to: "/programmes/menil-war-wi", accent: "bg-accent text-accent-foreground" },
   { label: "Incubateur Goungué", to: "/programmes/incubateur-goungue", accent: "bg-primary text-primary-foreground" },
-  { label: "Camp Lac Rose", to: "/programmes/dalalu-jubbanti", accent: "bg-secondary text-secondary-foreground" },
-  { label: "Parentalité Positive", to: "/programmes/parentalite-positive", accent: "bg-accent text-accent-foreground" },
-  { label: "Ambassadeurs", to: "/ambassadeurs", accent: "bg-primary text-primary-foreground" },
 ];
 
 const Index = () => {
