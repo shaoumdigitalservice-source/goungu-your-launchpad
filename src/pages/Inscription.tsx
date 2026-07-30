@@ -9,13 +9,15 @@ const programmes = ["Defarat Sunu Nekkin", "Kepar Gi", "Meñil War Wi", "Incubat
 
 const Inscription = () => {
   const [searchParams] = useSearchParams();
+  const programmeParam = searchParams.get("programme");
+  const isMenilMode = programmeParam === "Meñil War Wi";
   const [form, setForm] = useState({
     name: "",
     email: "",
     phone: "",
     programme: (() => {
-      const p = searchParams.get("programme");
-      return p && programmes.includes(p) ? p : "";
+      const p = programmeParam;
+      return p && programmes.includes(p) && !isMenilMode ? p : "";
     })(),
     motivation: "",
   });
@@ -24,6 +26,10 @@ const Inscription = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.programme) {
+      toast.error("Veuillez sélectionner un programme.");
+      return;
+    }
     setLoading(true);
     try {
       await envoyerCandidature(form);
@@ -85,10 +91,36 @@ const Inscription = () => {
               </div>
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Programme souhaité *</label>
-                <select required value={form.programme} onChange={(e) => setForm({ ...form, programme: e.target.value })} className="w-full px-4 py-3 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring">
-                  <option value="">Choisissez un programme</option>
-                  {programmes.map((p) => <option key={p} value={p}>{p}</option>)}
-                </select>
+                {isMenilMode ? (
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {[
+                      { label: "Relance", sub: "Entreprise en difficulté", value: "Meñil War Wi — Relance (entreprise en difficulté)" },
+                      { label: "Croissance", sub: "Entreprise en développement", value: "Meñil War Wi — Croissance (entreprise en développement)" },
+                    ].map((choice) => {
+                      const selected = form.programme === choice.value;
+                      return (
+                        <button
+                          key={choice.value}
+                          type="button"
+                          onClick={() => setForm({ ...form, programme: choice.value })}
+                          className={`text-left rounded-2xl border p-5 transition-all hover-lift ${
+                            selected
+                              ? "bg-primary/10 border-primary ring-2 ring-primary"
+                              : "bg-card border-border hover:bg-accent"
+                          }`}
+                        >
+                          <div className="font-semibold text-foreground">{choice.label}</div>
+                          <div className="text-sm text-muted-foreground mt-1">{choice.sub}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <select required value={form.programme} onChange={(e) => setForm({ ...form, programme: e.target.value })} className="w-full px-4 py-3 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+                    <option value="">Choisissez un programme</option>
+                    {programmes.map((p) => <option key={p} value={p}>{p}</option>)}
+                  </select>
+                )}
               </div>
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Motivation</label>
