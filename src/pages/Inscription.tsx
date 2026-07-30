@@ -117,6 +117,33 @@ const Inscription = () => {
                       );
                     })}
                   </div>
+                ) : isDoolelMode ? (
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {[
+                      { label: "Coaching parentalité positive", value: "Doolel wajur yi — Coaching parentalité positive" },
+                      { label: "Accompagnement psychosocial", value: "Doolel wajur yi — Accompagnement psychosocial" },
+                      { label: "Santé et bien-être familial", value: "Doolel wajur yi — Santé et bien-être familial" },
+                      { label: "Autonomisation économique", value: "Doolel wajur yi — Autonomisation économique" },
+                      { label: "Accompagnement numérique", value: "Doolel wajur yi — Accompagnement numérique" },
+                      { label: "Développement communautaire", value: "Doolel wajur yi — Développement communautaire" },
+                    ].map((choice) => {
+                      const selected = form.programme === choice.value;
+                      return (
+                        <button
+                          key={choice.value}
+                          type="button"
+                          onClick={() => setForm({ ...form, programme: choice.value })}
+                          className={`text-left rounded-2xl border p-5 transition-all hover-lift ${
+                            selected
+                              ? "bg-primary/10 border-primary ring-2 ring-primary"
+                              : "bg-card border-border hover:bg-accent"
+                          }`}
+                        >
+                          <div className="font-semibold text-foreground">{choice.label}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
                 ) : (
                   <select required value={form.programme} onChange={(e) => setForm({ ...form, programme: e.target.value })} className="w-full px-4 py-3 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring">
                     <option value="">Choisissez un programme</option>
