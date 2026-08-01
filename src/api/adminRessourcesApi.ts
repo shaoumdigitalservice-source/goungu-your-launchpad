@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface Ressource {
   id: number;
@@ -25,16 +25,6 @@ export interface RessourceLienInput {
   ordreAffichage: number;
 }
 
-const authHeader = () => {
-  const token = localStorage.getItem("user_token");
-  return { Authorization: `Bearer ${token}` };
-};
-
-const authHeaders = () => ({
-  ...authHeader(),
-  "Content-Type": "application/json",
-});
-
 class RessourceApiError extends Error {
   status: number;
   constructor(status: number, message: string) {
@@ -59,9 +49,7 @@ const gererErreur = async (res: Response, actionFallback: string) => {
 };
 
 export async function listerRessourcesAdmin(): Promise<Ressource[]> {
-  const res = await fetch(`${API_BASE_URL}/ressources/admin`, {
-    headers: authHeader(),
-  });
+  const res = await apiFetch("/ressources/admin");
   await gererErreur(res, "Erreur lors du chargement des ressources");
   return res.json();
 }
@@ -70,9 +58,8 @@ export async function listerRessourcesAdmin(): Promise<Ressource[]> {
 export const listerRessources = listerRessourcesAdmin;
 
 export async function creerRessourceLien(data: RessourceLienInput): Promise<Ressource> {
-  const res = await fetch(`${API_BASE_URL}/ressources/lien`, {
+  const res = await apiFetch("/ressources/lien", {
     method: "POST",
-    headers: authHeaders(),
     body: JSON.stringify(data),
   });
   await gererErreur(res, "Erreur lors de la création de la ressource");
@@ -83,10 +70,9 @@ export const creerLienRessource = creerRessourceLien;
 
 // Upload de fichier via FormData (sprint GNG-RES-002)
 export async function creerRessourceFichier(formData: FormData): Promise<Ressource> {
-  const res = await fetch(`${API_BASE_URL}/ressources/fichier`, {
+  const res = await apiFetch("/ressources/fichier", {
     method: "POST",
-    headers: authHeader(), // pas de Content-Type: le navigateur gère le boundary
-    body: formData,
+    body: formData, // pas de Content-Type manuel : le navigateur gère le boundary
   });
   await gererErreur(res, "Erreur lors de l'upload du fichier");
   return res.json();
@@ -96,9 +82,8 @@ export async function modifierRessource(
   id: number,
   data: RessourceLienInput
 ): Promise<Ressource> {
-  const res = await fetch(`${API_BASE_URL}/ressources/${id}`, {
+  const res = await apiFetch(`/ressources/${id}`, {
     method: "PUT",
-    headers: authHeaders(),
     body: JSON.stringify(data),
   });
   await gererErreur(res, "Erreur lors de la modification de la ressource");
@@ -106,9 +91,6 @@ export async function modifierRessource(
 }
 
 export async function supprimerRessource(id: number): Promise<void> {
-  const res = await fetch(`${API_BASE_URL}/ressources/${id}`, {
-    method: "DELETE",
-    headers: authHeader(),
-  });
+  const res = await apiFetch(`/ressources/${id}`, { method: "DELETE" });
   await gererErreur(res, "Erreur lors de la suppression de la ressource");
 }

@@ -4,7 +4,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { Loader2, KeyRound, ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 const passwordSchema = z.string().min(6, "6 caractères minimum").max(72);
 
 const ReinitialiserMotDePasse = () => {
@@ -31,9 +31,8 @@ const ReinitialiserMotDePasse = () => {
         throw new Error("Les mots de passe ne correspondent pas");
       }
 
-      const res = await fetch(`${API_BASE_URL}/utilisateurs/reinitialiser-mot-de-passe`, {
+      const res = await apiFetch("/utilisateurs/reinitialiser-mot-de-passe", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, nouveauMotDePasse: password }),
       });
 

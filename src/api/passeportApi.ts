@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface PasseportEntree {
   id: number;
@@ -9,22 +9,15 @@ export interface PasseportEntree {
   createdAt: string;
 }
 
-function getToken(): string | null {
-  return localStorage.getItem("user_token");
-}
-
 export async function getMonPasseport(): Promise<PasseportEntree[]> {
-  const res = await fetch(`${API_BASE_URL}/passeport/mon-passeport`, {
-    headers: { Authorization: `Bearer ${getToken()}` },
-  });
+  const res = await apiFetch("/passeport/mon-passeport");
   if (!res.ok) throw new Error("Impossible de récupérer votre passeport");
   return res.json();
 }
 
 export async function ajouterEntreePasseport(data: { type: string; titre: string; description?: string }): Promise<PasseportEntree> {
-  const res = await fetch(`${API_BASE_URL}/passeport`, {
+  const res = await apiFetch("/passeport", {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
     body: JSON.stringify(data),
   });
   if (!res.ok) {
@@ -35,9 +28,6 @@ export async function ajouterEntreePasseport(data: { type: string; titre: string
 }
 
 export async function supprimerEntreePasseport(id: number): Promise<void> {
-  const res = await fetch(`${API_BASE_URL}/passeport/${id}`, {
-    method: "DELETE",
-    headers: { Authorization: `Bearer ${getToken()}` },
-  });
+  const res = await apiFetch(`/passeport/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Erreur lors de la suppression");
 }

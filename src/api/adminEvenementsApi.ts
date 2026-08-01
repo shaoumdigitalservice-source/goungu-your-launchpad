@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface Evenement {
   id: number;
@@ -20,14 +20,6 @@ export interface EvenementInput {
   lieu: string;
   actif: boolean;
 }
-
-const authHeaders = () => {
-  const token = localStorage.getItem("user_token");
-  return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  };
-};
 
 class EvenementApiError extends Error {
   status: number;
@@ -53,9 +45,7 @@ const gererErreur = async (res: Response, actionFallback: string) => {
 };
 
 export async function listerEvenementsAdmin(): Promise<Evenement[]> {
-  const res = await fetch(`${API_BASE_URL}/evenements/admin`, {
-    headers: authHeaders(),
-  });
+  const res = await apiFetch("/evenements/admin");
   await gererErreur(res, "Erreur lors du chargement des événements");
   return res.json();
 }
@@ -64,9 +54,8 @@ export async function listerEvenementsAdmin(): Promise<Evenement[]> {
 export const listerEvenements = listerEvenementsAdmin;
 
 export async function creerEvenement(data: EvenementInput): Promise<Evenement> {
-  const res = await fetch(`${API_BASE_URL}/evenements`, {
+  const res = await apiFetch("/evenements", {
     method: "POST",
-    headers: authHeaders(),
     body: JSON.stringify(data),
   });
   await gererErreur(res, "Erreur lors de la création de l'événement");
@@ -77,9 +66,8 @@ export async function modifierEvenement(
   id: number,
   data: EvenementInput
 ): Promise<Evenement> {
-  const res = await fetch(`${API_BASE_URL}/evenements/${id}`, {
+  const res = await apiFetch(`/evenements/${id}`, {
     method: "PUT",
-    headers: authHeaders(),
     body: JSON.stringify(data),
   });
   await gererErreur(res, "Erreur lors de la modification de l'événement");
@@ -87,9 +75,6 @@ export async function modifierEvenement(
 }
 
 export async function supprimerEvenement(id: number): Promise<void> {
-  const res = await fetch(`${API_BASE_URL}/evenements/${id}`, {
-    method: "DELETE",
-    headers: authHeaders(),
-  });
+  const res = await apiFetch(`/evenements/${id}`, { method: "DELETE" });
   await gererErreur(res, "Erreur lors de la suppression de l'événement");
 }

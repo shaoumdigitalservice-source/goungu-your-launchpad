@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface UtilisateurAdmin {
   id: number;
@@ -14,18 +14,8 @@ export interface UtilisateurAdmin {
   parentId?: number | null;
 }
 
-const authHeaders = () => {
-  const token = localStorage.getItem("user_token");
-  return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  };
-};
-
 export async function listerUtilisateurs(): Promise<UtilisateurAdmin[]> {
-  const res = await fetch(`${API_BASE_URL}/utilisateurs`, {
-    headers: authHeaders(),
-  });
+  const res = await apiFetch("/utilisateurs");
   if (!res.ok) {
     throw new Error(await res.text());
   }
@@ -36,9 +26,8 @@ export async function changerRoleUtilisateur(
   id: number,
   role: string
 ): Promise<UtilisateurAdmin> {
-  const res = await fetch(`${API_BASE_URL}/utilisateurs/${id}/role`, {
+  const res = await apiFetch(`/utilisateurs/${id}/role`, {
     method: "PUT",
-    headers: authHeaders(),
     body: JSON.stringify({ role }),
   });
   if (!res.ok) {
@@ -48,10 +37,7 @@ export async function changerRoleUtilisateur(
 }
 
 export async function supprimerUtilisateur(id: number): Promise<void> {
-  const res = await fetch(`${API_BASE_URL}/utilisateurs/${id}`, {
-    method: "DELETE",
-    headers: authHeaders(),
-  });
+  const res = await apiFetch(`/utilisateurs/${id}`, { method: "DELETE" });
   if (!res.ok) {
     throw new Error(await res.text());
   }
@@ -61,9 +47,8 @@ export async function assignerMentor(
   id: number,
   mentorId: number | null
 ): Promise<UtilisateurAdmin> {
-  const res = await fetch(`${API_BASE_URL}/utilisateurs/${id}/mentor`, {
+  const res = await apiFetch(`/utilisateurs/${id}/mentor`, {
     method: "PUT",
-    headers: authHeaders(),
     body: JSON.stringify({ mentorId }),
   });
   if (!res.ok) {
@@ -76,9 +61,8 @@ export async function assignerParent(
   id: number,
   parentId: number | null
 ): Promise<UtilisateurAdmin> {
-  const res = await fetch(`${API_BASE_URL}/utilisateurs/${id}/parent`, {
+  const res = await apiFetch(`/utilisateurs/${id}/parent`, {
     method: "PUT",
-    headers: authHeaders(),
     body: JSON.stringify({ parentId }),
   });
   if (!res.ok) {

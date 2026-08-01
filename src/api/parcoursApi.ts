@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface EtapeParcours {
   type: "INSCRIPTION" | "RENDEZ_VOUS";
@@ -8,10 +8,7 @@ export interface EtapeParcours {
 }
 
 export async function getMonParcours(): Promise<EtapeParcours[]> {
-  const token = localStorage.getItem("user_token");
-  const res = await fetch(`${API_BASE_URL}/utilisateurs/mon-parcours`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const res = await apiFetch("/utilisateurs/mon-parcours");
   if (!res.ok) throw new Error("Impossible de récupérer votre parcours");
   return res.json();
 }

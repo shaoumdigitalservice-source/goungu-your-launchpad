@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import EspaceLayout, { Section } from "./EspaceLayout";
 import { useAuth, defaultDashboardPath } from "@/contexts/AuthContext";
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 const items = [
   { to: "/espace/profil", label: "Mon profil", icon: User },
@@ -31,13 +31,8 @@ const Profil = () => {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const token = localStorage.getItem("user_token");
-      const res = await fetch(`${API_BASE_URL}/utilisateurs/moi`, {
+      const res = await apiFetch("/utilisateurs/moi", {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
         body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error("Erreur lors de la mise à jour");

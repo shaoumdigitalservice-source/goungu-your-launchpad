@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { Loader2, LogIn, UserPlus } from "lucide-react";
 import Layout from "@/components/Layout";
 import { AppRole, defaultDashboardPath, useAuth } from "@/contexts/AuthContext";
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 const emailSchema = z.string().trim().email("Email invalide").max(255);
 const passwordSchema = z.string().min(8, "8 caractères minimum").max(72);
@@ -46,14 +46,13 @@ const Auth = () => {
     try {
       emailSchema.parse(email);
       passwordSchema.parse(password);
-      const res = await fetch(`${API_BASE_URL}/utilisateurs/login`, {
+      const res = await apiFetch("/utilisateurs/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, motDePasse: password }),
       });
       if (!res.ok) throw new Error("Email ou mot de passe incorrect");
-      const data = await res.json();
-      localStorage.setItem("user_token", data.token);
+      // Le cookie de session httpOnly est posé automatiquement par le navigateur
+      // depuis la réponse (Set-Cookie) : rien à stocker côté JS.
       await refreshRoles();
       toast.success("Connexion réussie");
     } catch (err: unknown) {
@@ -72,17 +71,16 @@ const Auth = () => {
       nameSchema.parse(lastName);
       emailSchema.parse(email);
       passwordSchema.parse(password);
-      const res = await fetch(`${API_BASE_URL}/utilisateurs/inscription`, {
+      const res = await apiFetch("/utilisateurs/inscription", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, motDePasse: password, prenom: firstName, nom: lastName, role }),
       });
       if (!res.ok) {
         const msg = await res.text();
         throw new Error(msg || "Erreur lors de l'inscription");
       }
-      const data = await res.json();
-      localStorage.setItem("user_token", data.token);
+      // Le cookie de session httpOnly est posé automatiquement par le navigateur
+      // depuis la réponse (Set-Cookie) : rien à stocker côté JS.
       await refreshRoles();
       toast.success("Compte créé avec succès !");
     } catch (err: unknown) {

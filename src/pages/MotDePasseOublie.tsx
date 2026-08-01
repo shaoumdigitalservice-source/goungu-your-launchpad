@@ -4,7 +4,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { Loader2, Mail, ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 const emailSchema = z.string().trim().email("Email invalide").max(255);
 
 const MotDePasseOublie = () => {
@@ -17,9 +17,8 @@ const MotDePasseOublie = () => {
     setSubmitting(true);
     try {
       emailSchema.parse(email);
-      const res = await fetch(`${API_BASE_URL}/utilisateurs/mot-de-passe-oublie`, {
+      const res = await apiFetch("/utilisateurs/mot-de-passe-oublie", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
       if (!res.ok) throw new Error("Une erreur est survenue");

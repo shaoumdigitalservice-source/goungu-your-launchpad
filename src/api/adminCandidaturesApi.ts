@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface Candidature {
   id: number;
@@ -11,18 +11,8 @@ export interface Candidature {
   createdAt: string;
 }
 
-const authHeaders = () => {
-  const token = localStorage.getItem("user_token");
-  return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  };
-};
-
 export async function listerCandidatures(): Promise<Candidature[]> {
-  const res = await fetch(`${API_BASE_URL}/candidatures`, {
-    headers: authHeaders(),
-  });
+  const res = await apiFetch("/candidatures");
   if (!res.ok) {
     throw new Error(await res.text());
   }
@@ -33,13 +23,9 @@ export async function changerStatutCandidature(
   id: number,
   statut: string
 ): Promise<Candidature> {
-  const res = await fetch(
-    `${API_BASE_URL}/candidatures/${id}/statut?statut=${statut}`,
-    {
-      method: "PUT",
-      headers: authHeaders(),
-    }
-  );
+  const res = await apiFetch(`/candidatures/${id}/statut?statut=${statut}`, {
+    method: "PUT",
+  });
   if (!res.ok) {
     throw new Error(await res.text());
   }

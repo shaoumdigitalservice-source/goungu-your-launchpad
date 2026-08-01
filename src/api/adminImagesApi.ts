@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface ImageSite {
   id: number;
@@ -6,11 +6,6 @@ export interface ImageSite {
   url: string;
   createdAt?: string;
 }
-
-const authHeader = () => {
-  const token = localStorage.getItem("user_token");
-  return { Authorization: `Bearer ${token}` };
-};
 
 class ImageApiError extends Error {
   status: number;
@@ -36,7 +31,7 @@ const gererErreur = async (res: Response, fallback: string) => {
 };
 
 export async function listerImages(): Promise<ImageSite[]> {
-  const res = await fetch(`${API_BASE_URL}/images`);
+  const res = await apiFetch("/images");
   await gererErreur(res, "Erreur lors du chargement des images");
   return res.json();
 }
@@ -45,9 +40,8 @@ export async function uploaderImage(cle: string, fichier: File): Promise<ImageSi
   const formData = new FormData();
   formData.append("cle", cle);
   formData.append("fichier", fichier);
-  const res = await fetch(`${API_BASE_URL}/images`, {
+  const res = await apiFetch("/images", {
     method: "POST",
-    headers: authHeader(),
     body: formData,
   });
   await gererErreur(res, "Erreur lors de l'upload de l'image");

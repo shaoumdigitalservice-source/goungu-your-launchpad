@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface MonMentor {
   assigne: boolean;
@@ -11,10 +11,7 @@ export interface MonMentor {
 }
 
 export async function getMonMentor(): Promise<MonMentor> {
-  const token = localStorage.getItem("user_token");
-  const res = await fetch(`${API_BASE_URL}/utilisateurs/mon-mentor`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const res = await apiFetch("/utilisateurs/mon-mentor");
   if (!res.ok) throw new Error("Impossible de récupérer les infos du mentor");
   return res.json();
 }
@@ -29,10 +26,7 @@ export interface Jeune {
 }
 
 export async function getMesJeunes(): Promise<Jeune[]> {
-  const token = localStorage.getItem("user_token");
-  const res = await fetch(`${API_BASE_URL}/utilisateurs/mes-jeunes`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const res = await apiFetch("/utilisateurs/mes-jeunes");
   if (!res.ok) throw new Error("Impossible de récupérer la liste de vos jeunes");
   return res.json();
 }
@@ -50,19 +44,14 @@ export interface RendezVous {
 }
 
 export async function getMesRendezVousMentor(): Promise<RendezVous[]> {
-  const token = localStorage.getItem("user_token");
-  const res = await fetch(`${API_BASE_URL}/rendez-vous/mentor`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const res = await apiFetch("/rendez-vous/mentor");
   if (!res.ok) throw new Error("Impossible de récupérer vos rendez-vous");
   return res.json();
 }
 
 export async function creerRendezVous(data: { jeuneId: number; dateHeure: string; sujet: string; notes?: string }): Promise<RendezVous> {
-  const token = localStorage.getItem("user_token");
-  const res = await fetch(`${API_BASE_URL}/rendez-vous`, {
+  const res = await apiFetch("/rendez-vous", {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
     body: JSON.stringify(data),
   });
   if (!res.ok) {
@@ -73,10 +62,8 @@ export async function creerRendezVous(data: { jeuneId: number; dateHeure: string
 }
 
 export async function changerStatutRendezVous(id: number, statut: string): Promise<RendezVous> {
-  const token = localStorage.getItem("user_token");
-  const res = await fetch(`${API_BASE_URL}/rendez-vous/${id}/statut`, {
+  const res = await apiFetch(`/rendez-vous/${id}/statut`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
     body: JSON.stringify({ statut }),
   });
   if (!res.ok) throw new Error("Erreur lors de la mise à jour du statut");
@@ -84,10 +71,6 @@ export async function changerStatutRendezVous(id: number, statut: string): Promi
 }
 
 export async function supprimerRendezVous(id: number): Promise<void> {
-  const token = localStorage.getItem("user_token");
-  const res = await fetch(`${API_BASE_URL}/rendez-vous/${id}`, {
-    method: "DELETE",
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const res = await apiFetch(`/rendez-vous/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Erreur lors de la suppression");
 }

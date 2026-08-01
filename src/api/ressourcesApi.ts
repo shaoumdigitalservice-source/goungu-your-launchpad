@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface RessourcePublique {
   id: number;
@@ -12,7 +12,7 @@ export interface RessourcePublique {
 }
 
 export async function listerRessourcesPubliques(): Promise<RessourcePublique[]> {
-  const res = await fetch(`${API_BASE_URL}/ressources`);
+  const res = await apiFetch("/ressources");
   if (!res.ok) throw new Error("Erreur lors du chargement des ressources");
   return res.json();
 }

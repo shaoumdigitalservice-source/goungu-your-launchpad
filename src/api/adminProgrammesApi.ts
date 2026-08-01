@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface Programme {
   id: number;
@@ -22,18 +22,8 @@ export interface ProgrammeInput {
   ordreAffichage: number;
 }
 
-const authHeaders = () => {
-  const token = localStorage.getItem("user_token");
-  return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  };
-};
-
 export async function listerProgrammesAdmin(): Promise<Programme[]> {
-  const res = await fetch(`${API_BASE_URL}/programmes/admin`, {
-    headers: authHeaders(),
-  });
+  const res = await apiFetch("/programmes/admin");
   if (!res.ok) {
     throw new Error(await res.text());
   }
@@ -43,9 +33,8 @@ export async function listerProgrammesAdmin(): Promise<Programme[]> {
 export async function creerProgramme(
   data: ProgrammeInput
 ): Promise<Programme> {
-  const res = await fetch(`${API_BASE_URL}/programmes`, {
+  const res = await apiFetch("/programmes", {
     method: "POST",
-    headers: authHeaders(),
     body: JSON.stringify(data),
   });
   if (!res.ok) {
@@ -58,9 +47,8 @@ export async function modifierProgramme(
   id: number,
   data: ProgrammeInput
 ): Promise<Programme> {
-  const res = await fetch(`${API_BASE_URL}/programmes/${id}`, {
+  const res = await apiFetch(`/programmes/${id}`, {
     method: "PUT",
-    headers: authHeaders(),
     body: JSON.stringify(data),
   });
   if (!res.ok) {
@@ -70,10 +58,7 @@ export async function modifierProgramme(
 }
 
 export async function supprimerProgramme(id: number): Promise<void> {
-  const res = await fetch(`${API_BASE_URL}/programmes/${id}`, {
-    method: "DELETE",
-    headers: authHeaders(),
-  });
+  const res = await apiFetch(`/programmes/${id}`, { method: "DELETE" });
   if (!res.ok) {
     throw new Error(await res.text());
   }

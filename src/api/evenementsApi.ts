@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface EvenementPublic {
   id: number;
@@ -9,7 +9,7 @@ export interface EvenementPublic {
 }
 
 export async function listerEvenementsPublics(): Promise<EvenementPublic[]> {
-  const res = await fetch(`${API_BASE_URL}/evenements`);
+  const res = await apiFetch("/evenements");
   if (!res.ok) throw new Error("Erreur lors du chargement des événements");
   return res.json();
 }

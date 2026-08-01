@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface SessionFormation {
   id: number;
@@ -9,22 +9,15 @@ export interface SessionFormation {
   statut: "PLANIFIE" | "TERMINE" | "ANNULE";
 }
 
-function getToken(): string | null {
-  return localStorage.getItem("user_token");
-}
-
 export async function getMesSessions(): Promise<SessionFormation[]> {
-  const res = await fetch(`${API_BASE_URL}/sessions-formation/mes-sessions`, {
-    headers: { Authorization: `Bearer ${getToken()}` },
-  });
+  const res = await apiFetch("/sessions-formation/mes-sessions");
   if (!res.ok) throw new Error("Impossible de récupérer vos sessions");
   return res.json();
 }
 
 export async function creerSession(data: { titre: string; dateHeure: string; description?: string }): Promise<SessionFormation> {
-  const res = await fetch(`${API_BASE_URL}/sessions-formation`, {
+  const res = await apiFetch("/sessions-formation", {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
     body: JSON.stringify(data),
   });
   if (!res.ok) {
@@ -35,9 +28,8 @@ export async function creerSession(data: { titre: string; dateHeure: string; des
 }
 
 export async function changerStatutSession(id: number, statut: string): Promise<SessionFormation> {
-  const res = await fetch(`${API_BASE_URL}/sessions-formation/${id}/statut`, {
+  const res = await apiFetch(`/sessions-formation/${id}/statut`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
     body: JSON.stringify({ statut }),
   });
   if (!res.ok) throw new Error("Erreur lors du changement de statut");
@@ -45,10 +37,7 @@ export async function changerStatutSession(id: number, statut: string): Promise<
 }
 
 export async function supprimerSession(id: number): Promise<void> {
-  const res = await fetch(`${API_BASE_URL}/sessions-formation/${id}`, {
-    method: "DELETE",
-    headers: { Authorization: `Bearer ${getToken()}` },
-  });
+  const res = await apiFetch(`/sessions-formation/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Erreur lors de la suppression");
 }
 
@@ -69,25 +58,20 @@ export interface Cohorte {
 }
 
 export async function getMesCohortes(): Promise<Cohorte[]> {
-  const res = await fetch(`${API_BASE_URL}/cohortes/mes-cohortes`, {
-    headers: { Authorization: `Bearer ${getToken()}` },
-  });
+  const res = await apiFetch("/cohortes/mes-cohortes");
   if (!res.ok) throw new Error("Impossible de récupérer vos cohortes");
   return res.json();
 }
 
 export async function getJeunesDisponibles(): Promise<Jeune[]> {
-  const res = await fetch(`${API_BASE_URL}/cohortes/jeunes-disponibles`, {
-    headers: { Authorization: `Bearer ${getToken()}` },
-  });
+  const res = await apiFetch("/cohortes/jeunes-disponibles");
   if (!res.ok) throw new Error("Impossible de récupérer les jeunes disponibles");
   return res.json();
 }
 
 export async function creerCohorte(data: { nom: string; description?: string }): Promise<Cohorte> {
-  const res = await fetch(`${API_BASE_URL}/cohortes`, {
+  const res = await apiFetch("/cohortes", {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
     body: JSON.stringify(data),
   });
   if (!res.ok) {
@@ -98,9 +82,8 @@ export async function creerCohorte(data: { nom: string; description?: string }):
 }
 
 export async function gererMembreCohorte(id: number, jeuneId: number, action: "ajouter" | "retirer"): Promise<Cohorte> {
-  const res = await fetch(`${API_BASE_URL}/cohortes/${id}/membres`, {
+  const res = await apiFetch(`/cohortes/${id}/membres`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
     body: JSON.stringify({ jeuneId, action }),
   });
   if (!res.ok) {
@@ -111,9 +94,6 @@ export async function gererMembreCohorte(id: number, jeuneId: number, action: "a
 }
 
 export async function supprimerCohorte(id: number): Promise<void> {
-  const res = await fetch(`${API_BASE_URL}/cohortes/${id}`, {
-    method: "DELETE",
-    headers: { Authorization: `Bearer ${getToken()}` },
-  });
+  const res = await apiFetch(`/cohortes/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Erreur lors de la suppression de la cohorte");
 }

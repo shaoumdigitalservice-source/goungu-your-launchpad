@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export type AppRole = "jeune" | "parent" | "mentor" | "formateur" | "admin";
 
@@ -18,7 +18,7 @@ interface AuthCtx {
   user: UtilisateurInfo | null;
   roles: AppRole[];
   loading: boolean;
-  signOut: () => void;
+  signOut: () => Promise<void>;
   refreshRoles: () => Promise<void>;
 }
 
@@ -28,22 +28,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UtilisateurInfo | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Le token vit dans un cookie httpOnly envoyé automatiquement par le navigateur
+  // (apiFetch -> credentials: "include") : il n'y a plus rien à lire en JS ici,
+  // on tente juste l'appel et un 401 signifie "pas connecté".
   const chargerProfil = async () => {
-    const token = localStorage.getItem("user_token");
-    if (!token) {
-      setUser(null);
-      setLoading(false);
-      return;
-    }
     try {
-      const res = await fetch(`${API_BASE_URL}/utilisateurs/moi`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (!res.ok) throw new Error("Token invalide");
+      const res = await apiFetch("/utilisateurs/moi");
+      if (!res.ok) throw new Error("Non authentifié");
       const data = await res.json();
       setUser(data);
     } catch {
-      localStorage.removeItem("user_token");
       setUser(null);
     } finally {
       setLoading(false);
@@ -58,9 +52,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await chargerProfil();
   };
 
-  const signOut = () => {
-    localStorage.removeItem("user_token");
-    setUser(null);
+  const signOut = async () => {
+    try {
+      await apiFetch("/session/logout", { method: "POST" });
+    } finally {
+      setUser(null);
+    }
   };
 
   const roles: AppRole[] = user ? [user.role] : [];

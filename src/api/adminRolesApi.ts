@@ -1,16 +1,9 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export type StatsRoles = Record<string, number>;
 
-const authHeader = () => {
-  const token = localStorage.getItem("user_token");
-  return { Authorization: `Bearer ${token}` };
-};
-
 export async function statsParRole(): Promise<StatsRoles> {
-  const res = await fetch(`${API_BASE_URL}/utilisateurs/stats-roles`, {
-    headers: authHeader(),
-  });
+  const res = await apiFetch("/utilisateurs/stats-roles");
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }

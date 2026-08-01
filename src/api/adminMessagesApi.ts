@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface Message {
   id: number;
@@ -7,10 +7,6 @@ export interface Message {
   contenu: string;
   dateEnvoi: string;
   lu: boolean;
-}
-
-function getToken(): string | null {
-  return localStorage.getItem("user_token");
 }
 
 async function gererErreur(res: Response, actionLabel: string): Promise<never> {
@@ -25,7 +21,6 @@ async function gererErreur(res: Response, actionLabel: string): Promise<never> {
     case 400:
       throw new Error(corps || "Message invalide ou vide.");
     case 401:
-      localStorage.removeItem("user_token");
       if (typeof window !== "undefined" && window.location.pathname !== "/auth") {
         window.location.href = "/auth";
       }
@@ -40,9 +35,7 @@ async function gererErreur(res: Response, actionLabel: string): Promise<never> {
 }
 
 export async function chargerConversation(autreUserId: number): Promise<Message[]> {
-  const res = await fetch(`${API_BASE_URL}/messages/conversation/${autreUserId}`, {
-    headers: { Authorization: `Bearer ${getToken()}` },
-  });
+  const res = await apiFetch(`/messages/conversation/${autreUserId}`);
   if (!res.ok) await gererErreur(res, "Chargement de la conversation");
   return res.json();
 }
@@ -52,12 +45,8 @@ export async function envoyerMessage(destinataireId: number, contenu: string): P
   if (!texte) {
     throw new Error("Le message ne peut pas être vide.");
   }
-  const res = await fetch(`${API_BASE_URL}/messages`, {
+  const res = await apiFetch("/messages", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken()}`,
-    },
     body: JSON.stringify({ destinataireId, contenu: texte }),
   });
   if (!res.ok) await gererErreur(res, "Envoi du message");

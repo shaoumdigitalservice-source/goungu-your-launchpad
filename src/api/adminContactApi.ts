@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface MessageContact {
   id: number;
@@ -9,14 +9,6 @@ export interface MessageContact {
   lu: boolean;
   createdAt: string;
 }
-
-const authHeaders = () => {
-  const token = localStorage.getItem("user_token");
-  return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  };
-};
 
 class ContactApiError extends Error {
   status: number;
@@ -43,18 +35,13 @@ const gererErreur = async (res: Response, fallback: string) => {
 };
 
 export async function listerMessagesContact(): Promise<MessageContact[]> {
-  const res = await fetch(`${API_BASE_URL}/contact`, {
-    headers: authHeaders(),
-  });
+  const res = await apiFetch("/contact");
   await gererErreur(res, "Erreur lors du chargement des messages");
   return res.json();
 }
 
 export async function marquerMessageLu(id: number): Promise<MessageContact> {
-  const res = await fetch(`${API_BASE_URL}/contact/${id}/lu`, {
-    method: "PUT",
-    headers: authHeaders(),
-  });
+  const res = await apiFetch(`/contact/${id}/lu`, { method: "PUT" });
   await gererErreur(res, "Erreur lors du marquage comme lu");
   return res.json();
 }

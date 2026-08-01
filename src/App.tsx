@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -97,37 +98,37 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/mot-de-passe-oublie" element={<MotDePasseOublie />} />
             <Route path="/reinitialiser-mot-de-passe" element={<ReinitialiserMotDePasse />} />
-            <Route path="/espace/jeune" element={<Jeune />} />
-            <Route path="/espace/parent" element={<Parent />} />
-            <Route path="/espace/mentor" element={<Mentor />} />
-            <Route path="/espace/formateur" element={<Formateur />} />
-            <Route path="/espace/admin" element={<Admin />} />
-            <Route path="/espace/profil" element={<Profil />} />
-            <Route path="/espace/jeune/parcours" element={<JeuneParcours />} />
-            <Route path="/espace/jeune/passeport" element={<JeunePasseport />} />
-            <Route path="/espace/jeune/orientation" element={<JeuneOrientation />} />
-            <Route path="/espace/jeune/mentor" element={<JeuneMentor />} />
-            <Route path="/espace/jeune/rdv" element={<JeuneRendezVous />} />
-            <Route path="/espace/jeune/ressources" element={<JeuneRessources />} />
-            <Route path="/espace/parent/suivi" element={<ParentSuivi />} />
-            <Route path="/espace/parent/parentalite" element={<ParentParentalite />} />
-            <Route path="/espace/parent/documents" element={<ParentDocuments />} />
-            <Route path="/espace/parent/rdv" element={<ParentRdv />} />
-            <Route path="/espace/mentor/jeunes" element={<MentorJeunes />} />
-            <Route path="/espace/mentor/agenda" element={<MentorAgenda />} />
-            <Route path="/espace/mentor/messages" element={<MentorMessages />} />
-            <Route path="/espace/formateur/cohortes" element={<FormateurCohortes />} />
-            <Route path="/espace/formateur/modules" element={<FormateurModules />} />
-            <Route path="/espace/formateur/agenda" element={<FormateurAgenda />} />
-            <Route path="/espace/admin/utilisateurs" element={<AdminUtilisateursReel />} />
-            <Route path="/espace/admin/candidatures" element={<AdminCandidaturesReel />} />
-            <Route path="/espace/admin/programmes" element={<AdminProgrammesReel />} />
-            <Route path="/espace/admin/ressources" element={<AdminRessourcesReel />} />
-            <Route path="/espace/admin/evenements" element={<AdminEvenementsReel />} />
-            <Route path="/espace/admin/securite" element={<AdminSecuriteReel />} />
-            <Route path="/espace/admin/articles" element={<AdminArticlesReel />} />
-            <Route path="/espace/admin/images" element={<AdminImagesReel />} />
-            <Route path="/espace/admin/contact" element={<AdminContactReel />} />
+            <Route path="/espace/jeune" element={<ProtectedRoute roles={["jeune"]}><Jeune /></ProtectedRoute>} />
+            <Route path="/espace/parent" element={<ProtectedRoute roles={["parent"]}><Parent /></ProtectedRoute>} />
+            <Route path="/espace/mentor" element={<ProtectedRoute roles={["mentor"]}><Mentor /></ProtectedRoute>} />
+            <Route path="/espace/formateur" element={<ProtectedRoute roles={["formateur"]}><Formateur /></ProtectedRoute>} />
+            <Route path="/espace/admin" element={<ProtectedRoute roles={["admin"]}><Admin /></ProtectedRoute>} />
+            <Route path="/espace/profil" element={<ProtectedRoute><Profil /></ProtectedRoute>} />
+            <Route path="/espace/jeune/parcours" element={<ProtectedRoute roles={["jeune"]}><JeuneParcours /></ProtectedRoute>} />
+            <Route path="/espace/jeune/passeport" element={<ProtectedRoute roles={["jeune"]}><JeunePasseport /></ProtectedRoute>} />
+            <Route path="/espace/jeune/orientation" element={<ProtectedRoute roles={["jeune"]}><JeuneOrientation /></ProtectedRoute>} />
+            <Route path="/espace/jeune/mentor" element={<ProtectedRoute roles={["jeune"]}><JeuneMentor /></ProtectedRoute>} />
+            <Route path="/espace/jeune/rdv" element={<ProtectedRoute roles={["jeune"]}><JeuneRendezVous /></ProtectedRoute>} />
+            <Route path="/espace/jeune/ressources" element={<ProtectedRoute roles={["jeune"]}><JeuneRessources /></ProtectedRoute>} />
+            <Route path="/espace/parent/suivi" element={<ProtectedRoute roles={["parent"]}><ParentSuivi /></ProtectedRoute>} />
+            <Route path="/espace/parent/parentalite" element={<ProtectedRoute roles={["parent"]}><ParentParentalite /></ProtectedRoute>} />
+            <Route path="/espace/parent/documents" element={<ProtectedRoute roles={["parent"]}><ParentDocuments /></ProtectedRoute>} />
+            <Route path="/espace/parent/rdv" element={<ProtectedRoute roles={["parent"]}><ParentRdv /></ProtectedRoute>} />
+            <Route path="/espace/mentor/jeunes" element={<ProtectedRoute roles={["mentor"]}><MentorJeunes /></ProtectedRoute>} />
+            <Route path="/espace/mentor/agenda" element={<ProtectedRoute roles={["mentor"]}><MentorAgenda /></ProtectedRoute>} />
+            <Route path="/espace/mentor/messages" element={<ProtectedRoute roles={["mentor"]}><MentorMessages /></ProtectedRoute>} />
+            <Route path="/espace/formateur/cohortes" element={<ProtectedRoute roles={["formateur"]}><FormateurCohortes /></ProtectedRoute>} />
+            <Route path="/espace/formateur/modules" element={<ProtectedRoute roles={["formateur"]}><FormateurModules /></ProtectedRoute>} />
+            <Route path="/espace/formateur/agenda" element={<ProtectedRoute roles={["formateur"]}><FormateurAgenda /></ProtectedRoute>} />
+            <Route path="/espace/admin/utilisateurs" element={<ProtectedRoute roles={["admin"]}><AdminUtilisateursReel /></ProtectedRoute>} />
+            <Route path="/espace/admin/candidatures" element={<ProtectedRoute roles={["admin"]}><AdminCandidaturesReel /></ProtectedRoute>} />
+            <Route path="/espace/admin/programmes" element={<ProtectedRoute roles={["admin"]}><AdminProgrammesReel /></ProtectedRoute>} />
+            <Route path="/espace/admin/ressources" element={<ProtectedRoute roles={["admin"]}><AdminRessourcesReel /></ProtectedRoute>} />
+            <Route path="/espace/admin/evenements" element={<ProtectedRoute roles={["admin"]}><AdminEvenementsReel /></ProtectedRoute>} />
+            <Route path="/espace/admin/securite" element={<ProtectedRoute roles={["admin"]}><AdminSecuriteReel /></ProtectedRoute>} />
+            <Route path="/espace/admin/articles" element={<ProtectedRoute roles={["admin"]}><AdminArticlesReel /></ProtectedRoute>} />
+            <Route path="/espace/admin/images" element={<ProtectedRoute roles={["admin"]}><AdminImagesReel /></ProtectedRoute>} />
+            <Route path="/espace/admin/contact" element={<ProtectedRoute roles={["admin"]}><AdminContactReel /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </AuthProvider>

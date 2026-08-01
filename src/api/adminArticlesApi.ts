@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/lib/apiConfig";
+import { apiFetch } from "@/lib/apiFetch";
 
 export interface Article {
   id: number;
@@ -19,14 +19,6 @@ export interface ArticleInput {
   tempsLecture?: string;
   publie: boolean;
 }
-
-const authHeaders = () => {
-  const token = localStorage.getItem("user_token");
-  return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  };
-};
 
 class ArticleApiError extends Error {
   status: number;
@@ -53,17 +45,14 @@ const gererErreur = async (res: Response, fallback: string) => {
 };
 
 export async function listerArticlesAdmin(): Promise<Article[]> {
-  const res = await fetch(`${API_BASE_URL}/articles/admin`, {
-    headers: authHeaders(),
-  });
+  const res = await apiFetch("/articles/admin");
   await gererErreur(res, "Erreur lors du chargement des articles");
   return res.json();
 }
 
 export async function creerArticle(data: ArticleInput): Promise<Article> {
-  const res = await fetch(`${API_BASE_URL}/articles`, {
+  const res = await apiFetch("/articles", {
     method: "POST",
-    headers: authHeaders(),
     body: JSON.stringify(data),
   });
   await gererErreur(res, "Erreur lors de la création de l'article");
@@ -71,9 +60,8 @@ export async function creerArticle(data: ArticleInput): Promise<Article> {
 }
 
 export async function modifierArticle(id: number, data: ArticleInput): Promise<Article> {
-  const res = await fetch(`${API_BASE_URL}/articles/${id}`, {
+  const res = await apiFetch(`/articles/${id}`, {
     method: "PUT",
-    headers: authHeaders(),
     body: JSON.stringify(data),
   });
   await gererErreur(res, "Erreur lors de la modification de l'article");
@@ -81,9 +69,6 @@ export async function modifierArticle(id: number, data: ArticleInput): Promise<A
 }
 
 export async function supprimerArticle(id: number): Promise<void> {
-  const res = await fetch(`${API_BASE_URL}/articles/${id}`, {
-    method: "DELETE",
-    headers: authHeaders(),
-  });
+  const res = await apiFetch(`/articles/${id}`, { method: "DELETE" });
   await gererErreur(res, "Erreur lors de la suppression de l'article");
 }
