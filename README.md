@@ -7,8 +7,8 @@ Plateforme web moderne et chaleureuse pour **GOUNGUÉ INCUB**, incubateur social
 - **Framework** : React 18 + Vite 5
 - **Langage** : TypeScript 5
 - **Styling** : Tailwind CSS v3 + shadcn/ui
-- **Backend & Auth** : Lovable Cloud (Supabase)
-- **Tests** : Vitest + Playwright
+- **Backend & Auth** : API Spring Boot dédiée (dépôt `goungu-backend`) — authentification par cookie de session httpOnly, voir `VITE_API_URL` dans `.env.example`
+- **Tests** : Vitest (unitaires) ; Playwright installé mais sans specs actives
 
 ## 📁 Structure
 
@@ -30,7 +30,7 @@ bun run lint       # linting
 
 ## 🔐 Remarque sur les secrets
 
-Le fichier `.env` est géré automatiquement par Lovable Cloud et **ne doit pas être poussé sur GitHub**. Avant la connexion GitHub, assurez-vous qu'il est bien exclu par `.gitignore`.
+Le fichier `.env` ne contient qu'un seul réglage local, `VITE_API_URL` (voir `.env.example`) — aucun secret réel côté frontend. Il est exclu par `.gitignore` et **ne doit pas être poussé sur GitHub**.
 
 ## 📬 Contact
 
