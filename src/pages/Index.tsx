@@ -109,7 +109,7 @@ const Index = () => {
                   onMouseEnter={() => setOpenBarMenu(p.label)}
                   onMouseLeave={() => setOpenBarMenu(null)}
                 >
-                  <div className="glass rounded-2xl p-2 ring-soft">
+                  <div className="bg-popover text-popover-foreground border border-border rounded-2xl p-2 ring-soft">
                     {defaratSub.map((s) => (
                       <Link
                         key={s.to}

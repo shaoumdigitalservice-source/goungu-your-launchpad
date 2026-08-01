@@ -78,7 +78,7 @@ const Navbar = () => {
               </button>
               {openMenu === link.label && (
                 <div className="absolute top-full left-0 pt-2 w-72 animate-fade-up">
-                  <div className="glass rounded-2xl p-2 ring-soft">
+                  <div className="bg-popover text-popover-foreground border border-border rounded-2xl p-2 ring-soft">
                     {link.children.map((c) => (
                       <div key={c.path}>
                         <Link to={c.path} className="block px-3 py-2.5 rounded-xl hover:bg-primary/10 transition">
